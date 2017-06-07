@@ -21,17 +21,17 @@ namespace SimpleGameMusic {
 		[SerializeField]	private Image m_RootBackgroundImage;
 		[Header("Game info")]
 		[SerializeField]	private string m_AudioName;
-		[SerializeField]	private AudioClip m_AudioClip;
-		[SerializeField]	private TextAsset m_AudioTextAsset;
-		[SerializeField]	private Sprite m_AudioBackground;
 
+		private AudioClip m_AudioClip;
+		private TextAsset m_AudioTextAsset;
+		private Sprite m_AudioBackground;
 		private Queue<INode> m_QueueNodes;
 		private string[] m_PrefabNodes = new string[] {"SimpleNode", "HoldNode"};
 		private float m_WaitingTime = 2f;
-
 		private int m_NodeIndex = 0;
 		private int m_PrevertTime = -1;
 		private List<CNodeData> m_ListNodeData;
+		private bool m_IsAssetsAlready = false;
 
 		protected override void Awake ()
 		{
@@ -41,16 +41,22 @@ namespace SimpleGameMusic {
 
 		protected virtual void Start() {
 			// TEST
-			this.m_AudioSource.clip = this.m_AudioClip;
-			this.m_RootBackgroundImage.sprite = this.m_AudioBackground;
-			this.m_AudioSource.Play ();
-			if (m_AudioTextAsset != null) {
-				this.m_ListNodeData = CSVUtil.ToObject<CNodeData> (this.m_AudioTextAsset.text);
+			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
+				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
+					this.m_AudioSource.clip = this.m_AudioClip;
+					this.m_RootBackgroundImage.sprite = this.m_AudioBackground;
+					this.m_AudioSource.Play ();	
+					this.m_ListNodeData = CSVUtil.ToObject<CNodeData> (this.m_AudioTextAsset.text);
+					this.m_IsAssetsAlready = true;
+				}, () => {
+					this.m_IsAssetsAlready = false;
+					throw new Exception ("ERROR: Can not load assets.");	
+				}));
 			}
 		}
 
 		protected virtual void LateUpdate() {
-			if (this.m_AudioSource.isPlaying) {
+			if (this.m_IsAssetsAlready) {
 				var audioTime = (int)this.m_AudioSource.time;
 				var step = 100;
 				while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
@@ -89,6 +95,38 @@ namespace SimpleGameMusic {
 			var nodeInstantiate = Instantiate (nodePrefab);
 			node = nodeInstantiate.GetComponent<INode> ();
 			return node;
+		}
+
+		private void LoadAssets(string name) {
+			this.m_AudioClip = Resources.Load <AudioClip> ("Sounds/" + name);
+			this.m_AudioTextAsset = Resources.Load <TextAsset> ("Data/" + name);
+			this.m_AudioBackground = Resources.Load <Sprite> ("Backgrounds/" + name);
+			this.m_IsAssetsAlready = this.m_AudioClip != null 
+										&& this.m_AudioTextAsset != null 
+										&& this.m_AudioBackground != null;
+		}
+
+		private IEnumerator LoadAssetsAsyn(string name, Action complete, Action error) {
+			this.m_AudioClip = Resources.Load <AudioClip> ("Sounds/" + name);
+			this.m_AudioTextAsset = Resources.Load <TextAsset> ("Data/" + name);
+			this.m_AudioBackground = Resources.Load <Sprite> ("Backgrounds/" + name);
+			var already = this.m_AudioClip != null 
+							&& this.m_AudioTextAsset != null 
+							&& this.m_AudioBackground != null;
+			yield return new WaitForSeconds (3f);
+			if (already) {
+				if (complete != null) {
+					complete ();
+				}
+			} else {
+				if (error != null) {
+					error ();
+				}
+			}
+		}
+
+		public void SetMusicFileName(string name) {
+			this.m_AudioName = name;
 		}
 
 	}
