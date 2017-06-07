@@ -25,7 +25,6 @@ namespace SimpleGameMusic {
 		private AudioClip m_AudioClip;
 		private TextAsset m_AudioTextAsset;
 		private Sprite m_AudioBackground;
-		private Queue<INode> m_QueueNodes;
 		private string[] m_PrefabNodes = new string[] {"SimpleNode", "HoldNode"};
 		private float m_WaitingTime = 2f;
 		private int m_NodeIndex = 0;
@@ -36,7 +35,6 @@ namespace SimpleGameMusic {
 		protected override void Awake ()
 		{
 			base.Awake ();
-			this.m_QueueNodes = new Queue<INode> ();
 		}
 
 		protected virtual void Start() {
