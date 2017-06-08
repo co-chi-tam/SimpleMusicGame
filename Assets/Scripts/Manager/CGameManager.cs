@@ -32,13 +32,15 @@ namespace SimpleGameMusic {
 		private List<CNodeData> m_ListNodeData;
 		private bool m_IsAssetsAlready = false;
 
+		public CRootTask root;
+
 		protected override void Awake ()
 		{
 			base.Awake ();
 		}
 
 		protected virtual void Start() {
-			// TEST
+			this.root = CRootTask.GetInstance ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
 					this.m_AudioSource.clip = this.m_AudioClip;
