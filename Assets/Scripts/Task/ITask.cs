@@ -7,6 +7,7 @@ namespace SimpleGameMusic {
 		void StartTask();
 		void UpdateTask(float dt);
 		void EndTask();
+		void Transmission();
 
 		bool IsCompleteTask ();
 

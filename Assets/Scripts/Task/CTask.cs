@@ -35,6 +35,17 @@ namespace SimpleGameMusic {
 			this.m_IsCompleteTask = false;
 		}
 
+		public virtual void Transmission() {
+		
+		}
+
+		public virtual void OnTaskCompleted() {
+			this.m_IsCompleteTask = true;
+			if (this.OnCompleteTask != null) {
+				this.OnCompleteTask ();
+			}
+		}
+
 		public virtual void OnSceneLoading() {
 
 		}

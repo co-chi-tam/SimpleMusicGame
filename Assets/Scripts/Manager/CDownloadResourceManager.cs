@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 
 namespace SimpleGameMusic {
-	public class CResourceManager {
+	public class CDownloadResourceManager {
 
 		private int m_Version = 1;
 		private string m_ResourceUrl = "http://www.dropbox.com/s/ivrd48us6z2hyts/cactus_leafy_go.go?dl=1";
@@ -13,36 +13,27 @@ namespace SimpleGameMusic {
 		private string m_StorePath;
 		private bool m_SaveOnLocal = false;
 
-		private AssetBundle m_CurrentBundle;
-
-		public CResourceManager (int version, string assetUrl, bool saveOnLocal)
+		public CDownloadResourceManager (int version, string assetUrl, bool saveOnLocal)
 		{
 			this.m_Version = version;
 			this.m_ResourceUrl = assetUrl;
 			this.m_SaveOnLocal = saveOnLocal;
 #if UNITY_EDITOR
-			this.m_StorePath = Application.dataPath + "/AssetBundle/v" + m_Version + "/";
+			this.m_StorePath = Application.dataPath + "/AssetBundles/v" + m_Version + "/";
 #else
-			this.m_StorePath = Application.persistentDataPath + "/AssetBundle/v" + m_Version + "/";
+			this.m_StorePath = Application.persistentDataPath + "/AssetBundles/v" + m_Version + "/";
 #endif
 			if (Directory.Exists (this.m_StorePath) == false) {
 				Directory.CreateDirectory (this.m_StorePath);
 			}
-			this.LoadResource (this.m_ResourceUrl);
 		}
 
-		public void ReloadResouce() {
-			this.LoadResource (this.m_ResourceUrl);
+		public void LoadResource(Action complete, Action<string> error, Action<float> process) {
+			this.LoadResource (this.m_ResourceUrl, complete, error, process);
 		}
 
-		private void LoadResource(string url) {
-			CHandleEvent.Instance.AddEvent (this.HandleLoadResource (url, () => {
-				Debug.Log ("Download complete !!");
-			}, (error) => {
-				Debug.LogError ("ERROR: " + error);
-			}, (prc) => {
-				
-			}), null);
+		public void LoadResource(string url, Action complete, Action<string> error, Action<float> process) {
+			CHandleEvent.Instance.AddEvent (this.HandleLoadResource (url, complete, error, process), null);
 		}
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
@@ -56,24 +47,37 @@ namespace SimpleGameMusic {
 				if (File.Exists (fullPath) == false) {
 					www = new WWW (url);
 				} else {
-					this.m_CurrentBundle = this.LoadBundleFromFile (fullPath);
+					var processFake = 0f;
+					while (processFake < 1f) {
+						if (process != null) {
+							process (processFake);
+						}
+						processFake += Time.deltaTime;
+						yield return WaitHelper.WaitFixedUpdate;
+					}
+					CAssetBundleManager.currentAssetBundle = CAssetBundleManager.LoadBundleFromFile (fullPath);
+					CAssetBundleManager.loaded = true;
 					if (complete != null) {
 						complete ();
 					}
 					yield break;
 				}
 			}
-			if (process != null) {
-				process (www.progress);
+			while (www.isDone == false) {
+				if (process != null) {
+					process (www.progress);
+				}
+				yield return WaitHelper.WaitFixedUpdate;
 			}
 			yield return www;
 			if (string.IsNullOrEmpty (www.error) == false) {
 				if (error != null) {
 					error (www.error);
 				}
+				CAssetBundleManager.loaded = false;
 			} else {
 				if (this.m_SaveOnLocal == false) {
-					// TODO
+					CAssetBundleManager.loaded = false;
 				} else {
 					if (www.bytes.Length > 0) {
 						if (File.Exists (fullPath) == false) {
@@ -85,24 +89,8 @@ namespace SimpleGameMusic {
 					complete ();
 				}
 			}
-			this.m_CurrentBundle = www.assetBundle;
-		}
-
-		private AssetBundle LoadBundleFromFile(string path) {
-			return AssetBundle.LoadFromFile (path);
-		}
-
-		public T LoadBundle<T>(string name) where T : UnityEngine.Object {
-			var resource = this.m_CurrentBundle.LoadAsset<T> (name);
-			return resource;
-		}
-
-		public T LoadResourceOrBundle<T>(string nameOrPath) where T : UnityEngine.Object {
-			var resource = Resources.Load<T> (nameOrPath);
-			if (resource == null) {
-				resource = this.m_CurrentBundle.LoadAsset<T> (nameOrPath);
-			}
-			return resource;
+			CAssetBundleManager.currentAssetBundle = www.assetBundle;
+			CAssetBundleManager.loaded = true;
 		}
 		
 	}

@@ -13,9 +13,9 @@ namespace SimpleGameMusic {
 			this.nextTask = string.Empty;
 		}
 
-		public override void StartTask ()
+		public override void Transmission ()
 		{
-			base.StartTask ();
+			base.Transmission ();
 			if (this.taskName != SceneManager.GetActiveScene ().name) {
 				CHandleEvent.Instance.AddEvent (this.LoadScene (this.taskName), null);	
 			}

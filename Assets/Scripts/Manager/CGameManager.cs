@@ -41,6 +41,7 @@ namespace SimpleGameMusic {
 
 		protected virtual void Start() {
 			this.root = CRootTask.GetInstance ();
+			this.m_AudioName = CTask.taskReferences ["SELECTED_GAME"].ToString ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
 					this.m_AudioSource.clip = this.m_AudioClip;
@@ -107,9 +108,9 @@ namespace SimpleGameMusic {
 		}
 
 		private IEnumerator LoadAssetsAsyn(string name, Action complete, Action error) {
-			this.m_AudioClip = Resources.Load <AudioClip> ("Sounds/" + name);
-			this.m_AudioTextAsset = Resources.Load <TextAsset> ("Data/" + name);
-			this.m_AudioBackground = Resources.Load <Sprite> ("Backgrounds/" + name);
+			this.m_AudioClip = CAssetBundleManager.LoadResourceOrBundle <AudioClip> ("Sounds/" + name);
+			this.m_AudioTextAsset = CAssetBundleManager.LoadResourceOrBundle <TextAsset> ("Data/" + name);
+			this.m_AudioBackground = CAssetBundleManager.LoadResourceOrBundle <Sprite> ("Backgrounds/" + name);
 			var already = this.m_AudioClip != null 
 							&& this.m_AudioTextAsset != null 
 							&& this.m_AudioBackground != null;
