@@ -8,7 +8,7 @@ namespace SimpleGameMusic {
 	public class CDownloadResourceManager {
 
 		private int m_Version = 1;
-		private string m_ResourceUrl = "http://www.dropbox.com/s/ivrd48us6z2hyts/cactus_leafy_go.go?dl=1";
+		private string m_ResourceUrl = "https://www.dropbox.com/s/8fqp3repvblvr97/allresources.v1?dl=1";
 		private string m_ResourceName = "AssetBundles.bin";
 		private string m_StorePath;
 		private bool m_SaveOnLocal = false;

@@ -92,7 +92,7 @@ namespace SimpleGameMusic {
 
 		protected virtual INode SpawnNode(string nodeName) {
 			INode node = null;
-			var nodePrefab = Resources.Load<GameObject> ("Node/" + nodeName + "/" + nodeName);
+			var nodePrefab = CAssetBundleManager.LoadResourceOrBundle<GameObject> ("Node/" + nodeName + "/" + nodeName);
 			var nodeInstantiate = Instantiate (nodePrefab);
 			node = nodeInstantiate.GetComponent<INode> ();
 			return node;

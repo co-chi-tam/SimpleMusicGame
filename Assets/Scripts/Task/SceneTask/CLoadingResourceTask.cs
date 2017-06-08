@@ -18,10 +18,15 @@ namespace SimpleGameMusic {
 		{
 			base.StartTask ();
 			this.m_UILoading = CUILoading.GetInstance ();
-			this.m_ResourceManager = new CDownloadResourceManager (0, "http://www.dropbox.com/s/ivrd48us6z2hyts/cactus_leafy_go.go?dl=1", true);
+			this.m_ResourceManager = new CDownloadResourceManager (0, "https://www.dropbox.com/s/8fqp3repvblvr97/allresources.v1?dl=1", true);
 			this.m_ResourceManager.LoadResource (() => {
 				Debug.Log ("Download complete !!");
 				this.OnTaskCompleted();
+
+				var assets = CAssetBundleManager.currentAssetBundle;
+				for (int i = 0; i < assets.GetAllAssetNames().Length; i++) {
+					Debug.Log (assets.GetAllAssetNames()[i]);
+				}
 			}, (error) => {
 				Debug.Log ("Error: " + error);
 				this.m_IsCompleteTask = false;
