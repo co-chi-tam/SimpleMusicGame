@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 4242097555
+CRC: 1439202929
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: allresources.v1
+      Name: all_resources.v1
       Dependencies: {}

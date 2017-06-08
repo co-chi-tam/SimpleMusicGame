@@ -92,7 +92,7 @@ namespace SimpleGameMusic {
 
 		protected virtual INode SpawnNode(string nodeName) {
 			INode node = null;
-			var nodePrefab = CAssetBundleManager.LoadResourceOrBundle<GameObject> ("Node/" + nodeName + "/" + nodeName);
+			var nodePrefab = CAssetBundleManager.LoadResourceOrBundle<GameObject> (nodeName, true);
 			var nodeInstantiate = Instantiate (nodePrefab);
 			node = nodeInstantiate.GetComponent<INode> ();
 			return node;
@@ -108,9 +108,9 @@ namespace SimpleGameMusic {
 		}
 
 		private IEnumerator LoadAssetsAsyn(string name, Action complete, Action error) {
-			this.m_AudioClip = CAssetBundleManager.LoadResourceOrBundle <AudioClip> ("Sounds/" + name);
-			this.m_AudioTextAsset = CAssetBundleManager.LoadResourceOrBundle <TextAsset> ("Data/" + name);
-			this.m_AudioBackground = CAssetBundleManager.LoadResourceOrBundle <Sprite> ("Backgrounds/" + name);
+			this.m_AudioClip = CAssetBundleManager.LoadResourceOrBundle <AudioClip> (name);
+			this.m_AudioTextAsset = CAssetBundleManager.LoadResourceOrBundle <TextAsset> (name);
+			this.m_AudioBackground = CAssetBundleManager.LoadResourceOrBundle <Sprite> (name);
 			var already = this.m_AudioClip != null 
 							&& this.m_AudioTextAsset != null 
 							&& this.m_AudioBackground != null;
