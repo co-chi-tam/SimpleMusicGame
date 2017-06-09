@@ -114,7 +114,7 @@ namespace SimpleGameMusic {
 			var already = this.m_AudioClip != null 
 							&& this.m_AudioTextAsset != null 
 							&& this.m_AudioBackground != null;
-			yield return new WaitForSeconds (3f);
+			yield return new WaitForSeconds (1f);
 			if (already) {
 				if (complete != null) {
 					complete ();

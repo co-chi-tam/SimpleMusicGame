@@ -8,10 +8,11 @@ namespace SimpleGameMusic {
 	public class CDownloadResourceManager {
 
 		private int m_Version = 1;
-		private string m_ResourceUrl = "https://www.dropbox.com/s/40lklyxkckfc3me/all_resources.v1?dl=1";
+		private string m_ResourceUrl = "https://google.com.vn";
 		private string m_ResourceName = "AssetBundles.bin";
 		private string m_StorePath;
 		private bool m_SaveOnLocal = false;
+		private WWW m_WWW;
 
 		public CDownloadResourceManager (int version, string assetUrl, bool saveOnLocal)
 		{
@@ -37,15 +38,20 @@ namespace SimpleGameMusic {
 		}
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
-			WWW www = null;
 			var fullPath = this.m_StorePath + this.m_ResourceName;
+			yield return this.DownloadContent (url, fullPath, complete, error, process);
+			yield return this.SaveDownloadContent (fullPath, complete, error);
+		}
+
+		private IEnumerator DownloadContent(string url, string fullPath, Action complete, Action<string> error, Action<float> process) {
 			if (this.m_SaveOnLocal == false) {
 				while (!Caching.ready)
 					yield return null;
-				www = WWW.LoadFromCacheOrDownload (url, this.m_Version);
+				m_WWW = WWW.LoadFromCacheOrDownload (url, this.m_Version);
 			} else {
+				m_WWW = new WWW (url);
 				if (File.Exists (fullPath) == false) {
-					www = new WWW (url);
+					// TODO
 				} else {
 					var processFake = 0f;
 					while (processFake < 1f) {
@@ -56,41 +62,57 @@ namespace SimpleGameMusic {
 						yield return WaitHelper.WaitFixedUpdate;
 					}
 					CAssetBundleManager.currentAssetBundle = CAssetBundleManager.LoadBundleFromFile (fullPath);
-					CAssetBundleManager.loaded = true;
+					CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
 					if (complete != null) {
-						complete ();
+						if (CAssetBundleManager.currentAssetBundle != null) {
+							complete ();
+						} else {
+							if (error != null) {
+								error ("Error: AssetBundle is null.");
+							}
+						}
 					}
 					yield break;
 				}
 			}
-			while (www.isDone == false) {
+			while (m_WWW.isDone == false) {
 				if (process != null) {
-					process (www.progress);
+					process (m_WWW.progress);
 				}
 				yield return WaitHelper.WaitFixedUpdate;
 			}
-			yield return www;
-			if (string.IsNullOrEmpty (www.error) == false) {
+			yield return m_WWW;
+		}
+
+		private IEnumerator SaveDownloadContent(string fullPath, Action complete, Action<string> error) {
+			yield return m_WWW;
+			if (string.IsNullOrEmpty (m_WWW.error) == false) {
 				if (error != null) {
-					error (www.error);
+					error (m_WWW.error);
 				}
 				CAssetBundleManager.loaded = false;
 			} else {
 				if (this.m_SaveOnLocal == false) {
-					CAssetBundleManager.loaded = false;
+					// TODO
 				} else {
-					if (www.bytes.Length > 0) {
+					if (m_WWW.bytes.Length > 0) {
 						if (File.Exists (fullPath) == false) {
-							File.WriteAllBytes (fullPath, www.bytes);
+							File.WriteAllBytes (fullPath, m_WWW.bytes);
 						}
 					}
 				}
-				if (complete != null) {
+			}
+			CAssetBundleManager.currentAssetBundle = m_WWW.assetBundle;
+			CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
+			if (complete != null) {
+				if (CAssetBundleManager.currentAssetBundle != null) {
 					complete ();
+				} else {
+					if (error != null) {
+						error ("Error: AssetBundle is null.");
+					}
 				}
 			}
-			CAssetBundleManager.currentAssetBundle = www.assetBundle;
-			CAssetBundleManager.loaded = true;
 		}
 		
 	}

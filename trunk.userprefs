@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CGameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CAssetBundleManager.cs">
     <Files>
-      <File FileName="Assets\Editor\CGenerateCSVWindow.cs" Line="309" Column="1" />
-      <File FileName="Assets\Scripts\Manager\CGameManager.cs" Line="38" Column="1" />
+      <File FileName="Assets\Scripts\Manager\CGameManager.cs" Line="111" Column="52" />
+      <File FileName="Assets\Scripts\Manager\CAssetBundleManager.cs" Line="10" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
