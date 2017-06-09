@@ -23,6 +23,7 @@ namespace SimpleGameMusic {
 		[SerializeField]	protected Text m_NodeText;
 
 		[Header ("Data")]
+		[SerializeField]	protected ENodeType m_NodeType = ENodeType.SimpleNode;
 		[SerializeField]	protected float m_Value = 0;
 		[Range (1f, 10f)]
 		[SerializeField]	protected float m_Scale = 1f;
@@ -100,14 +101,7 @@ namespace SimpleGameMusic {
 			this.m_Complete = true;
 			this.m_Processing = false;
 			this.m_NodeText.text = string.Empty;
-			var nodeValue = this.GetValue ();
-			if (nodeValue >= 0.75f) {
-				this.m_NodeText.text = "PERFECT";
-			} else if (nodeValue >= 0.5f) {
-				this.m_NodeText.text = "GOOD";
-			} else {
-				this.m_NodeText.text = "BAD";
-			}
+			this.CheckNodeValue ();
 		}
 
 		public virtual void Processing() {
@@ -128,10 +122,10 @@ namespace SimpleGameMusic {
 				break;
 			case "Active":
 				this.OnActive.Invoke ();
-				this.Processing();
+				this.Processing ();
 				break;
 			case "Deactive":
-				// TODO
+				this.CheckNodeValue ();
 				break;
 			}
 		}
@@ -156,6 +150,21 @@ namespace SimpleGameMusic {
 			    || m_AudioSource == null
 			    || m_NodeText == null) {
 				throw new UnityException ("ERROR: Missing component.");
+			}
+		}
+
+		public virtual void CheckNodeValue() {
+			if (this.m_Complete == false) {
+				this.m_NodeText.text = "BAD";
+			} else {
+				var nodeValue = this.GetValue ();
+				if (nodeValue >= 0.75f) {
+					this.m_NodeText.text = "PERFECT";
+				} else if (nodeValue >= 0.5f) {
+					this.m_NodeText.text = "GOOD";
+				} else {
+					this.m_NodeText.text = "BAD";
+				}
 			}
 		}
 
@@ -221,6 +230,14 @@ namespace SimpleGameMusic {
 
 		public virtual void SetComplete(bool value) {
 			this.m_Complete = value;
+		}
+
+		public virtual ENodeType GetNodeType() {
+			return this.m_NodeType;
+		}
+
+		public virtual void SetNodeType(ENodeType value) {
+			this.m_NodeType = value;
 		}
 
 		#endregion

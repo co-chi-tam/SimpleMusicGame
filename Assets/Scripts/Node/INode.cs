@@ -31,6 +31,8 @@ namespace SimpleGameMusic {
 		void SetActive(bool value);
 		bool GetComplete();
 		void SetComplete(bool value);
+		ENodeType GetNodeType();
+		void SetNodeType(ENodeType value);
 
 	}
 }

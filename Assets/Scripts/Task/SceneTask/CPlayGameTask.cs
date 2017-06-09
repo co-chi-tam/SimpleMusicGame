@@ -8,7 +8,13 @@ namespace SimpleGameMusic {
 		public CPlayGameTask () : base ()
 		{
 			this.taskName = "PlayGame";
+			this.nextTask = "SelectGame";
 		}
-		
+
+		public override void StartTask ()
+		{
+			base.StartTask ();
+		}
+
 	}
 }

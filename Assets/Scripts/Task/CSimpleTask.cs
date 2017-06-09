@@ -25,7 +25,6 @@ namespace SimpleGameMusic {
 			var sceneLoading = CSceneManager.Instance.LoadSceneAsync (this.taskName);
 			this.OnSceneLoading ();
 			yield return sceneLoading;
-			yield return WaitHelper.WaitForShortSeconds;
 			this.OnSceneLoaded ();
 		}
 		

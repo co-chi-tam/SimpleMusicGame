@@ -20,6 +20,7 @@ namespace SimpleGameMusic {
 			this.m_MapTask = new CMapTask ();
 			this.m_CurrentTask = this.m_MapTask.GetFirstTask ();
 			this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
+			CLog.Init ();
 		}
 
 		protected virtual void Start ()

@@ -8,11 +8,15 @@ using ObjectPool;
 using Pul;
 
 namespace SimpleGameMusic {
+	
 	public enum ENodeType: int {
 		SimpleNode = 0,
 		HoldNode = 1
 	}
+
 	public class CGameManager : CMonoSingleton<CGameManager> {
+
+		#region Properties
 
 		[Header("Audio")]
 		[SerializeField]	private AudioSource m_AudioSource;
@@ -21,6 +25,8 @@ namespace SimpleGameMusic {
 		[SerializeField]	private Image m_RootBackgroundImage;
 		[Header("Game info")]
 		[SerializeField]	private string m_AudioName;
+		[SerializeField]	private CSongData m_SongData;
+		[SerializeField]	private int m_PlayerScore;
 
 		private AudioClip m_AudioClip;
 		private TextAsset m_AudioTextAsset;
@@ -31,17 +37,28 @@ namespace SimpleGameMusic {
 		private int m_PrevertTime = -1;
 		private List<CNodeData> m_ListNodeData;
 		private bool m_IsAssetsAlready = false;
+		private bool m_IsPlaying = false;
+		private CUIManager m_UIManager;
 
+		[HideInInspector]
 		public CRootTask root;
+
+		#endregion
+
+		#region Implementation MonoBehavious
 
 		protected override void Awake ()
 		{
 			base.Awake ();
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		}
 
 		protected virtual void Start() {
 			this.root = CRootTask.GetInstance ();
-			this.m_AudioName = CTask.taskReferences ["SELECTED_GAME"].ToString ();
+			this.m_UIManager = CUIManager.GetInstance ();
+			this.m_AudioName = CTask.taskReferences [CTask.SELECTED_SONG].ToString ();
+			this.m_SongData = CTask.taskReferences [CTask.DATA_SONG] as CSongData;
+			var currentTask = this.root.GetCurrentTask ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
 					this.m_AudioSource.clip = this.m_AudioClip;
@@ -58,22 +75,39 @@ namespace SimpleGameMusic {
 
 		protected virtual void LateUpdate() {
 			if (this.m_IsAssetsAlready) {
-				var audioTime = (int)this.m_AudioSource.time;
-				var step = 100;
-				while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
-					var currentNodeData = m_ListNodeData [m_NodeIndex];
-					if (audioTime == currentNodeData.audioTime && audioTime != m_PrevertTime) {
-						var node = SpawnNode (m_PrefabNodes [currentNodeData.nodeType]);
-						this.SetUpNode (node);
-						node.SetPosition2D (currentNodeData.nodePosition.ToVector2 ());
-						node.SetScale (currentNodeData.nodeScale);
-						m_NodeIndex++;
-					} else {
-						m_PrevertTime = audioTime;
-						break;
+				if (this.m_AudioSource.isPlaying) {
+					this.UpdateGame ();
+				} else {
+					if (this.m_IsPlaying) {
+						this.root.GetCurrentTask ().OnTaskCompleted ();
+						this.m_IsPlaying = false;
 					}
-					step--;
 				}
+			}
+		}
+
+		#endregion
+
+		#region Main methods
+
+		protected virtual void UpdateGame() {
+			this.m_IsPlaying = true;
+			var audioTime = (int)this.m_AudioSource.time;
+			var step = 100;
+			while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
+				var currentNodeData = m_ListNodeData [m_NodeIndex];
+				if (audioTime == currentNodeData.audioTime && audioTime != m_PrevertTime) {
+					var node = SpawnNode (m_PrefabNodes [currentNodeData.nodeType]);
+					this.SetUpNode (node);
+					node.SetPosition2D (currentNodeData.nodePosition.ToVector2 ());
+					node.SetScale (currentNodeData.nodeScale);
+					node.SetNodeType ((ENodeType) currentNodeData.nodeType);
+					m_NodeIndex++;
+				} else {
+					m_PrevertTime = audioTime;
+					break;
+				}
+				step--;
 			}
 		}
 
@@ -85,6 +119,22 @@ namespace SimpleGameMusic {
 			var simpleNode = node as CSimpleNode;
 			if (simpleNode.OnDeactive.GetPersistentEventCount () == 1) {
 				simpleNode.OnDeactive.AddListener (() => {
+					var score = 0;
+					switch (simpleNode.GetNodeType()) {
+					case ENodeType.SimpleNode:
+						score = this.m_SongData.simpleNodeScore;
+						break;
+					case ENodeType.HoldNode:
+						score = this.m_SongData.holdNodeScore;
+						break;
+					default:
+						score = this.m_SongData.simpleNodeScore;
+						break;
+					}
+					var totalScore = (int) (score * simpleNode.GetValue());
+					this.m_PlayerScore += totalScore;
+					this.m_UIManager.SetPlayerScore (this.m_PlayerScore.ToString());
+					// TEST
 					Destroy (simpleNode.gameObject);
 				});
 			}
@@ -129,6 +179,8 @@ namespace SimpleGameMusic {
 		public void SetMusicFileName(string name) {
 			this.m_AudioName = name;
 		}
+
+		#endregion
 
 	}
 }

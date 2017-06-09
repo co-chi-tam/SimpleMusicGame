@@ -19,9 +19,9 @@ namespace SimpleGameMusic {
 			base.StartTask ();
 			this.m_UILoading = CUILoading.GetInstance ();
 #if UNITY_EDITOR
-			this.m_ResourceManager = new CDownloadResourceManager (1, "https://www.dropbox.com/s/nwn0zqcwqvc4360/all_resources.v1?dl=1", true);
+			this.m_ResourceManager = new CDownloadResourceManager (1, "https://www.dropbox.com/s/4h349c77qd3ju1v/all_resources.v1?dl=1", true);
 #else
-			this.m_ResourceManager = new CDownloadResourceManager (1, "https://www.dropbox.com/s/9owavz01m6zeyw5/all_resources.v1?dl=1", true);
+			this.m_ResourceManager = new CDownloadResourceManager (1, "https://www.dropbox.com/s/a3i7ayieeexw8nb/all_resources.v1?dl=1", true);
 #endif
 		}
 

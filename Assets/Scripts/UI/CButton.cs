@@ -9,13 +9,17 @@ namespace UICustom {
 	[RequireComponent (typeof (Image))]
 	public class CButton : Button {
 
-		public UnityEvent OnPress;
-		public UnityEvent OnHold;
-		public UnityEvent OnLeave;
+		[Header("Info")]
+		[SerializeField]	private Text m_ButtonDisplayText;
 
 		private Button m_Button;
 		private float m_PressingTime = 0f;
 		private bool m_IsPress = false;
+
+		[Header("Event")]
+		public UnityEvent OnPress;
+		public UnityEvent OnHold;
+		public UnityEvent OnLeave;
 
 		protected virtual void Awake() {
 			this.m_Button = this.GetComponent<Button> ();
@@ -28,6 +32,19 @@ namespace UICustom {
 					this.OnHold.Invoke ();
 				}
 			}
+		}
+
+		public virtual void SetText(string value) {
+			if (this.m_ButtonDisplayText != null) {
+				this.m_ButtonDisplayText.text = value;
+			}
+		}
+
+		public virtual string GetText() {
+			if (this.m_ButtonDisplayText != null) {
+				return this.m_ButtonDisplayText.text;
+			}
+			return string.Empty;
 		}
 
 		public override void OnPointerDown (PointerEventData eventData)

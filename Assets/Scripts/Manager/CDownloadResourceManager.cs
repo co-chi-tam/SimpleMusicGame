@@ -38,9 +38,16 @@ namespace SimpleGameMusic {
 		}
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
-			var fullPath = this.m_StorePath + this.m_ResourceName;
-			yield return this.DownloadContent (url, fullPath, complete, error, process);
-			yield return this.SaveDownloadContent (fullPath, complete, error);
+			if (Application.internetReachability != NetworkReachability.NotReachable) {
+				var fullPath = this.m_StorePath + this.m_ResourceName;
+				yield return this.DownloadContent (url, fullPath, complete, error, process);
+				yield return this.SaveDownloadContent (fullPath, complete, error);
+			} else {
+				if (error != null) {
+					error ("Error: Connect error, please check connect internet.");
+				}
+			}
+			yield return WaitHelper.WaitForShortSeconds;
 		}
 
 		private IEnumerator DownloadContent(string url, string fullPath, Action complete, Action<string> error, Action<float> process) {

@@ -21,12 +21,17 @@ namespace SimpleGameMusic {
 		}
 
 		public static T LoadBundle<T>(string name) where T : UnityEngine.Object {
-			var resource = currentAssetBundle.LoadAsset<T> (name);
+			T resource = default(T);
+			if (currentAssetBundle == null)
+				return resource;
+			resource = currentAssetBundle.LoadAsset<T> (name);
 			return resource;
 		}
 
 		public static T LoadResourceOrBundle<T>(string name, bool cached = false) where T : UnityEngine.Object {
 			T resource = default(T);
+			if (currentAssetBundle == null)
+				return resource;
 			if (assetCached.ContainsKey (name) && cached == true) {
 				return assetCached [name] as T;
 			}

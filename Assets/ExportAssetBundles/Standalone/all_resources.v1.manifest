@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2519235894
+CRC: 3845952170
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 96ac62e171d696f4407e98aa26c0ec76
+    Hash: bf5bfceb107d956e72206af9a3de85b2
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1a5a9af28970523a35b0e5ea288cd41f
@@ -59,17 +59,22 @@ Assets:
 - Assets/ExportAssetBundles/v1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
 - Assets/ExportAssetBundles/Android/Android
 - Assets/ExportAssetBundles/Android/all_resources.v1
+- Assets/ExportAssetBundles/Standalone/all_resources.v1
 - Assets/ExportAssetBundles/v1/Sounds/Yeu-5.mp3
+- Assets/ExportAssetBundles/v1/Data/List-song.csv
 - Assets/ExportAssetBundles/v1/Node/HoldNode/Animation/Idle.anim
 - Assets/ExportAssetBundles/Android/all_resources.v1.manifest
 - Assets/ExportAssetBundles/v1/Node/SimpleNode/SimpleNode.prefab
+- Assets/ExportAssetBundles/Standalone/Standalone.manifest
 - Assets/ExportAssetBundles/v1/Node/SimpleNode/Animation/Active.anim
+- Assets/ExportAssetBundles/Standalone/Standalone
 - Assets/ExportAssetBundles/v1/Backgrounds/Yeu-5.jpg
 - Assets/ExportAssetBundles/v1/Node/HoldNode/HoldNode.prefab
 - Assets/ExportAssetBundles/Android/Android.manifest
 - Assets/ExportAssetBundles/v1/Node/SimpleNode/Animation/Deactive.anim
 - Assets/ExportAssetBundles/v1/Node/HoldNode/Animation/Active.anim
 - Assets/ExportAssetBundles/v1/Node/SimpleNode/Animation/Idle.anim
+- Assets/ExportAssetBundles/Standalone/all_resources.v1.manifest
 - Assets/ExportAssetBundles/v1/Data/Yeu-5.csv
 - Assets/ExportAssetBundles/v1/Fonts/OldGateLaneNF.ttf
 Dependencies: []

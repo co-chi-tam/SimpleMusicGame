@@ -12,28 +12,54 @@ public class CLog {
 		Error 	= 3
 	}
 
+	private static bool m_Inited = false;
+
+	public static void Init() {
+		if (m_Inited)
+			return;
+		m_Inited = true;
+		if (Debug.isDebugBuild) {
+			Application.logMessageReceived += delegate(string condition, string stackTrace, LogType logType) {
+				switch (logType) {
+				case LogType.Log:
+					LogDebug (stackTrace + condition);
+					break;
+				case LogType.Warning:
+					LogWarning (stackTrace + condition);
+					break;
+				case LogType.Error:
+					LogError (stackTrace + condition);
+					break;
+				default:
+					LogDebug (stackTrace + condition);
+				break;
+				}
+			};
+		}
+	}
+
 	public static void LogDebug(string text, ELogMode mode = ELogMode.Debug) {
-#if UNITY_EDITOR
-		Debug.Log (text);
-#endif
-		var callerName = GetCallerName () + " ";
-		CLogGUI.Instance.AddDebugMessage (callerName + text);
+		if (Debug.isDebugBuild) {
+			Debug.Log (text);
+			var callerName = GetCallerName () + " ";
+			CLogGUI.Instance.AddDebugMessage (callerName + text);
+		}
 	}
 
 	public static void LogWarning(string text, ELogMode mode = ELogMode.Warning) {
-#if UNITY_EDITOR
-		Debug.LogWarning (text);
-#endif
-		var callerName = GetCallerName () + " ";
-		CLogGUI.Instance.AddWarningMessage (callerName + text);
+		if (Debug.isDebugBuild) {
+			Debug.LogWarning (text);
+			var callerName = GetCallerName () + " ";
+			CLogGUI.Instance.AddWarningMessage (callerName + text);
+		}
 	}
 
 	public static void LogError(string text, ELogMode mode = ELogMode.Error) {
-#if UNITY_EDITOR
-		Debug.LogError (text);
-#endif
-		var callerName = GetCallerName () + " ";
-		CLogGUI.Instance.AddErrorMessage (callerName + text);
+		if (Debug.isDebugBuild) {
+			Debug.LogError (text);
+			var callerName = GetCallerName () + " ";
+			CLogGUI.Instance.AddErrorMessage (callerName + text);
+		}
 	}
 
 	private static string GetCallerName()

@@ -12,9 +12,14 @@ namespace SimpleGameMusic {
 
 		public Action OnCompleteTask;
 
-		public static Dictionary<string, object> taskReferences = new Dictionary<string, object>();
-
 		protected bool m_IsCompleteTask = false;
+
+		public static string SELECTED_SONG = "SELECTED_SONG";
+		public static string DATA_SONG = "DATA_SONG";
+		public static Dictionary<string, object> taskReferences = new Dictionary<string, object> () { 
+			{ SELECTED_SONG, "Yeu-5" },
+			{ DATA_SONG, new CSongData() }
+		};
 
 		public CTask ()
 		{
@@ -44,6 +49,10 @@ namespace SimpleGameMusic {
 			if (this.OnCompleteTask != null) {
 				this.OnCompleteTask ();
 			}
+		}
+
+		public virtual void OnTaskFail() {
+			this.m_IsCompleteTask = false;
 		}
 
 		public virtual void OnSceneLoading() {
