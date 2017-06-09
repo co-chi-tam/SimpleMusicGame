@@ -16,15 +16,16 @@ namespace SimpleGameMusic {
 		public override void Transmission ()
 		{
 			base.Transmission ();
-			if (this.taskName != SceneManager.GetActiveScene ().name) {
+			if (this.taskName != CSceneManager.Instance.GetActiveSceneName ()) {
 				CHandleEvent.Instance.AddEvent (this.LoadScene (this.taskName), null);	
 			}
 		}
 
 		protected virtual IEnumerator LoadScene(string name) {
-			var sceneLoading = SceneManager.LoadSceneAsync (this.taskName);
+			var sceneLoading = CSceneManager.Instance.LoadSceneAsync (this.taskName);
 			this.OnSceneLoading ();
 			yield return sceneLoading;
+			yield return WaitHelper.WaitForShortSeconds;
 			this.OnSceneLoaded ();
 		}
 		

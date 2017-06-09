@@ -23,6 +23,11 @@ namespace SimpleGameMusic {
 #else
 			this.m_ResourceManager = new CDownloadResourceManager (1, "https://www.dropbox.com/s/9owavz01m6zeyw5/all_resources.v1?dl=1", true);
 #endif
+		}
+
+		public override void OnSceneLoaded ()
+		{
+			base.OnSceneLoaded ();
 			this.m_ResourceManager.LoadResource (() => {
 				CLog.LogDebug ("Download complete !!");
 				this.OnTaskCompleted();
@@ -32,11 +37,6 @@ namespace SimpleGameMusic {
 			}, (processing) => {
 				this.m_UILoading.Processing (processing);
 			});
-		}
-
-		public override void UpdateTask (float dt)
-		{
-			base.UpdateTask (dt);
 		}
 	}
 }

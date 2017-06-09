@@ -102,14 +102,16 @@ namespace SimpleGameMusic {
 					}
 				}
 			}
-			CAssetBundleManager.currentAssetBundle = m_WWW.assetBundle;
-			CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
-			if (complete != null) {
-				if (CAssetBundleManager.currentAssetBundle != null) {
-					complete ();
-				} else {
-					if (error != null) {
-						error ("Error: AssetBundle is null.");
+			if (CAssetBundleManager.currentAssetBundle == null) {
+				CAssetBundleManager.currentAssetBundle = m_WWW.assetBundle;
+				CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
+				if (complete != null) {
+					if (CAssetBundleManager.currentAssetBundle != null) {
+						complete ();
+					} else {
+						if (error != null) {
+							error ("Error: AssetBundle is null.");
+						}
 					}
 				}
 			}

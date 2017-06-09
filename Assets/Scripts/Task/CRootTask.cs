@@ -7,8 +7,9 @@ using SimpleSingleton;
 namespace SimpleGameMusic {
 	public class CRootTask : CMonoSingleton<CRootTask> {
 
-		[SerializeField]	private CTask m_CurrentTask;
+		[SerializeField]	private string m_CurrentTaskName;	
 
+		private CTask m_CurrentTask;
 		private CMapTask m_MapTask;
 		private string m_PrevertTask;
 
@@ -18,6 +19,7 @@ namespace SimpleGameMusic {
 			DontDestroyOnLoad (this.gameObject);
 			this.m_MapTask = new CMapTask ();
 			this.m_CurrentTask = this.m_MapTask.GetFirstTask ();
+			this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
 		}
 
 		protected virtual void Start ()
@@ -26,11 +28,11 @@ namespace SimpleGameMusic {
 			this.m_CurrentTask.OnCompleteTask += NextTask;
 			this.m_CurrentTask.StartTask ();
 			// Other load
-			SceneManager.activeSceneChanged += (Scene oldScene, Scene currentScene) => {
+			CSceneManager.Instance.activeSceneChanged += (Scene oldScene, Scene currentScene) => {
 				this.m_PrevertTask = oldScene.name;
 				this.m_CurrentTask.OnCompleteTask += NextTask;
 				this.m_CurrentTask.StartTask ();
-
+				this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
 			};
 		}
 
@@ -51,6 +53,7 @@ namespace SimpleGameMusic {
 			if (this.m_CurrentTask != null) {
 				this.m_CurrentTask.Transmission ();
 			}
+			this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
 		}
 
 		public void PrevertTask() {
@@ -59,6 +62,7 @@ namespace SimpleGameMusic {
 			if (this.m_CurrentTask != null) {
 				this.m_CurrentTask.Transmission ();
 			}
+			this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
 		}
 
 		public virtual CTask GetCurrentTask() {
