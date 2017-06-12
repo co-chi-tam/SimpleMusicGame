@@ -34,7 +34,7 @@ namespace SimpleGameMusic {
 		}
 
 		public virtual void Transmission() {
-		
+			
 		}
 
 		public virtual void OnTaskCompleted() {
@@ -58,6 +58,10 @@ namespace SimpleGameMusic {
 
 		public virtual bool IsCompleteTask() {
 			return this.m_IsCompleteTask;
+		}
+
+		public virtual bool IsHiddenTask() {
+			return false;
 		}
 
 		public virtual string GetTaskName() {

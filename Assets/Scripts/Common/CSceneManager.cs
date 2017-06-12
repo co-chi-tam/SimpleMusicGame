@@ -20,6 +20,7 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 	private Rect m_FullScreenRect;
 	private bool m_IsFadeOut = false;
 	private bool m_NeedDraw = false;
+	private bool m_IsHiddenScene = false;
 
 	#endregion
 
@@ -34,8 +35,10 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 			if (activeSceneChanged != null) {
 				activeSceneChanged (arg0, arg1);
 			}	
-			OnFadeOutScreen();
 		};
+		m_LoadingScreenTexture = new Texture2D (1, 1);
+		m_LoadingScreenTexture.SetPixels (new Color[] { m_ScreenLoadingColor });
+		m_LoadingScreenTexture.Apply ();
 	}
 
 	protected virtual void Start() {
@@ -47,9 +50,8 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 			GUI.DrawTexture (m_FullScreenRect, m_LoadingScreenTexture, ScaleMode.StretchToFill);
 			var currentColor = m_LoadingScreenTexture.GetPixels () [0];
 			var fadeAlpha = 1f / m_ScreenLoadingTime * Time.deltaTime; 
-			currentColor.a = m_IsFadeOut ? currentColor.a - fadeAlpha : currentColor.a + fadeAlpha;
-			m_LoadingScreenTexture.SetPixels (new Color[] { currentColor });
-			m_LoadingScreenTexture.Apply ();
+			var currentAlpha = m_IsFadeOut ? currentColor.a - fadeAlpha : currentColor.a + fadeAlpha;
+			PaintAlphaTexture (currentAlpha);
 			m_NeedDraw = m_IsFadeOut ? currentColor.a > 0f : true;
 		}
 	}
@@ -58,31 +60,37 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 
 	#region Main methods
 
-	private void OnRepairTexture(float alpha) {
+	private void RepairTexture(float alpha) {
 		m_LoadingScreenTexture = new Texture2D (1, 1);
 		m_ScreenLoadingColor.a = alpha;
 		m_LoadingScreenTexture.SetPixels (new Color[] { m_ScreenLoadingColor });
 		m_LoadingScreenTexture.Apply ();
 	}
 
+	private void PaintAlphaTexture(float alpha) {
+		var currentColor = m_LoadingScreenTexture.GetPixels () [0];
+		currentColor.a = alpha;
+		m_LoadingScreenTexture.SetPixel (0, 0, currentColor);
+		m_LoadingScreenTexture.Apply ();
+	}
+
 	private void OnFadeOutScreen() {
-		OnRepairTexture (1f);
+		PaintAlphaTexture (1f);
 		m_IsFadeOut = true;
 		m_NeedDraw = true;
 	}
 
 	private void OnFadeInScreen() {
-		OnRepairTexture (0f);
+		PaintAlphaTexture (0f);
 		m_IsFadeOut = false;
 		m_NeedDraw = true;
 	}
 
-	public IEnumerator LoadSceneAsync(string sceneName, bool effect = true) {
+	public IEnumerator LoadSceneAsync(string sceneName) {
 		this.OnFadeInScreen ();
 		yield return WaitHelper.WaitForShortSeconds;
 		yield return SceneManager.LoadSceneAsync (sceneName);
 		this.OnFadeOutScreen ();
-		yield return WaitHelper.WaitForShortSeconds;
 	}
 
 	#endregion

@@ -16,20 +16,6 @@ namespace SimpleGameMusic {
 		public override void Transmission ()
 		{
 			base.Transmission ();
-			if (this.taskName != CSceneManager.Instance.GetActiveSceneName ()) {
-				CHandleEvent.Instance.AddEvent (this.LoadScene (this.taskName), null);	
-			}
-		}
-
-		protected virtual IEnumerator LoadScene(string name) {
-			var sceneLoading = CSceneManager.Instance.LoadSceneAsync (this.taskName, this.NeedTransmissionEffect());
-			this.OnSceneLoading ();
-			yield return sceneLoading;
-			this.OnSceneLoaded ();
-		}
-
-		protected virtual bool NeedTransmissionEffect() {
-			return true;
 		}
 		
 	}

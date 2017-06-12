@@ -49,7 +49,7 @@ namespace SimpleGameMusic {
 					error ("Error: Connect error, please check connect internet.");
 				}
 			}
-			yield return WaitHelper.WaitForShortSeconds;
+			yield return WaitHelper.WaitFixedUpdate;
 		}
 
 		private IEnumerator DownloadContent(string url, string fullPath, bool cache, Action<string> error, Action<float> process) {
@@ -63,8 +63,8 @@ namespace SimpleGameMusic {
 			while (m_WWW.isDone == false) {
 				if (process != null) {
 					process (m_WWW.progress);
+					yield return WaitHelper.WaitFixedUpdate;
 				}
-				yield return WaitHelper.WaitFixedUpdate;
 			}
 			yield return m_WWW;
 			if (string.IsNullOrEmpty (m_WWW.error) == false) {

@@ -6,40 +6,48 @@ using Pul;
 namespace SimpleGameMusic {
 	public class CLoadingResourceTask : CSimpleTask {
 
+		private CRequest m_Request;
 		private CDownloadResourceManager m_ResourceManager;
 		private CUILoading m_UILoading;
-		private int m_Version = 1;
 
 		public CLoadingResourceTask () : base ()
 		{
 			this.taskName = "LoadingResource";
-			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, string.Empty);
-			this.nextTask = "LocalSetting";
+			var firstSetting = PlayerPrefs.GetInt (CTaskUtil.GAME_FIRST_LAUNCH, 0) == 1;
+			if (firstSetting == false) {
+				this.nextTask = "LocalSetting";
+			} else {
+				this.nextTask = "SelectGame";
+			}
+#if UNITY_EDITOR
+			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=standalone");
+#else
+			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=android");
+#endif
 		}
 
 		public override void StartTask ()
 		{
 			base.StartTask ();
 			this.m_UILoading = CUILoading.GetInstance ();
-#if UNITY_EDITOR
-			this.m_ResourceManager = new CDownloadResourceManager (m_Version, 
-				"https://www.dropbox.com/s/xb48sa50bsutvjn/all_resources.v1?dl=1");
-#else
-			this.m_ResourceManager = new CDownloadResourceManager (m_Version, 
-				"https://www.dropbox.com/s/p0pj8zrgp8fd2pf/all_resources.v1?dl=1");
-#endif
-		}
-
-		public override void OnSceneLoaded ()
-		{
-			base.OnSceneLoaded ();
-			this.DownloadResource();
+			this.m_Request.Get ((result) => {
+				var json 			= result.ToJSONObject();
+				var version 		= int.Parse (json["version"].ToString());
+				var assetBundleUrl 	= json["assetBundleUrl"].ToString();
+				this.m_ResourceManager = new CDownloadResourceManager (version, assetBundleUrl);
+				this.DownloadResource();
+				// UPDATE REFERENCES
+				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = version;
+			}, (error) => {
+				CLog.LogError (error);
+			}, null);
 		}
 
 		private void DownloadResource() {
 			this.m_ResourceManager.LoadResource (() => {
 				this.LoadLanguageCode();
 				this.LoadSongList();
+				this.LoadSetting ();
 				// COMPLETE
 				this.OnTaskCompleted();
 			}, (error) => {
@@ -77,5 +85,11 @@ namespace SimpleGameMusic {
 				saveListSongs.Add (data);
 			}
 		}
+
+		private void LoadSetting() {
+			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
+			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
+		}
+
 	}
 }

@@ -10,21 +10,9 @@ namespace SimpleGameMusic {
 			this.nextTask = "SelectGame";
 		}
 
-		public override void OnSceneLoading ()
-		{
-			base.OnSceneLoading ();
-		}
-
 		public override void StartTask ()
 		{
 			base.StartTask ();
-			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, string.Empty);
-			if (string.IsNullOrEmpty (laSetting)) {
-				// TODO
-			} else {
-				CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
-				this.OnTaskCompleted ();
-			}
 			var saveListLanguages = CTaskUtil.REFERENCES [CTaskUtil.LA_DISPLAY] as List<CLanguageData>;
 			if (saveListLanguages != null) {
 				CUILocalSetting.Instance.LoadListLanguage (saveListLanguages);
@@ -38,14 +26,15 @@ namespace SimpleGameMusic {
 			base.EndTask ();
 			var laName = CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING].ToString();
 			PlayerPrefs.SetString (CTaskUtil.LA_SETTING, laName);
+			PlayerPrefs.SetInt (CTaskUtil.GAME_FIRST_LAUNCH, 1);
 			PlayerPrefs.Save ();
 		}
 
-		protected override bool NeedTransmissionEffect ()
+		public override bool IsHiddenTask ()
 		{
-			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, string.Empty);
-			return false;
+			return true;
+			return PlayerPrefs.GetInt (CTaskUtil.GAME_FIRST_LAUNCH, 0) == 1;
 		}
-		
+
 	}
 }
