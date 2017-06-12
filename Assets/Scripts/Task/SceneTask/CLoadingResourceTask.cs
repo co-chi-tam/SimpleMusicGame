@@ -13,7 +13,8 @@ namespace SimpleGameMusic {
 		public CLoadingResourceTask () : base ()
 		{
 			this.taskName = "LoadingResource";
-			this.nextTask = "SelectGame";
+			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, string.Empty);
+			this.nextTask = "LocalSetting";
 		}
 
 		public override void StartTask ()
@@ -37,8 +38,9 @@ namespace SimpleGameMusic {
 
 		private void DownloadResource() {
 			this.m_ResourceManager.LoadResource (() => {
-				CLog.LogDebug ("Download complete !!");
 				this.LoadLanguageCode();
+				this.LoadSongList();
+				// COMPLETE
 				this.OnTaskCompleted();
 			}, (error) => {
 				CLog.LogError (error);
@@ -63,6 +65,16 @@ namespace SimpleGameMusic {
 					var data = transData [x];
 					distLanguage [laData.laName] [data.transCode] = data.transDisplay;
 				}
+			}
+		}
+
+		private void LoadSongList() {
+			var listSongTextAsset = CAssetBundleManager.LoadResourceOrBundle <TextAsset> ("List-song");
+			var listSong = CSVUtil.ToObject<CSongData> (listSongTextAsset.text);
+			var saveListSongs = CTaskUtil.REFERENCES [CTaskUtil.LIST_SONG] as List<CSongData>;
+			for (int i = 0; i < listSong.Count; i++) {
+				var data = listSong [i];
+				saveListSongs.Add (data);
 			}
 		}
 	}

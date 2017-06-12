@@ -77,11 +77,11 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 		m_NeedDraw = true;
 	}
 
-	public IEnumerator LoadSceneAsync(string sceneName) {
-		OnFadeInScreen ();
+	public IEnumerator LoadSceneAsync(string sceneName, bool effect = true) {
+		this.OnFadeInScreen ();
 		yield return WaitHelper.WaitForShortSeconds;
 		yield return SceneManager.LoadSceneAsync (sceneName);
-		OnFadeOutScreen ();
+		this.OnFadeOutScreen ();
 		yield return WaitHelper.WaitForShortSeconds;
 	}
 

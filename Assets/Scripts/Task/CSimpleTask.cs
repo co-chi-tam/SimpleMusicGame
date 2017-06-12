@@ -22,10 +22,14 @@ namespace SimpleGameMusic {
 		}
 
 		protected virtual IEnumerator LoadScene(string name) {
-			var sceneLoading = CSceneManager.Instance.LoadSceneAsync (this.taskName);
+			var sceneLoading = CSceneManager.Instance.LoadSceneAsync (this.taskName, this.NeedTransmissionEffect());
 			this.OnSceneLoading ();
 			yield return sceneLoading;
 			this.OnSceneLoaded ();
+		}
+
+		protected virtual bool NeedTransmissionEffect() {
+			return true;
 		}
 		
 	}

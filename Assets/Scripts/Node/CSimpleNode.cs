@@ -155,15 +155,15 @@ namespace SimpleGameMusic {
 
 		public virtual void CheckNodeValue() {
 			if (this.m_Complete == false) {
-				this.m_NodeText.text = "BAD";
+				this.m_NodeText.text = CTaskUtil.Translate ("BAD");
 			} else {
 				var nodeValue = this.GetValue ();
 				if (nodeValue >= 0.75f) {
-					this.m_NodeText.text = CTaskUtil.Translate ("EN", "PERFECT");
+					this.m_NodeText.text = CTaskUtil.Translate ("PERFECT");
 				} else if (nodeValue >= 0.5f) {
-					this.m_NodeText.text = CTaskUtil.Translate ("EN", "GOOD");
+					this.m_NodeText.text = CTaskUtil.Translate ("GOOD");
 				} else {
-					this.m_NodeText.text = CTaskUtil.Translate ("EN", "BAD");
+					this.m_NodeText.text = CTaskUtil.Translate ("BAD");
 				}
 			}
 		}

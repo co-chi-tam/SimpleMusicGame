@@ -18,6 +18,7 @@ namespace SimpleGameMusic {
 		public virtual void LoadMap() {
 			this.m_Map ["Intro"] 			= new CIntroTask ();
 			this.m_Map ["LoadingResource"] 	= new CLoadingResourceTask ();
+			this.m_Map ["LocalSetting"] 	= new CLocalSettingTask ();
 			this.m_Map ["SelectGame"] 		= new CSelectGameTask ();
 			this.m_Map ["PlayGame"] 		= new CPlayGameTask ();
 		}
