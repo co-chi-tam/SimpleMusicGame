@@ -34,7 +34,7 @@ namespace SimpleGameMusic {
 		}
 
 		public void SelectGame(string name) {
-			CTask.taskReferences [CTask.SELECTED_SONG] = name;
+			CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] = name;
 			this.m_RootTask.GetCurrentTask ().OnTaskCompleted ();
 		}
 		

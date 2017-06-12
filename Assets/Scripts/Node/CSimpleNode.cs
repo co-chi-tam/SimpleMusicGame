@@ -159,11 +159,11 @@ namespace SimpleGameMusic {
 			} else {
 				var nodeValue = this.GetValue ();
 				if (nodeValue >= 0.75f) {
-					this.m_NodeText.text = "PERFECT";
+					this.m_NodeText.text = CTaskUtil.Translate ("EN", "PERFECT");
 				} else if (nodeValue >= 0.5f) {
-					this.m_NodeText.text = "GOOD";
+					this.m_NodeText.text = CTaskUtil.Translate ("EN", "GOOD");
 				} else {
-					this.m_NodeText.text = "BAD";
+					this.m_NodeText.text = CTaskUtil.Translate ("EN", "BAD");
 				}
 			}
 		}

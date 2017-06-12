@@ -5,12 +5,12 @@ namespace SimpleGameMusic {
 	public class CNodeEditorData : CNodeData {
 
 		public int editorIndex;
-		public Vector2 nodePositionEditor;
+		public Vector2 editorNodePosition;
 
 		public CNodeEditorData ()
 		{
 			this.editorIndex = 0;
-			this.nodePositionEditor = Vector2.zero;
+			this.editorNodePosition = Vector2.zero;
 		}
 		
 	}

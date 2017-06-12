@@ -14,13 +14,6 @@ namespace SimpleGameMusic {
 
 		protected bool m_IsCompleteTask = false;
 
-		public static string SELECTED_SONG = "SELECTED_SONG";
-		public static string DATA_SONG = "DATA_SONG";
-		public static Dictionary<string, object> taskReferences = new Dictionary<string, object> () { 
-			{ SELECTED_SONG, "Yeu-5" },
-			{ DATA_SONG, new CSongData() }
-		};
-
 		public CTask ()
 		{
 			this.taskName = string.Empty;
@@ -70,6 +63,6 @@ namespace SimpleGameMusic {
 		public virtual string GetTaskName() {
 			return this.taskName;
 		}
-		
+
 	}
 }

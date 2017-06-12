@@ -11,14 +11,12 @@ namespace SimpleGameMusic {
 		private string m_ResourceUrl = "https://google.com.vn";
 		private string m_ResourceName = "AssetBundles.bin";
 		private string m_StorePath;
-		private bool m_SaveOnLocal = false;
 		private WWW m_WWW;
 
-		public CDownloadResourceManager (int version, string assetUrl, bool saveOnLocal)
+		public CDownloadResourceManager (int version, string assetUrl)
 		{
 			this.m_Version = version;
 			this.m_ResourceUrl = assetUrl;
-			this.m_SaveOnLocal = saveOnLocal;
 #if UNITY_EDITOR
 			this.m_StorePath = Application.dataPath + "/AssetBundles/v" + m_Version + "/";
 #else
@@ -40,8 +38,12 @@ namespace SimpleGameMusic {
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
 			if (Application.internetReachability != NetworkReachability.NotReachable) {
 				var fullPath = this.m_StorePath + this.m_ResourceName;
-				yield return this.DownloadContent (url, fullPath, complete, error, process);
-				yield return this.SaveDownloadContent (fullPath, complete, error);
+				if (File.Exists (fullPath) == false) {
+					yield return this.DownloadContent (url, fullPath, false, error, process);
+					yield return this.SaveDownloadContent (fullPath, complete, error);
+				} else {
+					yield return this.LoadLocalAsset (fullPath, complete, error, process);
+				}
 			} else {
 				if (error != null) {
 					error ("Error: Connect error, please check connect internet.");
@@ -50,37 +52,13 @@ namespace SimpleGameMusic {
 			yield return WaitHelper.WaitForShortSeconds;
 		}
 
-		private IEnumerator DownloadContent(string url, string fullPath, Action complete, Action<string> error, Action<float> process) {
-			if (this.m_SaveOnLocal == false) {
+		private IEnumerator DownloadContent(string url, string fullPath, bool cache, Action<string> error, Action<float> process) {
+			if (cache) {
 				while (!Caching.ready)
 					yield return null;
 				m_WWW = WWW.LoadFromCacheOrDownload (url, this.m_Version);
 			} else {
 				m_WWW = new WWW (url);
-				if (File.Exists (fullPath) == false) {
-					// TODO
-				} else {
-					var processFake = 0f;
-					while (processFake < 1f) {
-						if (process != null) {
-							process (processFake);
-						}
-						processFake += Time.deltaTime;
-						yield return WaitHelper.WaitFixedUpdate;
-					}
-					CAssetBundleManager.currentAssetBundle = CAssetBundleManager.LoadBundleFromFile (fullPath);
-					CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
-					if (complete != null) {
-						if (CAssetBundleManager.currentAssetBundle != null) {
-							complete ();
-						} else {
-							if (error != null) {
-								error ("Error: AssetBundle is null.");
-							}
-						}
-					}
-					yield break;
-				}
 			}
 			while (m_WWW.isDone == false) {
 				if (process != null) {
@@ -89,29 +67,19 @@ namespace SimpleGameMusic {
 				yield return WaitHelper.WaitFixedUpdate;
 			}
 			yield return m_WWW;
-		}
-
-		private IEnumerator SaveDownloadContent(string fullPath, Action complete, Action<string> error) {
-			yield return m_WWW;
 			if (string.IsNullOrEmpty (m_WWW.error) == false) {
 				if (error != null) {
 					error (m_WWW.error);
 				}
-				CAssetBundleManager.loaded = false;
-			} else {
-				if (this.m_SaveOnLocal == false) {
-					// TODO
-				} else {
-					if (m_WWW.bytes.Length > 0) {
-						if (File.Exists (fullPath) == false) {
-							File.WriteAllBytes (fullPath, m_WWW.bytes);
-						}
-					}
-				}
-			}
-			if (CAssetBundleManager.currentAssetBundle == null) {
+			} 
+
+		}
+
+		private IEnumerator SaveDownloadContent(string fullPath, Action complete, Action<string> error) {
+			if (m_WWW.bytes.Length > 0) {
+				File.WriteAllBytes (fullPath, m_WWW.bytes);
 				CAssetBundleManager.currentAssetBundle = m_WWW.assetBundle;
-				CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
+				CAssetBundleManager.loaded = m_WWW.assetBundle != null;
 				if (complete != null) {
 					if (CAssetBundleManager.currentAssetBundle != null) {
 						complete ();
@@ -121,7 +89,37 @@ namespace SimpleGameMusic {
 						}
 					}
 				}
+			} else {
+				if (error != null) {
+					error ("ERROR: Download not complete.");
+				}
+				CAssetBundleManager.currentAssetBundle = null;
+				CAssetBundleManager.loaded = false;
 			}
+			yield return WaitHelper.WaitFixedUpdate;
+		}
+
+		private IEnumerator LoadLocalAsset(string fullPath, Action complete, Action<string> error, Action<float> process) {
+			var processFake = 0f;
+			while (processFake < 1f) {
+				if (process != null) {
+					process (processFake);
+				}
+				processFake += Time.deltaTime;
+				yield return WaitHelper.WaitFixedUpdate;
+			}
+			CAssetBundleManager.currentAssetBundle = CAssetBundleManager.LoadBundleFromFile (fullPath);
+			CAssetBundleManager.loaded = CAssetBundleManager.currentAssetBundle != null;
+			if (complete != null) {
+				if (CAssetBundleManager.currentAssetBundle != null) {
+					complete ();
+				} else {
+					if (error != null) {
+						error ("Error: AssetBundle is null.");
+					}
+				}
+			}
+			yield return null;
 		}
 		
 	}

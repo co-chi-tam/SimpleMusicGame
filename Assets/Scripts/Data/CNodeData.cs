@@ -19,7 +19,12 @@ namespace SimpleGameMusic {
 
 		public override string ToString ()
 		{
-			return string.Format ("\"{0}\",\"{1}\",\"{2}\",\"{3}\"", this.audioTime, this.nodeType, this.nodePosition, this.nodeScale);
+			return string.Format ("\"{0}\",\"{1}\",\"{2}\",\"{3}\"", 
+				this.audioTime, 
+				this.nodeType, 
+				this.nodePosition, 
+				this.nodeScale
+			);
 		}
 
 	}

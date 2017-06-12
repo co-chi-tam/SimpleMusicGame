@@ -56,8 +56,8 @@ namespace SimpleGameMusic {
 		protected virtual void Start() {
 			this.root = CRootTask.GetInstance ();
 			this.m_UIManager = CUIManager.GetInstance ();
-			this.m_AudioName = CTask.taskReferences [CTask.SELECTED_SONG].ToString ();
-			this.m_SongData = CTask.taskReferences [CTask.DATA_SONG] as CSongData;
+			this.m_AudioName = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG].ToString ();
+			this.m_SongData = CTaskUtil.REFERENCES [CTaskUtil.DATA_SONG] as CSongData;
 			var currentTask = this.root.GetCurrentTask ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {

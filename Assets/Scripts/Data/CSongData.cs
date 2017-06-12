@@ -10,6 +10,7 @@ namespace SimpleGameMusic {
 		public int hardPoint;
 		public int simpleNodeScore;
 		public int holdNodeScore;
+		public string categoryName;
 
 		public CSongData ()
 		{
@@ -18,16 +19,19 @@ namespace SimpleGameMusic {
 			this.hardPoint 			= 0;
 			this.simpleNodeScore	= 0;
 			this.holdNodeScore		= 0;
+			this.categoryName 		= string.Empty;
 		}
 
 		public override string ToString ()
 		{
-			return string.Format ("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"", 
-						this.songName, 
-						this.displaySongName, 
-						this.hardPoint, 
-						this.simpleNodeScore, 
-						this.holdNodeScore);
+			return string.Format ("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"", 
+				this.songName, 
+				this.displaySongName, 
+				this.hardPoint, 
+				this.simpleNodeScore, 
+				this.holdNodeScore,
+				this.categoryName
+			);
 		}
 
 	}

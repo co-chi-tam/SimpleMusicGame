@@ -29,10 +29,10 @@ namespace SimpleGameMusic {
 		public override void EndTask ()
 		{
 			base.EndTask ();
-			var name = CTask.taskReferences [CTask.SELECTED_SONG].ToString();
+			var name = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG].ToString();
 			for (int i = 0; i < this.m_ListSong.Count; i++) {
 				if (this.m_ListSong [i].songName.Equals (name)) {
-					CTask.taskReferences [CTask.DATA_SONG] = this.m_ListSong [i];
+					CTaskUtil.REFERENCES [CTaskUtil.DATA_SONG] = this.m_ListSong [i];
 					break;
 				}
 			}

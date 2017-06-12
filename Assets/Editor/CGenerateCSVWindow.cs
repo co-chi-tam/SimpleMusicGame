@@ -28,6 +28,7 @@ namespace SimpleGameMusic {
 		private Vector2 m_CurrentNodeScrollBar;
 		private string m_CSVFileName = "GenerateCSV";
 		private string m_CurrentSelectKeyframe;
+		private List<CNodeEditorData> m_CurrentTargetKeyframe;
 
 		[MenuItem ("Simple Music Game/Generate CSV window")]
 		static void Init() {
@@ -204,7 +205,7 @@ namespace SimpleGameMusic {
 					this.m_DictNodeData [keyName].Add (nodeData);
 				}
 				var listNode = this.m_DictNodeData [keyName];
-				nodeData.editorIndex = listNode.Count;
+				nodeData.editorIndex = listNode.Count - 1;
 				this.m_CurrentSelectKeyframe = keyName;
 			}
 			if (GUILayout.Button ("Delete keyframe") && this.m_IsPlayingReview == false) {
@@ -215,6 +216,39 @@ namespace SimpleGameMusic {
 						this.m_CurrentSelectKeyframe = string.Empty;
 						this.m_CurrentSelectedNode = null;
 					}
+				}
+			}
+			if (GUILayout.Button ("Copy keyframe")) {
+				if (string.IsNullOrEmpty (this.m_CurrentSelectKeyframe) == false) {
+					if (this.m_DictNodeData.ContainsKey (this.m_CurrentSelectKeyframe)) {
+						var keyframes = this.m_DictNodeData [this.m_CurrentSelectKeyframe];
+						this.m_CurrentTargetKeyframe = keyframes;
+					}
+				}
+
+			}
+			if (GUILayout.Button ("Paste keyframe")) {
+				if (this.m_CurrentTargetKeyframe != null && this.m_CurrentTargetKeyframe.Count > 0) {
+					var nodeTimelineIndex = (int) this.m_SoundTimeLine;
+					var keyName = "Keyframe_" + nodeTimelineIndex;
+					if (this.m_DictNodeData.ContainsKey (keyName)) {
+						// TODO
+					} else {
+						// Create new key frame
+						this.m_DictNodeData.Add (keyName, new List<CNodeEditorData> ());
+					}
+					for (int i = 0; i < this.m_CurrentTargetKeyframe.Count; i++) {
+						var tmpNode = this.m_CurrentTargetKeyframe [i];
+						var newNode = new CNodeEditorData ();
+						newNode.audioTime = nodeTimelineIndex;
+						newNode.nodeType = tmpNode.nodeType;
+						newNode.nodePosition = tmpNode.nodePosition;
+						newNode.nodeScale = tmpNode.nodeScale;
+						this.m_DictNodeData [keyName].Add (newNode);
+						newNode.editorIndex = this.m_DictNodeData [keyName].Count - 1;
+						newNode.editorNodePosition = newNode.nodePosition.ToVector2 ();
+					}
+					this.m_CurrentSelectKeyframe = keyName;
 				}
 			}
 			GUILayout.FlexibleSpace ();
@@ -262,7 +296,7 @@ namespace SimpleGameMusic {
 						this.m_DictNodeData [keyName].Add (nodeData);
 					}
 					var listNode = this.m_DictNodeData [keyName];
-					nodeData.editorIndex = listNode.Count;
+					nodeData.editorIndex = listNode.Count - 1;
 					this.m_CurrentSelectedNode = null;
 				}
 				this.m_CurrentKeyframeScrollBar = GUILayout.BeginScrollView (this.m_CurrentKeyframeScrollBar,false, true);
@@ -296,7 +330,7 @@ namespace SimpleGameMusic {
 					var heightScreen = this.m_FrameManagerRect.height;
 					var widthRatio = widthScreen / this.m_CurrentUISize.x;
 					var heightRatio = heightScreen / this.m_CurrentUISize.y;
-					var nodePosition = currentNode.nodePositionEditor;
+					var nodePosition = currentNode.editorNodePosition;
 					var screenNodePosition = Vector2.zero;
 					screenNodePosition.x = (this.m_FrameManagerRect.x - 15f) + (widthScreen / 2f) + (nodePosition.x * widthRatio);
 					screenNodePosition.y = (this.m_FrameManagerRect.y - 15f) + (heightScreen / 2f) - (nodePosition.y * heightRatio);
@@ -316,9 +350,9 @@ namespace SimpleGameMusic {
 				GUILayout.Label ("Selected node: " + this.m_CurrentSelectedNode.editorIndex);
 				this.m_CurrentSelectedNode.audioTime = EditorGUILayout.IntField ("Samples time: ", this.m_CurrentSelectedNode.audioTime);
 				this.m_CurrentSelectedNode.nodeType = (int)((ENodeType) EditorGUILayout.EnumPopup ("Node type: ", (ENodeType) this.m_CurrentSelectedNode.nodeType));
-				this.m_CurrentSelectedNode.nodePositionEditor = EditorGUILayout.Vector2Field ("Node position: ", this.m_CurrentSelectedNode.nodePositionEditor);
+				this.m_CurrentSelectedNode.editorNodePosition = EditorGUILayout.Vector2Field ("Node position: ", this.m_CurrentSelectedNode.editorNodePosition);
 				this.m_CurrentSelectedNode.nodePosition = "0|0";
-				this.m_CurrentSelectedNode.nodePosition = this.m_CurrentSelectedNode.nodePositionEditor.x + "|" + this.m_CurrentSelectedNode.nodePositionEditor.y;
+				this.m_CurrentSelectedNode.nodePosition = this.m_CurrentSelectedNode.editorNodePosition.x + "|" + this.m_CurrentSelectedNode.editorNodePosition.y;
 				this.m_CurrentSelectedNode.nodeScale = EditorGUILayout.FloatField ("Node scale: ", this.m_CurrentSelectedNode.nodeScale);
 				var lastRect = GUILayoutUtility.GetLastRect ();
 				var widthScreen = 500f;
@@ -337,7 +371,7 @@ namespace SimpleGameMusic {
 				GUILayout.Label ("Game review: ");
 				var widthRatio = widthScreen / this.m_CurrentUISize.x;
 				var heightRatio = heightScreen / this.m_CurrentUISize.y;
-				var nodePosition = this.m_CurrentSelectedNode.nodePositionEditor;
+				var nodePosition = this.m_CurrentSelectedNode.editorNodePosition;
 				var screenNodePosition = Vector2.zero;
 				screenNodePosition.x = (lastRect.x) - 15f + (widthScreen / 2f) + (nodePosition.x * widthRatio);
 				screenNodePosition.y = (lastRect.y + 40f) - 15f + (heightScreen / 2f) - (nodePosition.y * heightRatio);
@@ -394,7 +428,7 @@ namespace SimpleGameMusic {
 					nodeEditor.nodePosition = node.nodePosition;
 					nodeEditor.nodeScale = node.nodeScale;
 					nodeEditor.editorIndex = this.m_DictNodeData [nodeKeyframe].Count;
-					nodeEditor.nodePositionEditor = node.nodePosition.ToVector2 ();
+					nodeEditor.editorNodePosition = node.nodePosition.ToVector2 ();
 					this.m_DictNodeData [nodeKeyframe].Add (nodeEditor);
 				}
 				EditorUtility.ClearProgressBar ();
