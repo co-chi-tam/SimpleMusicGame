@@ -39,27 +39,27 @@ public class CLog {
 	}
 
 	public static void LogDebug(string text, ELogMode mode = ELogMode.Debug) {
-		if (Debug.isDebugBuild) {
-			Debug.Log (text);
-			var callerName = GetCallerName () + " ";
-			CLogGUI.Instance.AddDebugMessage (callerName + text);
-		}
+#if SIMPLE_DEBUG
+		Debug.Log (text);
+		var callerName = GetCallerName () + " ";
+		CLogGUI.Instance.AddDebugMessage (callerName + text);
+#endif
 	}
 
 	public static void LogWarning(string text, ELogMode mode = ELogMode.Warning) {
-		if (Debug.isDebugBuild) {
-			Debug.LogWarning (text);
-			var callerName = GetCallerName () + " ";
-			CLogGUI.Instance.AddWarningMessage (callerName + text);
-		}
+#if SIMPLE_DEBUG
+		Debug.LogWarning (text);
+		var callerName = GetCallerName () + " ";
+		CLogGUI.Instance.AddWarningMessage (callerName + text);
+#endif
 	}
 
 	public static void LogError(string text, ELogMode mode = ELogMode.Error) {
-		if (Debug.isDebugBuild) {
-			Debug.LogError (text);
-			var callerName = GetCallerName () + " ";
-			CLogGUI.Instance.AddErrorMessage (callerName + text);
-		}
+#if SIMPLE_DEBUG
+		Debug.LogError (text);
+		var callerName = GetCallerName () + " ";
+		CLogGUI.Instance.AddErrorMessage (callerName + text);
+#endif
 	}
 
 	private static string GetCallerName()

@@ -82,7 +82,8 @@ namespace SimpleGameMusic {
 				}
 			}
 			yield return m_WWW;
-			if (string.IsNullOrEmpty (m_WWW.error) == false) {
+			if (string.IsNullOrEmpty (m_WWW.error) == false 
+				|| m_WWW.bytesDownloaded == 0) {
 				if (error != null) {
 					error (m_WWW.error);
 				}

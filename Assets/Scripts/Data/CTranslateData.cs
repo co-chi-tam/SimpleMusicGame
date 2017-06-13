@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace SimpleGameMusic {
+	[Serializable]
 	public class CTranslateData  {
 
 		public string transCode;

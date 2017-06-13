@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace SimpleGameMusic {
+	[Serializable]
 	public class CLanguageData {
 
 		public string laName;
