@@ -13,7 +13,7 @@ namespace SimpleGameMusic {
 
 		private CTask m_CurrentTask;
 		private CMapTask m_MapTask;
-		private string m_PrevertTask;
+		private string m_PreviousTask;
 
 		#endregion
 
@@ -33,11 +33,11 @@ namespace SimpleGameMusic {
 		{
 			// First load
 			this.m_CurrentTask.Transmission ();
-			this.m_PrevertTask = this.m_CurrentTaskName;
+			this.m_PreviousTask = this.m_CurrentTaskName;
 			this.SetupTask();
 			// Other load
 			CSceneManager.Instance.activeSceneChanged += (Scene oldScene, Scene currentScene) => {
-				this.m_PrevertTask = oldScene.name;
+				this.m_PreviousTask = oldScene.name;
 				this.SetupTask();
 			};
 		}
@@ -57,8 +57,8 @@ namespace SimpleGameMusic {
 			this.TransmissionTask (this.m_CurrentTask.nextTask);
 		}
 
-		public void PrevertTask() {
-			this.TransmissionTask (this.m_PrevertTask);
+		public void PreviousTask() {
+			this.TransmissionTask (this.m_PreviousTask);
 		}
 
 		private void SetupTask() {

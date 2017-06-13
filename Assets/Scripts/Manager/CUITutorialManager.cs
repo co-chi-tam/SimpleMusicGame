@@ -25,7 +25,7 @@ namespace SimpleGameMusic {
 			SetPhaseAnimation ((int) m_TutorialPhase);
 		}
 
-		public void PreverPhase() {
+		public void PreviousPhase() {
 			var currentPhase = (int) m_TutorialPhase;
 			m_TutorialPhase = (ETutorialPhase) (currentPhase - 1);
 			SetPhaseAnimation ((int) m_TutorialPhase);

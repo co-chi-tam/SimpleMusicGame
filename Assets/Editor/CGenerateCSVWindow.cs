@@ -10,9 +10,9 @@ namespace SimpleGameMusic {
 	public class CGenerateCSVWindow : EditorWindow {
 
 		private float m_SoundTimeLine = 0f;
-		private int m_PrevertSoundTimeLine = 0;
+		private int m_PreviousSoundTimeLine = 0;
 		private AudioClip m_SoundAudio;
-		private AudioClip m_PrevertAudio;
+		private AudioClip m_PreviousAudio;
 		private Dictionary<string, List<CNodeEditorData>> m_DictNodeData = new Dictionary<string, List<CNodeEditorData>>(); 
 		private bool m_IsPlaying = false;
 		private bool m_IsPause = false;
@@ -70,9 +70,9 @@ namespace SimpleGameMusic {
 			// Choose file music.
 			GUILayout.Label ("File:");
 			this.m_SoundAudio = (AudioClip) EditorGUILayout.ObjectField (this.m_SoundAudio, typeof(AudioClip));
-			if (this.m_PrevertAudio != this.m_SoundAudio) {
+			if (this.m_PreviousAudio != this.m_SoundAudio) {
 				this.m_DictNodeData.Clear();
-				this.m_PrevertAudio = this.m_SoundAudio;
+				this.m_PreviousAudio = this.m_SoundAudio;
 				this.m_CurrentSelectedNode = null;
 			}
 //			GUILayout.FlexibleSpace ();
@@ -82,7 +82,7 @@ namespace SimpleGameMusic {
 			if (GUILayout.Button ("Play >>")) {
 				if (this.m_SoundAudio != null) {
 					AudioUtility.PlayClip (this.m_SoundAudio);
-					this.m_PrevertAudio = this.m_SoundAudio;
+					this.m_PreviousAudio = this.m_SoundAudio;
 					this.m_IsPlaying = true;
 					this.m_IsPause = false;
 					this.m_IsPlayingReview = false;
@@ -129,8 +129,8 @@ namespace SimpleGameMusic {
 				if (this.m_IsPause == false) {
 					// Update sound line
 					this.m_SoundTimeLine = AudioUtility.GetClipPosition (this.m_SoundAudio);
-					if (this.m_PrevertSoundTimeLine != (int) this.m_SoundTimeLine) {
-						this.m_PrevertSoundTimeLine = (int) this.m_SoundTimeLine;
+					if (this.m_PreviousSoundTimeLine != (int) this.m_SoundTimeLine) {
+						this.m_PreviousSoundTimeLine = (int) this.m_SoundTimeLine;
 					}
 				} else {
 					// Set sound line

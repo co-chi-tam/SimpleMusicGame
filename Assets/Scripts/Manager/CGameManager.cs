@@ -34,7 +34,7 @@ namespace SimpleGameMusic {
 		private string[] m_PrefabNodes = new string[] {"SimpleNode", "HoldNode"};
 		private float m_WaitingTime = 2f;
 		private int m_NodeIndex = 0;
-		private int m_PrevertTime = -1;
+		private int m_PreviousTime = -1;
 		private List<CNodeData> m_ListNodeData;
 		private bool m_IsAssetsAlready = false;
 		private bool m_IsPlaying = false;
@@ -96,7 +96,7 @@ namespace SimpleGameMusic {
 			var step = 100;
 			while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
 				var currentNodeData = m_ListNodeData [m_NodeIndex];
-				if (audioTime == currentNodeData.audioTime && audioTime != m_PrevertTime) {
+				if (audioTime == currentNodeData.audioTime && audioTime != m_PreviousTime) {
 					var node = SpawnNode (m_PrefabNodes [currentNodeData.nodeType]);
 					this.SetUpNode (node);
 					node.SetPosition2D (currentNodeData.nodePosition.ToVector2 ());
@@ -104,7 +104,7 @@ namespace SimpleGameMusic {
 					node.SetNodeType ((ENodeType) currentNodeData.nodeType);
 					m_NodeIndex++;
 				} else {
-					m_PrevertTime = audioTime;
+					m_PreviousTime = audioTime;
 					break;
 				}
 				step--;
