@@ -44,8 +44,7 @@ namespace SimpleGameMusic {
 
 		protected virtual void Update ()
 		{
-			if (this.m_CurrentTask != null 
-				&& this.m_CurrentTask.IsCompleteTask() == false) {
+			if (this.m_CurrentTask != null) {
 				this.m_CurrentTask.UpdateTask (Time.deltaTime);
 			}
 		}

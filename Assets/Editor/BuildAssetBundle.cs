@@ -13,6 +13,7 @@ public class CreateAssetBundles
 			Directory.CreateDirectory (path);
 		}
 		BuildPipeline.BuildAssetBundles ("Assets/ExportAssetBundles/Android", BuildAssetBundleOptions.None, BuildTarget.Android);
+		Debug.Log ("Build ANDROID assetbundles");
     }
 
 	[MenuItem ("Assets/Build AssetBundles/iOS")]
@@ -23,6 +24,7 @@ public class CreateAssetBundles
 			Directory.CreateDirectory (path);
 		}
 		BuildPipeline.BuildAssetBundles ("Assets/ExportAssetBundles/iOS", BuildAssetBundleOptions.None, BuildTarget.Android);
+		Debug.Log ("Build iOS assetbundles");
 	}
 
 	[MenuItem ("Assets/Build AssetBundles/Standalone")]
@@ -33,5 +35,6 @@ public class CreateAssetBundles
 			Directory.CreateDirectory (path);
 		}
 		BuildPipeline.BuildAssetBundles ("Assets/ExportAssetBundles/Standalone", BuildAssetBundleOptions.None, BuildTarget.Android);
+		Debug.Log ("Build STANDALONE assetbundles");
 	}
 }

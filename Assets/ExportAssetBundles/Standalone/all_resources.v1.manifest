@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2679516342
+CRC: 686603447
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7d5d8376503a35dbe475a138341f8140
+    Hash: a5acab842ae5b2876ba8327fa00d6453
   TypeTreeHash:
     serializedVersion: 2
     Hash: f6e8f19b453c1f91809e03df6b489d90
@@ -62,12 +62,15 @@ Assets:
 - Assets/ImportAssetBundles/v1/Data/List-song.csv
 - Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Idle.anim
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/SimpleNode.prefab
+- Assets/ImportAssetBundles/v1/Data/Co-Em-Cho.csv
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Active.anim
 - Assets/ImportAssetBundles/v1/Backgrounds/Yeu-5.jpg
 - Assets/ImportAssetBundles/v1/Node/HoldNode/HoldNode.prefab
+- Assets/ImportAssetBundles/v1/Sounds/Co-Em-Cho.mp3
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Deactive.anim
 - Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Active.anim
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/v1/Backgrounds/Co-Em-Cho.jpg
 - Assets/ImportAssetBundles/v1/Data/Yeu-5.csv
 - Assets/ImportAssetBundles/v1/Fonts/OldGateLaneNF.ttf
 - Assets/ImportAssetBundles/v1/Language/la_VN.csv

@@ -53,20 +53,45 @@ namespace SimpleGameMusic {
 			}, null);
 		}
 
+		public override void OnTaskCompleted ()
+		{
+			base.OnTaskCompleted ();
+			this.LoadLanguageCode();
+			this.LoadSongList();
+			this.LoadSetting ();
+		}
+
+		public override void OnTaskFail ()
+		{
+			base.OnTaskFail ();
+			this.m_UILoading.ShowLocalResourceLoading (this.LoadLocalResource);
+		}
+
 		#endregion
 
 		#region Main methods
 
-		private void DownloadResource() {
-			this.m_ResourceManager.LoadResource (() => {
-				this.LoadLanguageCode();
-				this.LoadSongList();
-				this.LoadSetting ();
+		public void DownloadResource() {
+			this.m_ResourceManager.DownloadResource (() => {
 				// COMPLETE
 				this.OnTaskCompleted();
 			}, (error) => {
 				CLog.LogError (error);
-				this.m_IsCompleteTask = false;
+				// FAIL
+				this.OnTaskFail();
+			}, (processing) => {
+				this.m_UILoading.Processing (processing);
+			});
+		}
+
+		public void LoadLocalResource() {
+			this.m_ResourceManager.LoadLocalResource (() => {
+				// COMPLETE
+				this.OnTaskCompleted();
+			}, (error) => {
+				CLog.LogError (error);
+				// FAIL
+				this.OnTaskFail();
 			}, (processing) => {
 				this.m_UILoading.Processing (processing);
 			});

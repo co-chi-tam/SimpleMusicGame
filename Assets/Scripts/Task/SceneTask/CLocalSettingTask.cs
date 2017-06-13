@@ -33,6 +33,7 @@ namespace SimpleGameMusic {
 			var laName = CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING].ToString();
 			PlayerPrefs.SetString (CTaskUtil.LA_SETTING, laName);
 			PlayerPrefs.SetInt (CTaskUtil.GAME_FIRST_LAUNCH, 1);
+			PlayerPrefs.SetInt (CTaskUtil.GAME_RESOURCE_COMPLETED, 1);
 			PlayerPrefs.Save ();
 		}
 

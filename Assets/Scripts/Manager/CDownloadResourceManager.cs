@@ -37,12 +37,17 @@ namespace SimpleGameMusic {
 
 		#region Main methods
 
-		public void LoadResource(Action complete, Action<string> error, Action<float> process) {
-			this.LoadResource (this.m_ResourceUrl, complete, error, process);
+		public void DownloadResource(Action complete, Action<string> error, Action<float> process) {
+			this.DownloadResource (this.m_ResourceUrl, complete, error, process);
 		}
 
-		public void LoadResource(string url, Action complete, Action<string> error, Action<float> process) {
+		public void DownloadResource(string url, Action complete, Action<string> error, Action<float> process) {
 			CHandleEvent.Instance.AddEvent (this.HandleLoadResource (url, complete, error, process), null);
+		}
+
+		public void LoadLocalResource(Action complete, Action<string> error, Action<float> process) {
+			var fullPath = this.m_StorePath + this.m_ResourceName;
+			CHandleEvent.Instance.AddEvent (this.LoadLocalAsset (fullPath, complete, error, process), null);
 		}
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
@@ -88,6 +93,7 @@ namespace SimpleGameMusic {
 		private IEnumerator SaveDownloadContent(string fullPath, Action complete, Action<string> error) {
 			if (m_WWW.bytes.Length > 0) {
 				File.WriteAllBytes (fullPath, m_WWW.bytes);
+				yield return File.Exists (fullPath);
 				CAssetBundleManager.currentAssetBundle = m_WWW.assetBundle;
 				CAssetBundleManager.loaded = m_WWW.assetBundle != null;
 				if (complete != null) {

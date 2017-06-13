@@ -27,7 +27,10 @@ namespace SimpleGameMusic {
 		#region Main methods
 
 		public static AssetBundle LoadBundleFromFile(string path) {
-			return AssetBundle.LoadFromFile (path);
+			if (File.Exists (path)) {
+				return AssetBundle.LoadFromFile (path);
+			} 
+			return null;
 		}
 
 		public static T LoadBundle<T>(string name) where T : UnityEngine.Object {
