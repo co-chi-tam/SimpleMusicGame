@@ -6,11 +6,17 @@ using Pul;
 namespace SimpleGameMusic {
 	public class CSelectGameTask : CSimpleTask {
 
+		#region Constructor
+
 		public CSelectGameTask () : base ()
 		{
 			this.taskName = "SelectGame";
 			this.nextTask = "PlayGame";
 		}
+
+		#endregion
+
+		#region Implementation Task
 
 		public override void StartTask ()
 		{
@@ -39,6 +45,8 @@ namespace SimpleGameMusic {
 				CLog.LogError ("Error: Can not load song data.");
 			}
 		}
+
+		#endregion
 		
 	}
 }

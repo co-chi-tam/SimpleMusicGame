@@ -6,19 +6,28 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CTask : ITask {
 
-		public string taskName;
+		#region Properties
 
+		public string taskName;
 		public string nextTask;
 
 		public Action OnCompleteTask;
 
 		protected bool m_IsCompleteTask = false;
 
+		#endregion
+
+		#region Constructor
+
 		public CTask ()
 		{
 			this.taskName = string.Empty;
 			this.nextTask = string.Empty;
 		}
+
+		#endregion
+
+		#region Implementation Task
 
 		public virtual void StartTask() {
 			
@@ -67,6 +76,8 @@ namespace SimpleGameMusic {
 		public virtual string GetTaskName() {
 			return this.taskName;
 		}
+
+		#endregion
 
 	}
 }

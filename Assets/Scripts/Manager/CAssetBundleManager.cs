@@ -7,14 +7,24 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CAssetBundleManager {
 
+		#region Properties
+
 		public static AssetBundle currentAssetBundle;
 		public static bool loaded;
 		public static Dictionary<string, UnityEngine.Object> assetCached = new Dictionary<string, UnityEngine.Object> ();
+
+		#endregion
+
+		#region Constructor
 
 		public CAssetBundleManager ()
 		{
 			 
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public static AssetBundle LoadBundleFromFile(string path) {
 			return AssetBundle.LoadFromFile (path);
@@ -49,6 +59,8 @@ namespace SimpleGameMusic {
 			}
 			return resource;
 		}
+
+		#endregion
 		
 	}
 }

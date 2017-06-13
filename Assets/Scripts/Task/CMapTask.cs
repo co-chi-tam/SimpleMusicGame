@@ -7,13 +7,23 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CMapTask {
 
+		#region Properties
+
 		private Dictionary<string, CTask> m_Map;
+
+		#endregion
+
+		#region Constructor
 
 		public CMapTask ()
 		{
 			this.m_Map = new Dictionary<string, CTask> ();
 			this.LoadMap ();
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public virtual void LoadMap() {
 			this.m_Map ["Intro"] 			= new CIntroTask ();
@@ -22,6 +32,10 @@ namespace SimpleGameMusic {
 			this.m_Map ["SelectGame"] 		= new CSelectGameTask ();
 			this.m_Map ["PlayGame"] 		= new CPlayGameTask ();
 		}
+
+		#endregion
+
+		#region Getter && Setter
 
 		public virtual CTask GetFirstTask() {
 			var keys = this.m_Map.Keys.ToList();
@@ -36,6 +50,8 @@ namespace SimpleGameMusic {
 			}
 			return null;
 		}
+
+		#endregion
 		
 	}
 }

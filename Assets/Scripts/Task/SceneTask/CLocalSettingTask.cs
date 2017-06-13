@@ -5,10 +5,16 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CLocalSettingTask : CSimpleTask {
 
+		#region Constructor
+
 		public CLocalSettingTask (): base () {
 			this.taskName = "LocalSetting";
 			this.nextTask = "SelectGame";
 		}
+
+		#endregion
+
+		#region Implementation Task
 
 		public override void StartTask ()
 		{
@@ -32,9 +38,10 @@ namespace SimpleGameMusic {
 
 		public override bool IsHiddenTask ()
 		{
-			return true;
 			return PlayerPrefs.GetInt (CTaskUtil.GAME_FIRST_LAUNCH, 0) == 1;
 		}
+
+		#endregion
 
 	}
 }

@@ -6,9 +6,15 @@ using Pul;
 namespace SimpleGameMusic {
 	public class CLoadingResourceTask : CSimpleTask {
 
+		#region Properties
+
 		private CRequest m_Request;
 		private CDownloadResourceManager m_ResourceManager;
 		private CUILoading m_UILoading;
+
+		#endregion
+
+		#region Constructor
 
 		public CLoadingResourceTask () : base ()
 		{
@@ -26,6 +32,10 @@ namespace SimpleGameMusic {
 #endif
 		}
 
+		#endregion
+
+		#region Implementation Task
+
 		public override void StartTask ()
 		{
 			base.StartTask ();
@@ -42,6 +52,10 @@ namespace SimpleGameMusic {
 				CLog.LogError (error);
 			}, null);
 		}
+
+		#endregion
+
+		#region Main methods
 
 		private void DownloadResource() {
 			this.m_ResourceManager.LoadResource (() => {
@@ -90,6 +104,8 @@ namespace SimpleGameMusic {
 			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
 			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
 		}
+
+		#endregion
 
 	}
 }

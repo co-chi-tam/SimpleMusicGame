@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Task\SceneTask\CIntroTask.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Task\SceneTask\CLoadingResourceTask.cs">
     <Files>
-      <File FileName="Assets\Scripts\Task\SceneTask\CIntroTask.cs" Line="14" Column="4" />
+      <File FileName="Assets\Scripts\Task\SceneTask\CLoadingResourceTask.cs" Line="33" Column="20" />
+      <File FileName="Assets\Scripts\Net\CRequest.cs" Line="43" Column="26" />
+      <File FileName="Assets\Scripts\Net\CResult.cs" Line="16" Column="68" />
+      <File FileName="Assets\Scripts\Task\CTaskUtil.cs" Line="9" Column="69" />
+      <File FileName="Assets\Scripts\Manager\CDownloadResourceManager.cs" Line="66" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

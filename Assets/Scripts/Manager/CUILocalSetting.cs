@@ -9,14 +9,24 @@ using UICustom;
 namespace SimpleGameMusic {
 	public class CUILocalSetting : CMonoSingleton<CUILocalSetting> {
 
+		#region Properties
+
 		[SerializeField]	private GameObject m_GroupButton;
 		[SerializeField]	private CButton m_LAPrefabButton;
 
 		private CRootTask m_RootTask;
 
+		#endregion
+
+		#region Implementation MonoBehavious
+
 		protected virtual void Start() {
 			this.m_RootTask = CRootTask.GetInstance ();
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public void LoadListLanguage(List<CLanguageData> languages) {
 			for (int i = 0; i < languages.Count; i++) {
@@ -37,6 +47,8 @@ namespace SimpleGameMusic {
 			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = name;
 			this.m_RootTask.GetCurrentTask ().OnTaskCompleted ();
 		}
+
+		#endregion
 
 	}
 }

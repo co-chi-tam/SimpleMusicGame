@@ -8,8 +8,14 @@ using SimpleSingleton;
 namespace SimpleGameMusic {
 	public class CUILoading : CMonoSingleton<CUILoading> {
 
+		#region Properties
+
 		[Header ("Processing")]
 		[SerializeField]	private Image m_LoadingImage;
+
+		#endregion
+
+		#region Implementation MonoBehavious
 	
 		protected override void Awake ()
 		{
@@ -20,10 +26,15 @@ namespace SimpleGameMusic {
 			this.m_LoadingImage.fillAmount = 0;
 		}
 
+		#endregion
+
+		#region Main methods
+
 		public void Processing(float value) {
 			this.m_LoadingImage.fillAmount = value;
 		}
 
+		#endregion
 
 	}
 }

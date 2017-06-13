@@ -9,14 +9,24 @@ using UICustom;
 namespace SimpleGameMusic {
 	public class CUISelectGame : CMonoSingleton<CUISelectGame> {
 
+		#region Properties
+
 		[SerializeField]	private GameObject m_GroupButton;
 		[SerializeField]	private CButton m_SongPrefabButton;
 
 		private CRootTask m_RootTask;
 
+		#endregion
+
+		#region Implementation MonoBehavious
+
 		protected virtual void Start() {
 			this.m_RootTask = CRootTask.GetInstance ();
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public void LoadListSong(List<CSongData> songs) {
 			for (int i = 0; i < songs.Count; i++) {
@@ -37,6 +47,8 @@ namespace SimpleGameMusic {
 			CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] = name;
 			this.m_RootTask.GetCurrentTask ().OnTaskCompleted ();
 		}
+
+		#endregion
 		
 	}
 }

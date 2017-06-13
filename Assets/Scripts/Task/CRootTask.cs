@@ -7,11 +7,17 @@ using SimpleSingleton;
 namespace SimpleGameMusic {
 	public class CRootTask : CMonoSingleton<CRootTask> {
 
+		#region Properties
+
 		[SerializeField]	private string m_CurrentTaskName;	
 
 		private CTask m_CurrentTask;
 		private CMapTask m_MapTask;
 		private string m_PrevertTask;
+
+		#endregion
+
+		#region Implementation MonoBehavious
 
 		protected override void Awake ()
 		{
@@ -38,10 +44,15 @@ namespace SimpleGameMusic {
 
 		protected virtual void Update ()
 		{
-			if (this.m_CurrentTask != null) {
+			if (this.m_CurrentTask != null 
+				&& this.m_CurrentTask.IsCompleteTask() == false) {
 				this.m_CurrentTask.UpdateTask (Time.deltaTime);
 			}
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public void NextTask() {
 			this.TransmissionTask (this.m_CurrentTask.nextTask);
@@ -80,6 +91,8 @@ namespace SimpleGameMusic {
 		public virtual CTask GetCurrentTask() {
 			return this.m_CurrentTask;
 		}
+
+		#endregion
 
 	}
 

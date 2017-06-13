@@ -5,13 +5,23 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CIntroTask : CSimpleTask {
 
+		#region Properties
+
 		private float m_Timer = 3f;
+
+		#endregion
+
+		#region Constructor
 
 		public CIntroTask () : base ()
 		{
 			this.taskName = "Intro";
 			this.nextTask = "LoadingTask";
 		}
+
+		#endregion
+
+		#region Implementation Task
 
 		public override void UpdateTask (float dt)
 		{
@@ -23,8 +33,11 @@ namespace SimpleGameMusic {
 				if (this.OnCompleteTask != null) {
 					this.OnCompleteTask ();
 				}
+				this.m_Timer = float.MaxValue;
 			}
 		}
+
+		#endregion
 		
 	}
 }

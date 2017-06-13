@@ -8,24 +8,32 @@ using SimpleSingleton;
 namespace SimpleGameMusic {
 	public class CUIManager : CMonoSingleton<CUIManager> {
 
+		#region Properties
+
 		[Header("Root node")]
 		[SerializeField]	private GameObject m_RootNode;
 
 		[Header("Player info")]
 		[SerializeField]	private Text m_ScoreText;
 
+		#endregion
+
+		#region Implementation MonoBehavious
+
 		protected override void Awake ()
 		{
 			base.Awake ();
 		}
 
-		protected virtual void Start() {
-		
-		}
+		#endregion
+
+		#region Main methods
 
 		public void SetPlayerScore(string value) {
 			this.m_ScoreText.text = "Score: " + value;
 		}
+
+		#endregion
 
 	}
 }

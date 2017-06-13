@@ -7,11 +7,17 @@ using UnityEngine;
 namespace SimpleGameMusic {
 	public class CDownloadResourceManager {
 
+		#region Properties
+
 		private int m_Version = 1;
 		private string m_ResourceUrl = "https://google.com.vn";
 		private string m_ResourceName = "AssetBundles.bin";
 		private string m_StorePath;
 		private WWW m_WWW;
+
+		#endregion
+
+		#region Constructor
 
 		public CDownloadResourceManager (int version, string assetUrl)
 		{
@@ -26,6 +32,10 @@ namespace SimpleGameMusic {
 				Directory.CreateDirectory (this.m_StorePath);
 			}
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public void LoadResource(Action complete, Action<string> error, Action<float> process) {
 			this.LoadResource (this.m_ResourceUrl, complete, error, process);
@@ -121,6 +131,8 @@ namespace SimpleGameMusic {
 			}
 			yield return null;
 		}
-		
+
+		#endregion
+
 	}
 }

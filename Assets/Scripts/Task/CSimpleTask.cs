@@ -7,16 +7,15 @@ using UnityEngine.SceneManagement;
 namespace SimpleGameMusic {
 	public class CSimpleTask : CTask {
 
+		#region Constructor
+
 		public CSimpleTask () : base ()
 		{
 			this.taskName = string.Empty;
 			this.nextTask = string.Empty;
 		}
 
-		public override void Transmission ()
-		{
-			base.Transmission ();
-		}
+		#endregion
 		
 	}
 }
