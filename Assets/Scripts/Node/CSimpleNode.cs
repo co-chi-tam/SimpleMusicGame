@@ -111,8 +111,11 @@ namespace SimpleGameMusic {
 
 		public virtual void Reset() {
 			this.m_Processing = false;
-			this.m_Animator.speed = 1f;
 			this.m_NodeText.text = string.Empty;
+		}
+
+		public virtual void DefaultSpeed() {
+			this.m_Animator.speed = 1f;
 		}
 
 		public virtual void StartAnimation(string name) {
@@ -136,7 +139,7 @@ namespace SimpleGameMusic {
 				// TODO
 				break;
 			case "Active":
-				// TODO
+				this.DefaultSpeed ();
 				break;
 			case "Deactive":
 				this.OnDeactive.Invoke ();

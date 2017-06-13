@@ -9,7 +9,7 @@ namespace SimpleGameMusic {
 
 		public CLocalSettingTask (): base () {
 			this.taskName = "LocalSetting";
-			this.nextTask = "SelectGame";
+			this.nextTask = "Tutorial";
 		}
 
 		#endregion

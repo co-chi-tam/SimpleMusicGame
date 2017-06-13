@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SimpleSingleton;
@@ -89,7 +90,8 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 	public IEnumerator LoadSceneAsync(string sceneName) {
 		this.OnFadeInScreen ();
 		yield return WaitHelper.WaitForShortSeconds;
-		yield return SceneManager.LoadSceneAsync (sceneName);
+		var sceneNameWithoutExtension = Path.GetFileNameWithoutExtension (sceneName);
+		yield return SceneManager.LoadSceneAsync (sceneNameWithoutExtension);
 		this.OnFadeOutScreen ();
 	}
 

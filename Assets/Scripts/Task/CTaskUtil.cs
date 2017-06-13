@@ -32,7 +32,11 @@ namespace SimpleGameMusic {
 
 		public static string Translate(string code) {
 			var la = REFERENCES[LA_SETTING].ToString();
-			return (REFERENCES[CTaskUtil.LA] as Dictionary<string, Dictionary<string, string>>)[la][code];
+			var transDist = REFERENCES [CTaskUtil.LA] as Dictionary<string, Dictionary<string, string>>;
+			if (transDist.ContainsKey (la)) {
+				return transDist [la] [code];
+			}
+			return string.Empty;
 		}
 
 	}
