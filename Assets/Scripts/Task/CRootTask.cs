@@ -48,6 +48,11 @@ namespace SimpleGameMusic {
 			}
 		}
 
+		protected virtual void OnDestroy() {
+			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
+			PlayerPrefs.Save ();
+		}
+
 		#endregion
 
 		#region Main methods

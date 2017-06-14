@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using Pul;
 
 namespace SimpleGameMusic {
@@ -11,6 +13,8 @@ namespace SimpleGameMusic {
 		private CRequest m_Request;
 		private CDownloadResourceManager m_ResourceManager;
 		private CUILoading m_UILoading;
+
+		private long m_CurrentTime;
 
 		#endregion
 
@@ -30,6 +34,7 @@ namespace SimpleGameMusic {
 #else
 			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=android");
 #endif
+			this.m_CurrentTime = DateTime.Now.Ticks;
 		}
 
 		#endregion
@@ -45,6 +50,7 @@ namespace SimpleGameMusic {
 				var version 		= int.Parse (json["version"].ToString());
 				var versionString	= json["versionString"].ToString();
 				var assetBundleUrl 	= json["assetBundleUrl"].ToString();
+				this.m_CurrentTime 	= DateTime.UtcNow.Ticks; // long.Parse (json["serverTime"].ToString());
 				this.m_ResourceManager = new CDownloadResourceManager (version, versionString, assetBundleUrl);
 				// COMPLETE
 				this.DownloadResource();
@@ -134,8 +140,15 @@ namespace SimpleGameMusic {
 			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
 			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
 			// User energy display
-			var userEnergy = PlayerPrefs.GetInt (CTaskUtil.USER_ENERGY, 10);
-			CTaskUtil.REFERENCES [CTaskUtil.USER_ENERGY] = userEnergy; 
+			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, 10);
+			var saveTimer = long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
+			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy; 
+			playerEnergy.currentEnergy 	= currentEnergy;
+			playerEnergy.maxEnergy 		= 10;
+			playerEnergy.currentTimer 	= this.m_CurrentTime;
+			playerEnergy.saveTimer 		= saveTimer;
+			playerEnergy.StartCounting ();
+			playerEnergy.CalculateEnergy ();
 		}
 
 		#endregion

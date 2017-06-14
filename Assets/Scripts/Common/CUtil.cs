@@ -15,5 +15,15 @@ namespace SimpleGameMusic {
 			return v2;
 		}
 
+		public static long ToTicks(this long value) {
+			var ticks = ((value * 10000) + 621355968000000000);
+			return ticks;
+		}
+
+		public static long ToTimer(this long value) {
+			var timer = (value - 621355968000000000) / 10000;
+			return timer;
+		}
+
 	}
 }

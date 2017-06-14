@@ -34,7 +34,6 @@ namespace SimpleGameMusic {
 			if (Directory.Exists (this.m_StorePath) == false) {
 				Directory.CreateDirectory (this.m_StorePath);
 			}
-			Debug.Log (this.m_StorePath);
 		}
 
 		#endregion
