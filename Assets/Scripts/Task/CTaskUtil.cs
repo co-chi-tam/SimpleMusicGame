@@ -16,6 +16,8 @@ namespace SimpleGameMusic {
 		public static string LA_SETTING 				= "LANGUAGE_SETTING";
 		public static string GAME_FIRST_LAUNCH 			= "GAME_FIRST_LAUNCH";
 		public static string GAME_RESOURCE_COMPLETED	= "GAME_RESOURCE_COMPLETED";
+		public static string USER_ENERGY 				= "USER_ENERGY";
+		public static string USER_ENEGY_RELOAD 			= "USER_ENEGY_RELOAD";
 
 		public static Dictionary<string, object> REFERENCES = new Dictionary<string, object> () { 
 			{ HOST, "http://tamco-tinygame.rhcloud.com" },
@@ -27,7 +29,9 @@ namespace SimpleGameMusic {
 			{ LA_DISPLAY, new List<CLanguageData>() },
 			{ LA_SETTING, "EN" },
 			{ GAME_FIRST_LAUNCH, false },
-			{ GAME_RESOURCE_COMPLETED, false }
+			{ GAME_RESOURCE_COMPLETED, false },
+			{ USER_ENERGY, 10 },
+			{ USER_ENEGY_RELOAD, 0 }
 		};
 
 		public static string Translate(string code) {

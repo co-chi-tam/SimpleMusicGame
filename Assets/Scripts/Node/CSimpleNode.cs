@@ -102,6 +102,7 @@ namespace SimpleGameMusic {
 			this.m_Processing = false;
 			this.m_NodeText.text = string.Empty;
 			this.CheckNodeValue ();
+			this.DefaultSpeed ();
 		}
 
 		public virtual void Processing() {

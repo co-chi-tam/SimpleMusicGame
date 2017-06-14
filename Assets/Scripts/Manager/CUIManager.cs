@@ -29,6 +29,10 @@ namespace SimpleGameMusic {
 
 		#region Main methods
 
+		public void PreviousTask() {
+			CRootTask.GetInstance ().PreviousTask ();
+		}
+
 		public void SetPlayerScore(string value) {
 			this.m_ScoreText.text = "Score: " + value;
 		}

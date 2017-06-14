@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace SimpleGameMusic {
@@ -19,7 +20,7 @@ namespace SimpleGameMusic {
 
 		public CAssetBundleManager ()
 		{
-			 
+			
 		}
 
 		#endregion
@@ -43,8 +44,6 @@ namespace SimpleGameMusic {
 
 		public static T LoadResourceOrBundle<T>(string name, bool cached = false) where T : UnityEngine.Object {
 			T resource = default(T);
-			if (currentAssetBundle == null)
-				return resource;
 			if (assetCached.ContainsKey (name) && cached == true) {
 				return assetCached [name] as T;
 			}
@@ -61,6 +60,23 @@ namespace SimpleGameMusic {
 				assetCached [name] = resource;
 			}
 			return resource;
+		}
+
+		public static void Unload(bool value) {
+			if (currentAssetBundle != null) {
+				currentAssetBundle.Unload (value);
+			}
+		}
+
+		private byte[] Combine(params byte[][] arrays)
+		{
+			byte[] rv = new byte[arrays.Sum(a => a.Length)];
+			int offset = 0;
+			foreach (byte[] array in arrays) {
+				System.Buffer.BlockCopy(array, 0, rv, offset, array.Length);
+				offset += array.Length;
+			}
+			return rv;
 		}
 
 		#endregion

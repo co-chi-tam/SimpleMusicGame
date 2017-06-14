@@ -10,27 +10,31 @@ namespace SimpleGameMusic {
 		#region Properties
 
 		private int m_Version = 1;
+		private string m_VersionString = "v.1";
 		private string m_ResourceUrl = "https://google.com.vn";
 		private string m_ResourceName = "AssetBundles.bin";
 		private string m_StorePath;
+
 		private WWW m_WWW;
 
 		#endregion
 
 		#region Constructor
 
-		public CDownloadResourceManager (int version, string assetUrl)
+		public CDownloadResourceManager (int version, string versionString, string assetUrl)
 		{
 			this.m_Version = version;
+			this.m_VersionString = versionString;
 			this.m_ResourceUrl = assetUrl;
 #if UNITY_EDITOR
-			this.m_StorePath = Application.dataPath + "/AssetBundles/v" + m_Version + "/";
+			this.m_StorePath = Application.dataPath + "/AssetBundles/" + m_VersionString + "/";
 #else
-			this.m_StorePath = Application.persistentDataPath + "/AssetBundles/v" + m_Version + "/";
+			this.m_StorePath = Application.persistentDataPath + "/AssetBundles/" + m_VersionString + "/";
 #endif
 			if (Directory.Exists (this.m_StorePath) == false) {
 				Directory.CreateDirectory (this.m_StorePath);
 			}
+			Debug.Log (this.m_StorePath);
 		}
 
 		#endregion
@@ -52,7 +56,7 @@ namespace SimpleGameMusic {
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
 			if (Application.internetReachability != NetworkReachability.NotReachable) {
-				var fullPath = this.m_StorePath + this.m_ResourceName;
+				var fullPath = Path.Combine (this.m_StorePath, this.m_ResourceName);
 				if (File.Exists (fullPath) == false) {
 					yield return this.DownloadContent (url, fullPath, false, error, process);
 					yield return this.SaveDownloadContent (fullPath, complete, error);

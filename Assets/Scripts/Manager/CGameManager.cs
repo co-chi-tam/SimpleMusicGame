@@ -61,13 +61,9 @@ namespace SimpleGameMusic {
 			var currentTask = this.root.GetCurrentTask ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
-					this.m_AudioSource.clip = this.m_AudioClip;
-					this.m_RootBackgroundImage.sprite = this.m_AudioBackground;
-					this.m_AudioSource.Play ();	
-					this.m_ListNodeData = CSVUtil.ToObject<CNodeData> (this.m_AudioTextAsset.text);
-					this.m_IsAssetsAlready = true;
+					this.StartGame();
 				}, () => {
-					this.m_IsAssetsAlready = false;
+					this.EndGame();
 					throw new Exception ("ERROR: Can not load assets.");	
 				}));
 			}
@@ -86,9 +82,21 @@ namespace SimpleGameMusic {
 			}
 		}
 
+		protected virtual void OnDestroy() {
+			
+		}
+
 		#endregion
 
-		#region Main methods
+		#region Game State
+
+		protected virtual void StartGame() {
+			this.m_AudioSource.clip = this.m_AudioClip;
+			this.m_RootBackgroundImage.sprite = this.m_AudioBackground;
+			this.m_AudioSource.Play ();	
+			this.m_ListNodeData = CSVUtil.ToObject<CNodeData> (this.m_AudioTextAsset.text);
+			this.m_IsAssetsAlready = true;
+		}
 
 		protected virtual void UpdateGame() {
 			this.m_IsPlaying = true;
@@ -110,6 +118,14 @@ namespace SimpleGameMusic {
 				step--;
 			}
 		}
+
+		protected virtual void EndGame() {
+			this.m_IsAssetsAlready = false;
+		}
+
+		#endregion
+
+		#region Main methods
 
 		protected virtual void SetUpNode(INode node) {
 			node.GetTransform().SetParent (this.m_RootNodes.transform);
@@ -134,7 +150,6 @@ namespace SimpleGameMusic {
 					var totalScore = (int) (score * simpleNode.GetValue());
 					this.m_PlayerScore += totalScore;
 					this.m_UIManager.SetPlayerScore (this.m_PlayerScore.ToString());
-					// TEST
 					Destroy (simpleNode.gameObject);
 				});
 			}

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 686603447
+CRC: 3853665854
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a5acab842ae5b2876ba8327fa00d6453
+    Hash: 32e3e786304cd62615476c64b468186b
   TypeTreeHash:
     serializedVersion: 2
     Hash: f6e8f19b453c1f91809e03df6b489d90
@@ -69,6 +69,7 @@ Assets:
 - Assets/ImportAssetBundles/v1/Sounds/Co-Em-Cho.mp3
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Deactive.anim
 - Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Active.anim
+- Assets/ImportAssetBundles/v2/BG.jpg
 - Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Idle.anim
 - Assets/ImportAssetBundles/v1/Backgrounds/Co-Em-Cho.jpg
 - Assets/ImportAssetBundles/v1/Data/Yeu-5.csv

@@ -43,13 +43,17 @@ namespace SimpleGameMusic {
 			this.m_Request.Get ((result) => {
 				var json 			= result.ToJSONObject();
 				var version 		= int.Parse (json["version"].ToString());
+				var versionString	= json["versionString"].ToString();
 				var assetBundleUrl 	= json["assetBundleUrl"].ToString();
-				this.m_ResourceManager = new CDownloadResourceManager (version, assetBundleUrl);
+				this.m_ResourceManager = new CDownloadResourceManager (version, versionString, assetBundleUrl);
+				// COMPLETE
 				this.DownloadResource();
 				// UPDATE REFERENCES
 				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = version;
 			}, (error) => {
 				CLog.LogError (error);
+				// FAIL
+				this.OnTaskFail();
 			}, null);
 		}
 
@@ -126,8 +130,12 @@ namespace SimpleGameMusic {
 		}
 
 		private void LoadSetting() {
+			// Language setting
 			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
 			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
+			// User energy display
+			var userEnergy = PlayerPrefs.GetInt (CTaskUtil.USER_ENERGY, 10);
+			CTaskUtil.REFERENCES [CTaskUtil.USER_ENERGY] = userEnergy; 
 		}
 
 		#endregion

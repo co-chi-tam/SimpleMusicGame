@@ -21,12 +21,17 @@ namespace SimpleGameMusic {
 		public override void StartTask ()
 		{
 			base.StartTask ();
-			var listSong = CTaskUtil.REFERENCES [CTaskUtil.LIST_SONG] as List<CSongData>;
-			if (listSong != null) {
-				CUISelectGame.Instance.LoadListSong (listSong);
+			var listSongs = CTaskUtil.REFERENCES [CTaskUtil.LIST_SONG] as List<CSongData>;
+			if (listSongs != null) {
+				CUISelectGame.Instance.LoadCategories (listSongs);
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}
+		}
+
+		public override void UpdateTask (float dt)
+		{
+			base.UpdateTask (dt);
 		}
 
 		public override void EndTask ()

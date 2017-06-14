@@ -33,11 +33,10 @@ namespace SimpleGameMusic {
 		{
 			// First load
 			this.m_CurrentTask.Transmission ();
-			this.m_PreviousTask = this.m_CurrentTaskName;
+			this.m_PreviousTask = this.m_CurrentTask.GetTaskName();
 			this.SetupTask();
 			// Other load
 			CSceneManager.Instance.activeSceneChanged += (Scene oldScene, Scene currentScene) => {
-				this.m_PreviousTask = oldScene.name;
 				this.SetupTask();
 			};
 		}
@@ -69,6 +68,7 @@ namespace SimpleGameMusic {
 		}
 
 		private void TransmissionTask(string taskName) {
+			this.m_PreviousTask = this.m_CurrentTask.GetTaskName();
 			this.m_CurrentTask.EndTask ();
 			this.m_CurrentTask = this.m_MapTask.GetTask (taskName);
 			if (this.m_CurrentTask != null) {
