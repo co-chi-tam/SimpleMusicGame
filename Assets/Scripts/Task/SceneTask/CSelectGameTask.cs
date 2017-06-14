@@ -83,7 +83,8 @@ namespace SimpleGameMusic {
 			}
 			this.m_PlayerEnergy.OnUpdateEnergy = null;
 			this.m_PlayerEnergy.OnUpdate = null;
-			this.m_PlayerEnergy.currentEnergy -= 1;
+			var currentEnegy = this.m_PlayerEnergy.currentEnergy;
+			this.m_PlayerEnergy.currentEnergy = currentEnegy - 1 <= 0 ? 0 : currentEnegy - 1;
 			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, this.m_PlayerEnergy.currentEnergy);
 			PlayerPrefs.Save ();
 		}

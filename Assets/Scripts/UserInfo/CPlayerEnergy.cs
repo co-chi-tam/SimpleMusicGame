@@ -57,7 +57,7 @@ namespace SimpleGameMusic {
 				if (this.m_PerOneUpdate <= 0f) {
 					this.m_PerOneUpdate = this.timePerEnergy;
 					var energy = this.currentEnergy + 1;
-					this.currentEnergy = energy >= this.maxEnergy ? this.maxEnergy : energy;
+					this.SetEnergy (energy);
 					if (this.OnUpdateEnergy != null) {
 						this.OnUpdateEnergy ();
 					}
@@ -69,7 +69,11 @@ namespace SimpleGameMusic {
 			var lostTime = this.currentTimer - this.saveTimer;
 			var result = lostTime / (this.timePerEnergy * 1000f * 1000f) / 10f;
 			var energy = this.currentEnergy + (result >= 1f ? 1 : 0);
-			this.currentEnergy = energy >= this.maxEnergy ? this.maxEnergy : energy;
+			this.SetEnergy (energy);
+		}
+
+		public void SetEnergy(int value) {
+			this.currentEnergy = value <= 0 ? 0 : value >= this.maxEnergy ? this.maxEnergy : value;
 		}
 
 		public override string ToString ()
