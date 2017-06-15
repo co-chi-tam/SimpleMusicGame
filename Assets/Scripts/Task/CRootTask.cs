@@ -49,8 +49,26 @@ namespace SimpleGameMusic {
 		}
 
 		protected virtual void OnDestroy() {
+			
+		}
+
+		protected virtual void OnApplicationQuit() {
 			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
 			PlayerPrefs.Save ();
+		}
+
+		protected virtual void OnApplicationPause(bool value) {
+			if (value) {
+				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
+				PlayerPrefs.Save ();
+			}
+		}
+
+		protected virtual void OnApplicationFocus(bool value) {
+			if (value == false) {
+				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
+				PlayerPrefs.Save ();
+			}
 		}
 
 		#endregion

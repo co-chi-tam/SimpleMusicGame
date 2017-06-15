@@ -22,7 +22,7 @@ namespace SimpleGameMusic {
 		{
 			this.currentEnergy 	= 10;
 			this.maxEnergy 		= 10;
-			this.timePerEnergy 	= 60 * 1f; // 15 Minute
+			this.timePerEnergy 	= 60 * 15f; // 15 Minute
 			this.currentTimer	= DateTime.UtcNow.Ticks;
 			this.saveTimer 		= DateTime.UtcNow.Ticks;
 			this.m_PerOneUpdate = this.timePerEnergy;
@@ -41,9 +41,9 @@ namespace SimpleGameMusic {
 			CHandleEvent.Instance.AddEvent (this.HandleUpdateCounting(Time.fixedDeltaTime), null);
 			this.m_StartCouting = true;
 			var lostTime = this.currentTimer - this.saveTimer;
-			var result = lostTime / (this.timePerEnergy * 1000f * 1000f) / 10f;
-			var reUpdateTime = result - (float)Math.Truncate (result);
-			this.m_PerOneUpdate = this.timePerEnergy * reUpdateTime;
+			var result = lostTime / TimeSpan.TicksPerSecond / this.timePerEnergy;
+			var truncateResult = (float) Math.Truncate (result);
+			this.m_PerOneUpdate = this.timePerEnergy * truncateResult;
 		}
 
 		public IEnumerator HandleUpdateCounting(float fdt) {
@@ -68,7 +68,7 @@ namespace SimpleGameMusic {
 		public void CalculateEnergy() {
 			var lostTime = this.currentTimer - this.saveTimer;
 			var result = lostTime / (this.timePerEnergy * 1000f * 1000f) / 10f;
-			var energy = this.currentEnergy + (result >= 1f ? 1 : 0);
+			var energy = (int) (this.currentEnergy + result);
 			this.SetEnergy (energy);
 		}
 

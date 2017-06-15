@@ -57,6 +57,10 @@ namespace SimpleGameMusic {
 			this.m_IsCompleteTask = false;
 		}
 
+		public virtual void SaveTask() {
+		
+		}
+
 		public virtual void OnSceneLoading() {
 
 		}
