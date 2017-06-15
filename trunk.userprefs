@@ -2,9 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UserInfo\CPlayerEnergy.cs">
     <Files>
-      <File FileName="Assets\Scripts\Task\SceneTask\CSelectGameTask.cs" Line="87" Column="31" />
-      <File FileName="Assets\Scripts\Task\SceneTask\CLoadingResourceTask.cs" Line="151" Column="36" />
-      <File FileName="Assets\Scripts\UserInfo\CPlayerEnergy.cs" Line="25" Column="33" />
+      <File FileName="Assets\Scripts\Task\CRootTask.cs" Line="69" Column="53" />
+      <File FileName="Assets\Scripts\Task\CTask.cs" Line="61" Column="3" />
+      <File FileName="Assets\Scripts\Task\ITask.cs" Line="10" Column="23" />
+      <File FileName="Assets\Scripts\UserInfo\CPlayerEnergy.cs" Line="45" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
