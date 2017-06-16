@@ -8,7 +8,7 @@ using SimpleSingleton;
 using UICustom;
 
 namespace SimpleGameMusic {
-	public class CUISelectGame : CMonoSingleton<CUISelectGame> {
+	public class CUISelectSong : CMonoSingleton<CUISelectSong> {
 
 		#region Properties
 
@@ -18,7 +18,7 @@ namespace SimpleGameMusic {
 
 		[Header ("Song")]
 		[SerializeField]	private GameObject m_GroupSongs;
-		[SerializeField]	private CButton m_SongPrefabButton;
+		[SerializeField]	private CUISongItem m_SongPrefabButton;
 
 		[Header ("User info")]
 		[SerializeField]	private Text m_EnergyDisplayText;
@@ -53,7 +53,7 @@ namespace SimpleGameMusic {
 			this.m_EnergyReloadTimeText.text = value;
 		}
 
-		public void LoadCategories(List<CSongData> songs) {
+		public void LoadListCategories(List<CSongData> songs) {
 			DestroyAllChild (m_GroupCategories);
 			for (int i = 0; i < songs.Count; i++) {
 				var songData = songs [i];
@@ -73,16 +73,17 @@ namespace SimpleGameMusic {
 				});
 			}
 			this.m_CategoryPrefabButton.gameObject.SetActive (false);
-			this.LoadSongs (m_CategoryDictionary[m_CategoryDictionary.Keys.ToList()[0]]);
+			this.LoadListSongs (m_CategoryDictionary[m_CategoryDictionary.Keys.ToList()[0]]);
 		}
 
-		public void LoadSongs(List<CSongData> songs) {
+		public void LoadListSongs(List<CSongData> songs) {
 			DestroyAllChild (m_GroupSongs);
 			for (int i = 0; i < songs.Count; i++) {
 				var songData = songs [i];
-				var optionButton = Instantiate<CButton> (m_SongPrefabButton);
-				this.SetupButton (optionButton, this.m_GroupSongs, songData.displaySongName, () => {
-					SelectSong(songData.songName);
+				var optionButton = Instantiate<CUISongItem> (m_SongPrefabButton);
+				var bgSprite = CAssetBundleManager.LoadResourceOrBundle<Sprite> (songData.songName);
+				this.SetupSongItem (optionButton, this.m_GroupSongs, songData.displaySongName, bgSprite, songData.hardPoint, () => {
+					this.SelectSong(songData);
 				});
 			}
 			this.m_SongPrefabButton.gameObject.SetActive (false);
@@ -91,13 +92,19 @@ namespace SimpleGameMusic {
 		public void SelectCategory(string name) {
 			if (m_CategoryDictionary.ContainsKey (name)) {
 				var listSongs = m_CategoryDictionary[name];
-				LoadSongs (listSongs);
+				LoadListSongs (listSongs);
 			} 
 		}
 
-		public void SelectSong(string name) {
-			CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] = name;
+		public void SelectSong(CSongData song) {
+			CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] = song;
 			this.m_RootTask.GetCurrentTask ().OnTaskCompleted ();
+		}
+
+		private void SetupSongItem(CUISongItem item, GameObject parent, string text, Sprite bg, int hardPoint, Action submit) {
+			item.transform.SetParent (parent.transform);
+			item.gameObject.SetActive (true);
+			item.SetUpSongItem (text, bg, hardPoint, submit);
 		}
 
 		private void SetupButton(CButton button, GameObject parent, string text, Action submit) {

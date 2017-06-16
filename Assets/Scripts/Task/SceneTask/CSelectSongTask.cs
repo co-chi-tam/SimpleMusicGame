@@ -5,20 +5,20 @@ using UnityEngine.Advertisements;
 using Pul;
 
 namespace SimpleGameMusic {
-	public class CSelectGameTask : CSimpleTask {
+	public class CSelectSongTask : CSimpleTask {
 
 		#region Properties
 
-		private CUISelectGame m_UISelectGame;
+		private CUISelectSong m_UISelectGame;
 		private CPlayerEnergy m_PlayerEnergy;
 
 		#endregion
 
 		#region Constructor
 
-		public CSelectGameTask () : base ()
+		public CSelectSongTask () : base ()
 		{
-			this.taskName = "SelectGame";
+			this.taskName = "SelectSong";
 			this.nextTask = "PlayGame";
 		}
 
@@ -29,21 +29,21 @@ namespace SimpleGameMusic {
 		public override void StartTask ()
 		{
 			base.StartTask ();
-			this.m_UISelectGame = CUISelectGame.GetInstance ();
+			this.m_UISelectGame = CUISelectSong.GetInstance ();
 			this.m_PlayerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy; 
 
 			var listSongs = CTaskUtil.REFERENCES [CTaskUtil.LIST_SONG] as List<CSongData>;
 			if (listSongs != null) {
-				this.m_UISelectGame.LoadCategories (listSongs);
+				this.m_UISelectGame.LoadListSongs (listSongs);
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}
-			this.m_UISelectGame.SetEnergyDisplayText (this.m_PlayerEnergy.ToString());
+			var energyText = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);
+			this.m_UISelectGame.SetEnergyDisplayText (energyText);
 			this.m_PlayerEnergy.OnUpdateEnergy = null;
 			this.m_PlayerEnergy.OnUpdateEnergy += () => {
-				this.m_UISelectGame.SetEnergyDisplayText (this.m_PlayerEnergy.ToString());
-				PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, this.m_PlayerEnergy.currentEnergy);
-				PlayerPrefs.Save ();
+				var energyText2 = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);
+				this.m_UISelectGame.SetEnergyDisplayText (energyText2);
 			};
 			this.m_PlayerEnergy.OnUpdate = null;
 			this.m_PlayerEnergy.OnUpdate += (timeUpdate) => {
@@ -55,7 +55,9 @@ namespace SimpleGameMusic {
 
 		public override void OnTaskCompleted ()
 		{
-			if (this.m_PlayerEnergy.currentEnergy > 0) {
+			var selectedSong = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] as CSongData;
+			if (this.m_PlayerEnergy.currentEnergy > 0 
+				&& this.m_PlayerEnergy.currentEnergy >= selectedSong.hardPoint) {
 				base.OnTaskCompleted ();
 			} else {
 				if (Advertisement.IsReady("rewardedVideo"))
@@ -69,24 +71,15 @@ namespace SimpleGameMusic {
 		public override void EndTask ()
 		{
 			base.EndTask ();
-			var listSong = CTaskUtil.REFERENCES [CTaskUtil.LIST_SONG] as List<CSongData>;
-			var name = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG].ToString();
-			if (listSong != null) {
-				for (int i = 0; i < listSong.Count; i++) {
-					if (listSong [i].songName.Equals (name)) {
-						CTaskUtil.REFERENCES [CTaskUtil.DATA_SONG] = listSong [i];
-						break;
-					}
-				}
+			var selectedSong = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] as CSongData;
+			if (selectedSong != null) {
+				var currentEnergy = this.m_PlayerEnergy.currentEnergy - selectedSong.hardPoint;
+				this.m_PlayerEnergy.SetEnergy (currentEnergy);
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}
 			this.m_PlayerEnergy.OnUpdateEnergy = null;
 			this.m_PlayerEnergy.OnUpdate = null;
-			var currentEnegy = this.m_PlayerEnergy.currentEnergy;
-			this.m_PlayerEnergy.currentEnergy = currentEnegy - 1 <= 0 ? 0 : currentEnegy - 1;
-			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, this.m_PlayerEnergy.currentEnergy);
-			PlayerPrefs.Save ();
 		}
 
 		#endregion

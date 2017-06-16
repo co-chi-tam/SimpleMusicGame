@@ -16,9 +16,6 @@ namespace SimpleGameMusic {
 		[Header ("Audio")]
 		[SerializeField]	protected AudioSource m_AudioSource;
 
-		[Header ("Button")]
-		[SerializeField]	protected CButton m_NodeButton;
-
 		[Header ("Text")]
 		[SerializeField]	protected Text m_NodeText;
 
@@ -34,15 +31,12 @@ namespace SimpleGameMusic {
 		public UnityEvent OnActive;
 		public UnityEvent OnDeactive;
 		public UnityEvent OnPress;
-		public UnityEvent OnStartHold;
-		public UnityEvent OnEndHold;
 		public UnityEvent OnLeave;
 
 		protected RectTransform m_RectTransform;
 		protected bool m_Active = false;
 		protected bool m_Processing = false;
 		protected bool m_Complete = false;
-		protected float m_HoldingValue = 0f;
 
 		#endregion
 
@@ -65,7 +59,7 @@ namespace SimpleGameMusic {
 		{
 			base.LateUpdate ();
 			if (this.m_Processing) {
-				var deltaValue = Time.deltaTime / m_Scale;
+				var deltaValue = Time.deltaTime / this.m_Scale;
 				m_Value += deltaValue;
 			}
 		}
@@ -75,16 +69,19 @@ namespace SimpleGameMusic {
 		#region Main methods
 
 		public virtual void OnPressNode() {
-			this.m_HoldingValue = this.m_Value;
 			this.OnPress.Invoke ();
 		}
 
 		public virtual void OnHoldNode() {
-			this.OnStartHold.Invoke ();
+			
 		}
 
 		public virtual void OnLeaveNode() {
 			this.OnLeave.Invoke ();
+		}
+
+		public virtual void OnSlideEndNode() {
+		
 		}
 
 		public virtual void PlayAudio() {
@@ -129,6 +126,7 @@ namespace SimpleGameMusic {
 				this.Processing ();
 				break;
 			case "Deactive":
+				this.m_Processing = false;
 				this.CheckNodeValue ();
 				break;
 			}

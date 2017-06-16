@@ -14,7 +14,13 @@ public class CRequest {
 	}
 
 	public void Get (Action<CResult> complete, Action<string> error, Action<float> process) {
+#if TEST_ERROR
+		if (error != null) {
+			error("ERROR: TEST_ERROR...");
+		}
+#else
 		CHandleEvent.Instance.AddEvent (this.HandleGet (complete, error, process), null);
+#endif
 	}
 
 	public IEnumerator HandleGet(Action<CResult> complete, Action<string> error, Action<float> process) {

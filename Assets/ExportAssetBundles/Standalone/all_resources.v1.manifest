@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3853665854
+CRC: 659338404
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 32e3e786304cd62615476c64b468186b
+    Hash: 13ebd45b1e75e8c21a71c8ecfb83dd4b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f6e8f19b453c1f91809e03df6b489d90
+    Hash: b0463d6ea877aa78feca5550952a246c
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -30,17 +30,21 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: b39183b0fd16d914f9db4955268499e3, type: 3}
-- Class: 114
-  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-- Class: 114
   Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 - Class: 114
   Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 92cdaa0a2aaed02468243a29127f3ccf, type: 3}
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 069401538e5daa14d8f3f4f8bff234a7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3fb4cc4656b3a4842b96277160c1c519, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 49da895c0bbc57d4caf60aaea42d9c91, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 92cdaa0a2aaed02468243a29127f3ccf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b39183b0fd16d914f9db4955268499e3, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -54,26 +58,30 @@ ClassTypes:
 - Class: 225
   Script: {instanceID: 0}
 Assets:
-- Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/HoldNodeAnimatorController.controller
-- Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Deactive.anim
-- Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
-- Assets/ImportAssetBundles/v1/Language/la_Path.csv
-- Assets/ImportAssetBundles/v1/Sounds/Yeu-5.mp3
-- Assets/ImportAssetBundles/v1/Data/List-song.csv
-- Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Idle.anim
-- Assets/ImportAssetBundles/v1/Node/SimpleNode/SimpleNode.prefab
-- Assets/ImportAssetBundles/v1/Data/Co-Em-Cho.csv
-- Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Active.anim
-- Assets/ImportAssetBundles/v1/Backgrounds/Yeu-5.jpg
-- Assets/ImportAssetBundles/v1/Node/HoldNode/HoldNode.prefab
-- Assets/ImportAssetBundles/v1/Sounds/Co-Em-Cho.mp3
-- Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Deactive.anim
-- Assets/ImportAssetBundles/v1/Node/HoldNode/Animation/Active.anim
-- Assets/ImportAssetBundles/v2/BG.jpg
-- Assets/ImportAssetBundles/v1/Node/SimpleNode/Animation/Idle.anim
-- Assets/ImportAssetBundles/v1/Backgrounds/Co-Em-Cho.jpg
-- Assets/ImportAssetBundles/v1/Data/Yeu-5.csv
-- Assets/ImportAssetBundles/v1/Fonts/OldGateLaneNF.ttf
-- Assets/ImportAssetBundles/v1/Language/la_VN.csv
-- Assets/ImportAssetBundles/v1/Language/la_EN.csv
+- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/HoldNodeAnimatorController.controller
+- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
+- Assets/ImportAssetBundles/v.1/Node/SlideNode/SlideNode.prefab
+- Assets/ImportAssetBundles/v.1/Language/la_Path.csv
+- Assets/ImportAssetBundles/v.1/Sounds/Yeu-5.mp3
+- Assets/ImportAssetBundles/v.1/Data/List-song.csv
+- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/SlideNodeAnimatorController.controller
+- Assets/ImportAssetBundles/v.1/Node/SimpleNode/SimpleNode.prefab
+- Assets/ImportAssetBundles/v.1/Data/Co-Em-Cho.csv
+- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Active.anim
+- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Active.anim
+- Assets/ImportAssetBundles/v.1/Backgrounds/Yeu-5.jpg
+- Assets/ImportAssetBundles/v.1/Node/HoldNode/HoldNode.prefab
+- Assets/ImportAssetBundles/v.1/Sounds/Co-Em-Cho.mp3
+- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Active.anim
+- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/v.1/Backgrounds/Co-Em-Cho.jpg
+- Assets/ImportAssetBundles/v.1/Data/Yeu-5.csv
+- Assets/ImportAssetBundles/v.1/Fonts/OldGateLaneNF.ttf
+- Assets/ImportAssetBundles/v.1/Language/la_VN.csv
+- Assets/ImportAssetBundles/v.1/Language/la_EN.csv
 Dependencies: []

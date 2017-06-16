@@ -10,8 +10,9 @@ using Pul;
 namespace SimpleGameMusic {
 	
 	public enum ENodeType: int {
-		SimpleNode = 0,
-		HoldNode = 1
+		SimpleNode 	= 0,
+		HoldNode 	= 1,
+		SlideNode 	= 2
 	}
 
 	public class CGameManager : CMonoSingleton<CGameManager> {
@@ -31,7 +32,6 @@ namespace SimpleGameMusic {
 		private AudioClip m_AudioClip;
 		private TextAsset m_AudioTextAsset;
 		private Sprite m_AudioBackground;
-		private string[] m_PrefabNodes = new string[] {"SimpleNode", "HoldNode"};
 		private float m_WaitingTime = 2f;
 		private int m_NodeIndex = 0;
 		private int m_PreviousTime = -1;
@@ -56,8 +56,8 @@ namespace SimpleGameMusic {
 		protected virtual void Start() {
 			this.root = CRootTask.GetInstance ();
 			this.m_UIManager = CUIManager.GetInstance ();
-			this.m_AudioName = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG].ToString ();
-			this.m_SongData = CTaskUtil.REFERENCES [CTaskUtil.DATA_SONG] as CSongData;
+			this.m_SongData = CTaskUtil.REFERENCES [CTaskUtil.SELECTED_SONG] as CSongData;
+			this.m_AudioName = m_SongData.songName;
 			var currentTask = this.root.GetCurrentTask ();
 			if (string.IsNullOrEmpty (this.m_AudioName) == false) {
 				StartCoroutine (LoadAssetsAsyn (this.m_AudioName, () => {
@@ -105,11 +105,12 @@ namespace SimpleGameMusic {
 			while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
 				var currentNodeData = m_ListNodeData [m_NodeIndex];
 				if (audioTime == currentNodeData.audioTime && audioTime != m_PreviousTime) {
-					var node = SpawnNode (m_PrefabNodes [currentNodeData.nodeType]);
+					var nodeType = (ENodeType)currentNodeData.nodeType;
+					var node = SpawnNode (nodeType.ToString());
 					this.SetUpNode (node);
 					node.SetPosition2D (currentNodeData.nodePosition.ToVector2 ());
 					node.SetScale (currentNodeData.nodeScale);
-					node.SetNodeType ((ENodeType) currentNodeData.nodeType);
+					node.SetNodeType (nodeType);
 					m_NodeIndex++;
 				} else {
 					m_PreviousTime = audioTime;

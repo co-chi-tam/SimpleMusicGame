@@ -9,7 +9,7 @@ namespace SimpleGameMusic {
 
 		public CPlayGameTask () : base () {
 			this.taskName = "PlayGame";
-			this.nextTask = "SelectGame";
+			this.nextTask = "SelectSong";
 		}
 
 		#endregion

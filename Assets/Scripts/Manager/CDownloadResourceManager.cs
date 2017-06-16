@@ -41,16 +41,34 @@ namespace SimpleGameMusic {
 		#region Main methods
 
 		public void DownloadResource(Action complete, Action<string> error, Action<float> process) {
+#if TEST_ERROR
+			if (error != null) {
+				error("ERROR: TEST_ERROR...");
+			}
+#else
 			this.DownloadResource (this.m_ResourceUrl, complete, error, process);
+#endif
 		}
 
 		public void DownloadResource(string url, Action complete, Action<string> error, Action<float> process) {
+#if TEST_ERROR
+			if (error != null) {
+				error("ERROR: TEST_ERROR...");
+			}
+#else	
 			CHandleEvent.Instance.AddEvent (this.HandleLoadResource (url, complete, error, process), null);
+#endif
 		}
 
 		public void LoadLocalResource(Action complete, Action<string> error, Action<float> process) {
+#if TEST_ERROR
+			if (error != null) {
+				error("ERROR: TEST_ERROR...");
+			}
+#else
 			var fullPath = this.m_StorePath + this.m_ResourceName;
 			CHandleEvent.Instance.AddEvent (this.LoadLocalAsset (fullPath, complete, error, process), null);
+#endif
 		}
 
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {

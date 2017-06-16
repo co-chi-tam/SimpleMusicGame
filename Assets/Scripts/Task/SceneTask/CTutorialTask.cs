@@ -17,7 +17,7 @@ namespace SimpleGameMusic {
 		public CTutorialTask () : base ()
 		{
 			this.taskName = "Tutorial";
-			this.nextTask = "SelectGame";
+			this.nextTask = "SelectSong";
 		}
 
 		#endregion

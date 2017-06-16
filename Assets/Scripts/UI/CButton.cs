@@ -12,7 +12,6 @@ namespace UICustom {
 		[Header("Info")]
 		[SerializeField]	private Text m_ButtonDisplayText;
 
-		private Button m_Button;
 		private float m_PressingTime = 0f;
 		private bool m_IsPress = false;
 
@@ -20,10 +19,6 @@ namespace UICustom {
 		public UnityEvent OnPress;
 		public UnityEvent OnHold;
 		public UnityEvent OnLeave;
-
-		protected virtual void Awake() {
-			this.m_Button = this.GetComponent<Button> ();
-		}
 
 		protected virtual void LateUpdate() {
 			if (this.m_IsPress) {

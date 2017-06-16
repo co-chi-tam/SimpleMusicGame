@@ -68,7 +68,7 @@ namespace SimpleGameMusic {
 			}
 		}
 
-		private byte[] Combine(params byte[][] arrays)
+		private byte[] CombineByteArray(params byte[][] arrays)
 		{
 			byte[] rv = new byte[arrays.Sum(a => a.Length)];
 			int offset = 0;

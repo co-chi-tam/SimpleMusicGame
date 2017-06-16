@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
+using UICustom;
 
 namespace SimpleGameMusic {
 	public class CUILoading : CMonoSingleton<CUILoading> {
@@ -14,7 +15,7 @@ namespace SimpleGameMusic {
 		[SerializeField]	private Image m_LoadingImage;
 
 		[Header ("Control")]
-		[SerializeField]	private Button m_LoadLocalResourceButton;
+		[SerializeField]	private CButton m_RetryButton;
 
 		#endregion
 
@@ -30,7 +31,7 @@ namespace SimpleGameMusic {
 			this.m_LoadingImage.fillAmount = 0;
 
 			// Local load resource button
-			this.m_LoadLocalResourceButton.gameObject.SetActive (false);
+			this.m_RetryButton.gameObject.SetActive (false);
 		}
 
 		#endregion
@@ -41,10 +42,11 @@ namespace SimpleGameMusic {
 			this.m_LoadingImage.fillAmount = value;
 		}
 
-		public void ShowLocalResourceLoading(Action submit) {
-			this.m_LoadLocalResourceButton.gameObject.SetActive (true);
-			this.m_LoadLocalResourceButton.onClick.RemoveAllListeners ();
-			this.m_LoadLocalResourceButton.onClick.AddListener (() => {
+		public void ShowRetryButton(string text, Action submit) {
+			this.m_RetryButton.SetText (text);
+			this.m_RetryButton.gameObject.SetActive (true);
+			this.m_RetryButton.onClick.RemoveAllListeners ();
+			this.m_RetryButton.onClick.AddListener (() => {
 				if (submit != null) {
 					submit();
 				}	

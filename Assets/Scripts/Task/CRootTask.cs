@@ -53,22 +53,15 @@ namespace SimpleGameMusic {
 		}
 
 		protected virtual void OnApplicationQuit() {
-			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
-			PlayerPrefs.Save ();
+			this.SaveTask ();
 		}
 
 		protected virtual void OnApplicationPause(bool value) {
-			if (value) {
-				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
-				PlayerPrefs.Save ();
-			}
+			this.SaveTask ();
 		}
 
 		protected virtual void OnApplicationFocus(bool value) {
-			if (value == false) {
-				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, System.DateTime.UtcNow.Ticks.ToString());
-				PlayerPrefs.Save ();
-			}
+			this.SaveTask ();
 		}
 
 		#endregion
@@ -112,6 +105,15 @@ namespace SimpleGameMusic {
 
 		public virtual CTask GetCurrentTask() {
 			return this.m_CurrentTask;
+		}
+
+		private void SaveTask() {
+			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy;
+			playerEnergy.CalculateTimer ();
+			playerEnergy.CalculateEnergy ();
+			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, playerEnergy.currentEnergy);
+			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, playerEnergy.saveTimer.ToString());
+			PlayerPrefs.Save ();
 		}
 
 		#endregion

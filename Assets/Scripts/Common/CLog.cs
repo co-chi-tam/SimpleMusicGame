@@ -139,7 +139,7 @@ public class CLogGUI: MonoBehaviour {
 		}
 		GUILayout.EndScrollView ();
 		GUILayout.FlexibleSpace ();
-		if (GUILayout.Button ("Close")) {
+		if (GUILayout.Button ("Close", GUILayout.Height(50f))) {
 			m_NeedShowLog = false;
 		}
 	}

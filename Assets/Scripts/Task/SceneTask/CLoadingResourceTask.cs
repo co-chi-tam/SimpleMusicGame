@@ -15,6 +15,7 @@ namespace SimpleGameMusic {
 		private CUILoading m_UILoading;
 
 		private long m_CurrentTime;
+		private bool m_OnLoadingProcess;
 
 		#endregion
 
@@ -27,7 +28,7 @@ namespace SimpleGameMusic {
 			if (firstSetting == false) {
 				this.nextTask = "LocalSetting";
 			} else {
-				this.nextTask = "SelectGame";
+				this.nextTask = "SelectSong";
 			}
 #if UNITY_EDITOR
 			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=standalone");
@@ -35,6 +36,7 @@ namespace SimpleGameMusic {
 			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=android");
 #endif
 			this.m_CurrentTime = DateTime.Now.Ticks;
+			this.m_OnLoadingProcess = false;
 		}
 
 		#endregion
@@ -45,6 +47,32 @@ namespace SimpleGameMusic {
 		{
 			base.StartTask ();
 			this.m_UILoading = CUILoading.GetInstance ();
+			this.LoadVerionInfo ();
+		}
+
+		public override void OnTaskCompleted ()
+		{
+			base.OnTaskCompleted ();
+			this.LoadLanguageCode();
+			this.LoadSongList();
+			this.LoadSetting ();
+			this.m_OnLoadingProcess = false;
+		}
+
+		public override void OnTaskFail ()
+		{
+			base.OnTaskFail ();
+			this.m_UILoading.ShowRetryButton ("RETRY", this.LoadVerionInfo);
+		}
+
+		#endregion
+
+		#region Main methods
+
+		public void LoadVerionInfo() {
+			if (this.m_OnLoadingProcess == true)
+				return;
+			this.m_OnLoadingProcess = true;
 			this.m_Request.Get ((result) => {
 				var json 			= result.ToJSONObject();
 				var version 		= int.Parse (json["version"].ToString());
@@ -56,30 +84,14 @@ namespace SimpleGameMusic {
 				this.DownloadResource();
 				// UPDATE REFERENCES
 				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = version;
+				this.m_OnLoadingProcess = false;
 			}, (error) => {
 				CLog.LogError (error);
 				// FAIL
 				this.OnTaskFail();
+				this.m_OnLoadingProcess = false;
 			}, null);
 		}
-
-		public override void OnTaskCompleted ()
-		{
-			base.OnTaskCompleted ();
-			this.LoadLanguageCode();
-			this.LoadSongList();
-			this.LoadSetting ();
-		}
-
-		public override void OnTaskFail ()
-		{
-			base.OnTaskFail ();
-			this.m_UILoading.ShowLocalResourceLoading (this.LoadLocalResource);
-		}
-
-		#endregion
-
-		#region Main methods
 
 		public void DownloadResource() {
 			this.m_ResourceManager.DownloadResource (() => {
@@ -141,12 +153,15 @@ namespace SimpleGameMusic {
 			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
 			// User energy display
 			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, 10);
-			var saveTimer = long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
+			var saveTimer =  long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
+			var firstTimer = long.Parse (PlayerPrefs.GetString (CTaskUtil.GAME_FIRST_TIME, this.m_CurrentTime.ToString()));
 			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy; 
 			playerEnergy.currentEnergy 	= currentEnergy;
 			playerEnergy.maxEnergy 		= 10;
+			playerEnergy.incrementEnergy = 1;
 			playerEnergy.currentTimer 	= this.m_CurrentTime;
 			playerEnergy.saveTimer 		= saveTimer;
+			playerEnergy.firstTimer 	= firstTimer;
 			playerEnergy.StartCounting ();
 			playerEnergy.CalculateEnergy ();
 		}

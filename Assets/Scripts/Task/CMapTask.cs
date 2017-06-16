@@ -30,13 +30,22 @@ namespace SimpleGameMusic {
 			this.m_Map ["LoadingResource"] 	= new CLoadingResourceTask ();
 			this.m_Map ["LocalSetting"] 	= new CLocalSettingTask ();
 			this.m_Map ["Tutorial"] 		= new CTutorialTask ();
-			this.m_Map ["SelectGame"] 		= new CSelectGameTask ();
+			this.m_Map ["SelectSong"] 		= new CSelectSongTask ();
 			this.m_Map ["PlayGame"] 		= new CPlayGameTask ();
 		}
 
 		#endregion
 
 		#region Getter && Setter
+
+		public virtual string GetTaskName<T>() {
+			foreach (var item in this.m_Map) {
+				if (typeof(T).Equals (item.GetType ())) {
+					return item.Key;
+				}
+			}
+			return "NUNLL";
+		}
 
 		public virtual CTask GetFirstTask() {
 			var keys = this.m_Map.Keys.ToList();

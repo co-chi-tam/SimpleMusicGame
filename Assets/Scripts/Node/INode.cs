@@ -5,8 +5,11 @@ namespace SimpleGameMusic {
 	public interface INode {
 
 		void OnPressNode ();
+
 		void OnHoldNode ();
 		void OnLeaveNode ();
+
+		void OnSlideEndNode();
 
 		void PlayAudio ();
 
