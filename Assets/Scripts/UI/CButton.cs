@@ -5,15 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UICustom {
+namespace SimpleGameMusic.UICustom {
 	[RequireComponent (typeof (Image))]
-	public class CButton : Button {
+	public class CButton : Button, INodeObject {
 
 		[Header("Info")]
 		[SerializeField]	private Text m_ButtonDisplayText;
 
-		private float m_PressingTime = 0f;
-		private bool m_IsPress = false;
+		protected bool m_Active = false;
+		protected float m_PressingTime = 0f;
+		protected bool m_IsPress = false;
 
 		[Header("Event")]
 		public UnityEvent OnPress;
@@ -27,19 +28,6 @@ namespace UICustom {
 					this.OnHold.Invoke ();
 				}
 			}
-		}
-
-		public virtual void SetText(string value) {
-			if (this.m_ButtonDisplayText != null) {
-				this.m_ButtonDisplayText.text = value;
-			}
-		}
-
-		public virtual string GetText() {
-			if (this.m_ButtonDisplayText != null) {
-				return this.m_ButtonDisplayText.text;
-			}
-			return string.Empty;
 		}
 
 		public override void OnPointerDown (PointerEventData eventData)
@@ -56,6 +44,36 @@ namespace UICustom {
 			this.m_PressingTime = 0f;
 			this.m_IsPress = false;
 			this.OnLeave.Invoke ();
+		}
+
+		public virtual void SetText(string value) {
+			if (this.m_ButtonDisplayText != null) {
+				this.m_ButtonDisplayText.text = value;
+			}
+		}
+
+		public virtual string GetText() {
+			if (this.m_ButtonDisplayText != null) {
+				return this.m_ButtonDisplayText.text;
+			}
+			return string.Empty;
+		}
+
+		public virtual float GetValue() {
+			return 1f;
+		}
+
+		public virtual void SetValue(float value) {
+			
+		}
+
+		public virtual bool GetActive() {
+			return this.m_Active;
+		}
+
+		public virtual void SetActive(bool value) {
+			this.m_Active = value;
+			this.gameObject.SetActive (value);
 		}
 		
 	}

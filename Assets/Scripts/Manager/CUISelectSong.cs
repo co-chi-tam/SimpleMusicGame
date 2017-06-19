@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
-using UICustom;
+using SimpleGameMusic.UICustom;
 
 namespace SimpleGameMusic {
 	public class CUISelectSong : CMonoSingleton<CUISelectSong> {

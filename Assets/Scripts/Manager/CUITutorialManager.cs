@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
+using SimpleGameMusic.UICustom;
 
 namespace SimpleGameMusic {
 	public class CUITutorialManager : CMonoSingleton<CUITutorialManager> {

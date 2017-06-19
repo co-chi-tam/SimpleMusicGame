@@ -5,14 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UICustom {
-	public class CSlider : Slider {
+namespace SimpleGameMusic.UICustom {
+	public class CSlider : Slider, INodeObject {
 
 		[Header("Event")]
 		public UnityEvent OnSlideEnd;	
 
-		private float m_RemainValue;
-		private bool m_Ended;
+		protected bool m_Active = false;
+		protected float m_RemainValue;
+		protected bool m_Ended;
 
 		protected override void Awake ()
 		{
@@ -33,6 +34,23 @@ namespace UICustom {
 			} else {
 				this.m_RemainValue = this.value;
 			}
+		}
+
+		public virtual float GetValue() {
+			return this.value;
+		}
+
+		public virtual void SetValue(float value) {
+			this.value = value;
+		}
+
+		public virtual bool GetActive() {
+			return this.m_Active;
+		}
+
+		public virtual void SetActive(bool value) {
+			this.m_Active = value;
+			this.gameObject.SetActive (value);
 		}
 
 	}

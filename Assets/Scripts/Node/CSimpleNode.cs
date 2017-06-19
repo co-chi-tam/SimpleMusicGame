@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UICustom;
+using SimpleGameMusic.UICustom;
 
 namespace SimpleGameMusic {
-	public class CSimpleNode : CNodeObject, INode {
+	public class CSimpleNode : CBaseBehavious, INode {
 
 		#region Properties
 
@@ -35,6 +36,9 @@ namespace SimpleGameMusic {
 		protected RectTransform m_RectTransform;
 		protected bool m_Processing = false;
 		protected bool m_Complete = false;
+		protected float m_Value;
+		protected bool m_Active;
+		protected INodeObject[] m_NodeObjects;
 
 		#endregion
 
@@ -45,12 +49,14 @@ namespace SimpleGameMusic {
 			base.Awake ();
 			this.CheckNode ();
 			this.m_RectTransform = this.m_Transform as RectTransform;
+			this.m_NodeObjects = this.gameObject.GetComponentsInChildren<INodeObject> ();
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
 			this.OnStart.Invoke ();
+			this.LoadAllNodeObject(this.gameObject);
 		}
 
 		protected override void LateUpdate ()
@@ -168,6 +174,20 @@ namespace SimpleGameMusic {
 			}
 		}
 
+		protected virtual void LoadAllNodeObject(GameObject root) {
+			var childCount = root.transform.childCount;
+			for (int i = 0; i < childCount; i++) {
+				var child = root.transform.GetChild (i);
+				var nodeObj = child.GetComponent<INodeObject> ();
+				if (nodeObj != null) {
+//					this.m_NodeObjects.Add (nodeObj);
+				}
+				if (child.transform.childCount > 0) {
+					LoadAllNodeObject (child.gameObject);
+				}
+			}	
+		}
+
 		#endregion
 
 		#region Getter && Setter
@@ -204,25 +224,21 @@ namespace SimpleGameMusic {
 			this.m_Scale = value;
 		}
 			
-		public override float GetValue() {
-			base.GetValue ();
+		public virtual float GetValue() {
 			if (this.m_Complete == false)
 				return 0f;
 			return 1f - this.m_Value;
 		}
 
-		public override void SetValue(float value) {
-			base.SetValue (value);
+		public virtual void SetValue(float value) {
 			this.m_Value = value;
 		}
 
-		public override bool GetActive() {
-			base.GetActive ();
+		public virtual bool GetActive() {
 			return this.m_Active;
 		}
 
-		public override void SetActive(bool value) {
-			base.SetActive (value);
+		public virtual void SetActive(bool value) {
 			this.m_Active = value;
 			this.m_Processing = false;
 			this.gameObject.SetActive (value);

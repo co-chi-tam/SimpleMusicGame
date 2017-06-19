@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.UI;
 
-namespace UICustom {
+namespace SimpleGameMusic.UICustom {
 	[CustomEditor (typeof (CButton), true)]
 	[CanEditMultipleObjects]
 	public class CButtonEditor : SelectableEditor {

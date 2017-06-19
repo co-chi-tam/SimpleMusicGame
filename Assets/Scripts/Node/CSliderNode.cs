@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UICustom;
+using SimpleGameMusic.UICustom;
 
 namespace SimpleGameMusic {
 	public class CSliderNode : CSimpleNode {
@@ -26,10 +26,13 @@ namespace SimpleGameMusic {
 
 		public override float GetValue ()
 		{
-			base.GetValue ();
-			if (this.m_Complete)
-				return 1f;
-			return 0f;
+			var result = this.m_Complete ? 1f : 0f;
+			for (int i = 0; i < this.m_NodeObjects.Length; i++) {
+				if (this.m_NodeObjects [i] != this) {
+					result += this.m_NodeObjects [i].GetValue ();
+				}
+			}
+			return result;
 		}
 
 		#endregion
