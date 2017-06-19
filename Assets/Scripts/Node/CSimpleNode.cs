@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UICustom;
 
 namespace SimpleGameMusic {
-	public class CSimpleNode : CBaseBehavious, INode {
+	public class CSimpleNode : CNodeObject, INode {
 
 		#region Properties
 
@@ -21,7 +21,6 @@ namespace SimpleGameMusic {
 
 		[Header ("Data")]
 		[SerializeField]	protected ENodeType m_NodeType = ENodeType.SimpleNode;
-		[SerializeField]	protected float m_Value = 0;
 		[Range (1f, 10f)]
 		[SerializeField]	protected float m_Scale = 1f;
 
@@ -34,7 +33,6 @@ namespace SimpleGameMusic {
 		public UnityEvent OnLeave;
 
 		protected RectTransform m_RectTransform;
-		protected bool m_Active = false;
 		protected bool m_Processing = false;
 		protected bool m_Complete = false;
 
@@ -206,21 +204,25 @@ namespace SimpleGameMusic {
 			this.m_Scale = value;
 		}
 			
-		public virtual float GetValue() {
+		public override float GetValue() {
+			base.GetValue ();
 			if (this.m_Complete == false)
 				return 0f;
 			return 1f - this.m_Value;
 		}
 
-		public virtual void SetValue(float value) {
+		public override void SetValue(float value) {
+			base.SetValue (value);
 			this.m_Value = value;
 		}
 
-		public virtual bool GetActive() {
+		public override bool GetActive() {
+			base.GetActive ();
 			return this.m_Active;
 		}
 
-		public virtual void SetActive(bool value) {
+		public override void SetActive(bool value) {
+			base.SetActive (value);
 			this.m_Active = value;
 			this.m_Processing = false;
 			this.gameObject.SetActive (value);

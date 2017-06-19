@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace SimpleGameMusic {
-	public interface INode {
+	public interface INode: INodeObject {
 
 		void OnPressNode ();
 
@@ -28,10 +28,6 @@ namespace SimpleGameMusic {
 		void SetText(string value);
 		float GetScale();
 		void SetScale(float value);
-		float GetValue();
-		void SetValue(float value);
-		bool GetActive();
-		void SetActive(bool value);
 		bool GetComplete();
 		void SetComplete(bool value);
 		ENodeType GetNodeType();

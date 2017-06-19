@@ -12,11 +12,13 @@ namespace SimpleGameMusic {
 		[SerializeField]	private ETutorialPhase m_TutorialPhase = ETutorialPhase.Idle;
 
 		public enum ETutorialPhase: int {
-			Idle 		= 0,
-			Phase_1 	= 1,
-			SwitchPhase = 2,
-			Phase_2 	= 3,
-			End 		= 4
+			Idle 			= 0,
+			Phase_1 		= 1,
+			SwitchPhase 	= 2,
+			Phase_2 		= 3,
+			SwitchPhase_2 	= 4,
+			Phase_3 		= 5,
+			End 			= 6
 		}
 
 		public void NextPhase() {

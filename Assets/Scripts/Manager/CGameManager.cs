@@ -23,7 +23,7 @@ namespace SimpleGameMusic {
 		[SerializeField]	private AudioSource m_AudioSource;
 		[Header("Root nodes")]
 		[SerializeField]	private GameObject m_RootNodes;
-		[SerializeField]	private Image m_RootBackgroundImage;
+		[SerializeField]	private GameObject m_RootBackgroundImage;
 		[Header("Game info")]
 		[SerializeField]	private string m_AudioName;
 		[SerializeField]	private CSongData m_SongData;
@@ -31,7 +31,7 @@ namespace SimpleGameMusic {
 
 		private AudioClip m_AudioClip;
 		private TextAsset m_AudioTextAsset;
-		private Sprite m_AudioBackground;
+		private GameObject m_AudioBackground;
 		private float m_WaitingTime = 2f;
 		private int m_NodeIndex = 0;
 		private int m_PreviousTime = -1;
@@ -92,7 +92,10 @@ namespace SimpleGameMusic {
 
 		protected virtual void StartGame() {
 			this.m_AudioSource.clip = this.m_AudioClip;
-			this.m_RootBackgroundImage.sprite = this.m_AudioBackground;
+			this.m_AudioBackground.transform.SetParent (this.m_RootBackgroundImage.transform);
+			var rectAudioBG = this.m_AudioBackground.transform as RectTransform;
+			rectAudioBG.anchoredPosition = Vector2.zero;
+			rectAudioBG.sizeDelta = Vector2.zero;
 			this.m_AudioSource.Play ();	
 			this.m_ListNodeData = CSVUtil.ToObject<CNodeData> (this.m_AudioTextAsset.text);
 			this.m_IsAssetsAlready = true;
@@ -164,24 +167,16 @@ namespace SimpleGameMusic {
 			return node;
 		}
 
-		private void LoadAssets(string name) {
-			this.m_AudioClip = Resources.Load <AudioClip> ("Sounds/" + name);
-			this.m_AudioTextAsset = Resources.Load <TextAsset> ("Data/" + name);
-			this.m_AudioBackground = Resources.Load <Sprite> ("Backgrounds/" + name);
-			this.m_IsAssetsAlready = this.m_AudioClip != null 
-										&& this.m_AudioTextAsset != null 
-										&& this.m_AudioBackground != null;
-		}
-
 		private IEnumerator LoadAssetsAsyn(string name, Action complete, Action error) {
 			this.m_AudioClip = CAssetBundleManager.LoadResourceOrBundle <AudioClip> (name);
 			this.m_AudioTextAsset = CAssetBundleManager.LoadResourceOrBundle <TextAsset> (name);
-			this.m_AudioBackground = CAssetBundleManager.LoadResourceOrBundle <Sprite> (name);
+			var background = CAssetBundleManager.LoadResourceOrBundle <GameObject> (name);
 			var already = this.m_AudioClip != null 
 							&& this.m_AudioTextAsset != null 
-							&& this.m_AudioBackground != null;
+							&& background != null;
 			yield return new WaitForSeconds (1f);
 			if (already) {
+				this.m_AudioBackground = Instantiate <GameObject> (background); 
 				if (complete != null) {
 					complete ();
 				}

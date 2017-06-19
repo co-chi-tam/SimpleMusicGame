@@ -17,8 +17,9 @@ namespace SimpleGameMusic {
 		{
 			this.taskName = "Intro";
 			this.nextTask = "LoadingTask";
-
-//			PlayerPrefs.DeleteAll ();
+#if TEST_CLEAR_PLAYERPREFS
+			PlayerPrefs.DeleteAll ();
+#endif
 		}
 
 		#endregion
