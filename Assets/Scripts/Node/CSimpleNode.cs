@@ -38,7 +38,7 @@ namespace SimpleGameMusic {
 		protected bool m_Complete = false;
 		protected float m_Value;
 		protected bool m_Active;
-		protected INodeObject[] m_NodeObjects;
+		protected List<INodeObject> m_NodeObjects;
 
 		#endregion
 
@@ -49,7 +49,7 @@ namespace SimpleGameMusic {
 			base.Awake ();
 			this.CheckNode ();
 			this.m_RectTransform = this.m_Transform as RectTransform;
-			this.m_NodeObjects = this.gameObject.GetComponentsInChildren<INodeObject> ();
+			this.m_NodeObjects = new List<INodeObject> ();
 		}
 
 		protected override void Start ()
@@ -180,7 +180,7 @@ namespace SimpleGameMusic {
 				var child = root.transform.GetChild (i);
 				var nodeObj = child.GetComponent<INodeObject> ();
 				if (nodeObj != null) {
-//					this.m_NodeObjects.Add (nodeObj);
+					this.m_NodeObjects.Add (nodeObj);
 				}
 				if (child.transform.childCount > 0) {
 					LoadAllNodeObject (child.gameObject);

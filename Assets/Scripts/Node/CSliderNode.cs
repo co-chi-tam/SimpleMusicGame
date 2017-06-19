@@ -26,8 +26,8 @@ namespace SimpleGameMusic {
 
 		public override float GetValue ()
 		{
-			var result = this.m_Complete ? 1f : 0f;
-			for (int i = 0; i < this.m_NodeObjects.Length; i++) {
+			var result = 0f;
+			for (int i = 0; i < this.m_NodeObjects.Count; i++) {
 				if (this.m_NodeObjects [i] != this) {
 					result += this.m_NodeObjects [i].GetValue ();
 				}
