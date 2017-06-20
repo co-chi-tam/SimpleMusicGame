@@ -12,7 +12,7 @@ namespace SimpleGameMusic {
 		#region Properties
 
 		[SerializeField]	private GameObject m_GroupButton;
-		[SerializeField]	private CButton m_LAPrefabButton;
+		[SerializeField]	private CUILanguageItem m_LAPrefabButton;
 
 		private CRootTask m_RootTask;
 
@@ -30,13 +30,12 @@ namespace SimpleGameMusic {
 
 		public void LoadListLanguage(List<CLanguageData> languages) {
 			for (int i = 0; i < languages.Count; i++) {
-				var optionButton = Instantiate<CButton> (m_LAPrefabButton);
+				var optionButton = Instantiate<CUILanguageItem> (m_LAPrefabButton);
 				var laData = languages [i];
+				var spriteLa = CAssetBundleManager.LoadResourceOrBundle <Sprite> (laData.laName);
 				optionButton.transform.SetParent (this.m_GroupButton.transform);
 				optionButton.gameObject.SetActive (true);
-				optionButton.SetText (laData.laDisplay);
-				optionButton.onClick.RemoveAllListeners ();
-				optionButton.onClick.AddListener (() => {
+				optionButton.SetUpItem (laData.laDisplay, spriteLa, () => {
 					SelectLanguage(laData.laName);
 				});
 			}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SimpleGameMusic {
+namespace SimpleGameMusic.UICustom {
 	public class CUISongItem : MonoBehaviour {
 
 		public Text songNameText;

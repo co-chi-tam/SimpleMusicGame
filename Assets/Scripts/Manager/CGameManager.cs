@@ -139,18 +139,7 @@ namespace SimpleGameMusic {
 			var simpleNode = node as CSimpleNode;
 			if (simpleNode.OnDeactive.GetPersistentEventCount () == 1) {
 				simpleNode.OnDeactive.AddListener (() => {
-					var score = 0;
-					switch (simpleNode.GetNodeType()) {
-					case ENodeType.SimpleNode:
-						score = this.m_SongData.simpleNodeScore;
-						break;
-					case ENodeType.HoldNode:
-						score = this.m_SongData.holdNodeScore;
-						break;
-					default:
-						score = this.m_SongData.simpleNodeScore;
-						break;
-					}
+					var score = this.m_SongData.nodeScore;
 					var totalScore = (int) (score * simpleNode.GetValue());
 					this.m_PlayerScore += totalScore;
 					this.m_UIManager.SetPlayerScore (this.m_PlayerScore.ToString());

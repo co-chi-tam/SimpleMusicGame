@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3212882276
+CRC: 2130378005
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d9b9dbeecb088d22594687fc562e80ce
+    Hash: 7cf69cd23bd8284ed62b31eb917d12a0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 401682c8dfd677a39188bdb0b19d2100
@@ -64,19 +64,23 @@ Assets:
 - Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/HoldNodeAnimatorController.controller
 - Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Deactive.anim
 - Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
+- Assets/ImportAssetBundles/v.1/Sounds/Thats-What-I-Like.mp3
 - Assets/ImportAssetBundles/v.1/Node/SlideNode/SlideNode.prefab
 - Assets/ImportAssetBundles/v.1/Sounds/Ngoc-2.mp3
 - Assets/ImportAssetBundles/v.1/Language/la_Path.csv
 - Assets/ImportAssetBundles/v.1/Sounds/Yeu-5.mp3
+- Assets/ImportAssetBundles/v.1/Data/Thats-What-I-Like.csv
 - Assets/ImportAssetBundles/v.1/Data/List-song.csv
 - Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Idle.anim
 - Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/SlideNodeAnimatorController.controller
 - Assets/ImportAssetBundles/v.1/Node/SimpleNode/SimpleNode.prefab
 - Assets/ImportAssetBundles/v.1/Data/Co-Em-Cho.csv
 - Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Active.anim
+- Assets/ImportAssetBundles/v.1/Images/VN.png
 - Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Deactive.anim
 - Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Active.anim
 - Assets/ImportAssetBundles/v.1/Backgrounds/Yeu-5.jpg
+- Assets/ImportAssetBundles/v.1/Backgrounds/Thats-What-I-Like.jpg
 - Assets/ImportAssetBundles/v.1/Node/HoldNode/HoldNode.prefab
 - Assets/ImportAssetBundles/v.1/Sounds/Co-Em-Cho.mp3
 - Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Idle.anim
@@ -85,8 +89,10 @@ Assets:
 - Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Idle.anim
 - Assets/ImportAssetBundles/v.1/Data/Ngoc-2.csv
 - Assets/ImportAssetBundles/v.1/Backgrounds/Co-Em-Cho.jpg
+- Assets/ImportAssetBundles/v.1/Images/EN.png
 - Assets/ImportAssetBundles/v.1/Data/Yeu-5.csv
 - Assets/ImportAssetBundles/v.1/Backgrounds/Co-Em-Cho.prefab
+- Assets/ImportAssetBundles/v.1/Backgrounds/Thats-What-I-Like.prefab
 - Assets/ImportAssetBundles/v.1/Fonts/OldGateLaneNF.ttf
 - Assets/ImportAssetBundles/v.1/Language/la_VN.csv
 - Assets/ImportAssetBundles/v.1/Language/la_EN.csv
