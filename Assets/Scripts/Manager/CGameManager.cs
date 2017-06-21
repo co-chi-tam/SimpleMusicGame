@@ -121,6 +121,7 @@ namespace SimpleGameMusic {
 				}
 				step--;
 			}
+			this.m_AudioSource.volume = (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME);
 		}
 
 		protected virtual void EndGame() {

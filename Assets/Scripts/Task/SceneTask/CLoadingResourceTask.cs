@@ -76,10 +76,10 @@ namespace SimpleGameMusic {
 			this.m_Request.Get ((result) => {
 				var json 			= result.ToJSONObject();
 				var version 		= int.Parse (json["version"].ToString());
-				var versionString	= json["versionString"].ToString();
+				var subVersion		= json["subVersion"].ToString();
 				var assetBundleUrl 	= json["assetBundleUrl"].ToString();
 				this.m_CurrentTime 	= DateTime.UtcNow.Ticks; // long.Parse (json["serverTime"].ToString());
-				this.m_ResourceManager = new CDownloadResourceManager (version, versionString, assetBundleUrl);
+				this.m_ResourceManager = new CDownloadResourceManager (version, subVersion, assetBundleUrl);
 				// COMPLETE
 				this.DownloadResource();
 				// UPDATE REFERENCES
@@ -155,7 +155,7 @@ namespace SimpleGameMusic {
 			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, 10);
 			var saveTimer =  long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
 			var firstTimer = long.Parse (PlayerPrefs.GetString (CTaskUtil.GAME_FIRST_TIME, this.m_CurrentTime.ToString()));
-			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy; 
+			var playerEnergy = CTaskUtil.Get (CTaskUtil.PLAYER_ENERGY) as CPlayerEnergy; 
 			playerEnergy.currentEnergy 	= currentEnergy;
 			playerEnergy.maxEnergy 		= 10;
 			playerEnergy.incrementEnergy = 1;
@@ -164,6 +164,8 @@ namespace SimpleGameMusic {
 			playerEnergy.firstTimer 	= firstTimer;
 			playerEnergy.StartCounting ();
 			playerEnergy.CalculateEnergy ();
+			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 1f);
+			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
 		}
 
 		#endregion

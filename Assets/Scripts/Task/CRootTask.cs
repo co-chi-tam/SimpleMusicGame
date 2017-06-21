@@ -57,11 +57,15 @@ namespace SimpleGameMusic {
 		}
 
 		protected virtual void OnApplicationPause(bool value) {
+#if !UNITY_EDITOR
 			this.SaveTask ();
+#endif
 		}
 
 		protected virtual void OnApplicationFocus(bool value) {
+#if !UNITY_EDITOR
 			this.SaveTask ();
+#endif
 		}
 
 		#endregion
@@ -113,6 +117,7 @@ namespace SimpleGameMusic {
 			playerEnergy.CalculateEnergy ();
 			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, playerEnergy.currentEnergy);
 			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, playerEnergy.saveTimer.ToString());
+			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME));
 			PlayerPrefs.Save ();
 		}
 

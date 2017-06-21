@@ -1,9 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Node\CSliderNode.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Task\SceneTask\CLoadingResourceTask.cs">
     <Files>
-      <File FileName="Assets\Scripts\Node\CSliderNode.cs" Line="29" Column="20" />
-      <File FileName="Assets\Scripts\Node\CSimpleNode.cs" Line="60" Column="1" />
+      <File FileName="Assets\Scripts\Task\SceneTask\CLoadingResourceTask.cs" Line="90" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

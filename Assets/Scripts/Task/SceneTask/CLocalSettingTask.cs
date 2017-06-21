@@ -35,6 +35,7 @@ namespace SimpleGameMusic {
 			PlayerPrefs.SetInt (CTaskUtil.GAME_FIRST_LAUNCH, 1);
 			PlayerPrefs.SetString (CTaskUtil.GAME_FIRST_TIME, System.DateTime.UtcNow.Ticks.ToString());
 			PlayerPrefs.SetInt (CTaskUtil.GAME_RESOURCE_COMPLETED, 1);
+			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float) CTaskUtil.Get(CTaskUtil.GAME_SOUND_VOLUME));
 			PlayerPrefs.Save ();
 		}
 

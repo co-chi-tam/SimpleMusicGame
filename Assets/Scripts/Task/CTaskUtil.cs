@@ -16,6 +16,7 @@ namespace SimpleGameMusic {
 		public static string GAME_FIRST_LAUNCH 			= "GAME_FIRST_LAUNCH";
 		public static string GAME_FIRST_TIME 			= "GAME_FIRST_TIME";
 		public static string GAME_RESOURCE_COMPLETED	= "GAME_RESOURCE_COMPLETED";
+		public static string GAME_SOUND_VOLUME 			= "GAME_SOUND_VOLUME";
 		public static string PLAYER_ENERGY 				= "PLAYER_ENERGY";
 		public static string PLAYER_ENEGY_SAVE_TIMER 	= "PLAYER_ENEGY_SAVE_TIMER";
 
@@ -30,6 +31,7 @@ namespace SimpleGameMusic {
 			{ GAME_FIRST_LAUNCH, false },
 			{ GAME_FIRST_TIME, 	DateTime.UtcNow.Ticks.ToString() },
 			{ GAME_RESOURCE_COMPLETED, false },
+			{ GAME_SOUND_VOLUME, 1f },
 			{ PLAYER_ENERGY, 	new CPlayerEnergy() },
 			{ PLAYER_ENEGY_SAVE_TIMER, DateTime.UtcNow.Ticks }
 		};
@@ -41,6 +43,14 @@ namespace SimpleGameMusic {
 				return transDist [la] [code];
 			}
 			return string.Empty;
+		}
+
+		public static object Get(string name) {
+			return REFERENCES [name];
+		}
+
+		public static void Set(string name, object value) {
+			REFERENCES [name] = value;
 		}
 
 	}

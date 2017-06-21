@@ -24,6 +24,9 @@ namespace SimpleGameMusic {
 		[SerializeField]	private Text m_EnergyDisplayText;
 		[SerializeField]	private Text m_EnergyReloadTimeText;
 
+		[Header ("Game setting")]
+		[SerializeField]	private Slider m_SoundVolumeSlider;
+
 		private CRootTask m_RootTask;
 		private Dictionary<string, List<CSongData>> m_CategoryDictionary;
 
@@ -39,6 +42,8 @@ namespace SimpleGameMusic {
 
 		protected virtual void Start() {
 			this.m_RootTask = CRootTask.GetInstance ();
+			var soundVolume = (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME);
+			this.m_SoundVolumeSlider.value = soundVolume;
 		}
 
 		#endregion
@@ -125,6 +130,10 @@ namespace SimpleGameMusic {
 				var child = parent.transform.GetChild (i);
 				Destroy (child.gameObject);
 			}
+		}
+
+		public void ChangeVolume(float value) {
+			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, value);
 		}
 
 		#endregion
