@@ -78,8 +78,8 @@ namespace SimpleMusicGame {
 
 		public void CalculateEnergy() {
 			var lostTime = this.currentTimer - this.saveTimer;
-			var result = lostTime / (this.timePerEnergy * TimeSpan.TicksPerSecond);
-			var energy = this.currentEnergy + Mathf.CeilToInt(result);
+			var result = lostTime / (this.timePerEnergy * TimeSpan.TicksPerSecond * 10f);
+			var energy = this.currentEnergy + Mathf.FloorToInt(result);
 			this.SetEnergy (energy);
 		}
 

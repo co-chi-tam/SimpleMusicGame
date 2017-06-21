@@ -113,7 +113,6 @@ namespace SimpleMusicGame {
 
 		private void SaveTask() {
 			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy;
-			playerEnergy.CalculateEnergy ();
 			playerEnergy.CalculateTimer ();
 			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, playerEnergy.currentEnergy);
 			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, playerEnergy.saveTimer.ToString());
