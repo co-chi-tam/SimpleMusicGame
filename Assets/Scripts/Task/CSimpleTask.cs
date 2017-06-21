@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CSimpleTask : CTask {
 
 		#region Constructor

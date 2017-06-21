@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CIntroTask : CSimpleTask {
 
 		#region Properties

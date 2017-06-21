@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using SimpleSingleton;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CRootTask : CMonoSingleton<CRootTask> {
 
 		#region Properties

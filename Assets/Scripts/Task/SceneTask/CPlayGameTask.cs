@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CPlayGameTask : CSimpleTask {
 
 		#region Constructor

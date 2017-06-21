@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
-using SimpleGameMusic.UICustom;
+using SimpleMusicGame.UICustom;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CUILocalSetting : CMonoSingleton<CUILocalSetting> {
 
 		#region Properties

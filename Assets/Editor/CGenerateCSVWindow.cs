@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CGenerateCSVWindow : EditorWindow {
 
 		private float m_SoundTimeLine = 0f;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace SimpleGameMusic.UICustom {
+namespace SimpleMusicGame.UICustom {
 	[RequireComponent (typeof (Image))]
 	public class CButton : Button, INodeObject {
 

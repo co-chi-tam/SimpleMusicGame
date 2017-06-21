@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public static class CUtil {
 
 		public static Vector2 ToVector2(this string value) {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using SimpleGameMusic;
+using SimpleMusicGame;
 
 namespace SimpleSingleton {
 	public class CMonoSingleton<T>: CBaseBehavious where T : MonoBehaviour {

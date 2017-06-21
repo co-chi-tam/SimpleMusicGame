@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using Pul;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CLoadingResourceTask : CSimpleTask {
 
 		#region Properties
@@ -85,6 +85,7 @@ namespace SimpleGameMusic {
 				// UPDATE REFERENCES
 				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = subVersion;
 				this.m_OnLoadingProcess = false;
+				this.m_UILoading.SetUpUILoading (subVersion);
 			}, (error) => {
 				CLog.LogError (error);
 				// FAIL
@@ -164,6 +165,7 @@ namespace SimpleGameMusic {
 			playerEnergy.firstTimer 	= firstTimer;
 			playerEnergy.StartCounting ();
 			playerEnergy.CalculateEnergy ();
+			// Song volume
 			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 1f);
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
 		}

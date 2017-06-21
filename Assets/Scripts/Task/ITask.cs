@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public interface ITask {
 
 		void StartTask();

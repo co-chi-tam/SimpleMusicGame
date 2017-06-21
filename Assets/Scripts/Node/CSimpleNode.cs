@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using SimpleGameMusic.UICustom;
+using SimpleMusicGame.UICustom;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CSimpleNode : CBaseBehavious, INode {
 
 		#region Properties

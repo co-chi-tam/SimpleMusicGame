@@ -7,7 +7,7 @@ using SimpleSingleton;
 using ObjectPool;
 using Pul;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	
 	public enum ENodeType: int {
 		SimpleNode 	= 0,

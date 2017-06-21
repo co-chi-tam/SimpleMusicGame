@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SimpleGameMusic.UICustom {
+namespace SimpleMusicGame.UICustom {
 	public class CUILanguageItem : MonoBehaviour {
 
 		[SerializeField]	private Text m_LanguageText;

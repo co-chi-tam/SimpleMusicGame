@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.UI;
 
-namespace SimpleGameMusic.UICustom {
+namespace SimpleMusicGame.UICustom {
 	[CustomEditor (typeof (CSlider), true)]
 	[CanEditMultipleObjects]
 	public class CCSliderEditor : SelectableEditor {

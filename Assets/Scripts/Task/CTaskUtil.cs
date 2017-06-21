@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CTaskUtil {
 
 		public static string HOST 						= "https://tamco-tinygame.rhcloud.com";

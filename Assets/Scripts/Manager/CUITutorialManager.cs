@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
-using SimpleGameMusic.UICustom;
+using SimpleMusicGame.UICustom;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CUITutorialManager : CMonoSingleton<CUITutorialManager> {
 
 		[SerializeField]	private Animator m_TutorialAnimator;

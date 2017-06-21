@@ -5,9 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
-using SimpleGameMusic.UICustom;
+using SimpleMusicGame.UICustom;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CUISelectSong : CMonoSingleton<CUISelectSong> {
 
 		#region Properties
@@ -134,6 +134,8 @@ namespace SimpleGameMusic {
 
 		public void ChangeVolume(float value) {
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, value);
+			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, value);
+			PlayerPrefs.Save ();
 		}
 
 		#endregion

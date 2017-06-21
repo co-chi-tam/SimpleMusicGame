@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using Pul;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CSelectSongTask : CSimpleTask {
 
 		#region Properties
@@ -75,6 +75,9 @@ namespace SimpleGameMusic {
 			if (selectedSong != null) {
 				var currentEnergy = this.m_PlayerEnergy.currentEnergy - selectedSong.hardPoint;
 				this.m_PlayerEnergy.SetEnergy (currentEnergy);
+				PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, this.m_PlayerEnergy.currentEnergy);
+				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_PlayerEnergy.saveTimer.ToString());
+				PlayerPrefs.Save ();
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}

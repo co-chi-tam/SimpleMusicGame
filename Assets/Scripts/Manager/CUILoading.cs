@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleSingleton;
-using SimpleGameMusic.UICustom;
+using SimpleMusicGame.UICustom;
 
-namespace SimpleGameMusic {
+namespace SimpleMusicGame {
 	public class CUILoading : CMonoSingleton<CUILoading> {
 
 		#region Properties
@@ -25,12 +25,6 @@ namespace SimpleGameMusic {
 		protected override void Awake ()
 		{
 			base.Awake ();
-			// Processing image
-			this.m_LoadingImage.type = Image.Type.Filled;
-			this.m_LoadingImage.fillMethod = Image.FillMethod.Horizontal;
-			this.m_LoadingImage.fillOrigin = 0;
-			this.m_LoadingImage.fillAmount = 0;
-
 			// Local load resource button
 			this.m_RetryButton.gameObject.SetActive (false);
 		}
@@ -52,6 +46,16 @@ namespace SimpleGameMusic {
 					submit();
 				}	
 			});
+		}
+
+		public void SetUpUILoading(string value) {
+			// Processing image
+			this.m_LoadingImage.type = Image.Type.Filled;
+			this.m_LoadingImage.fillMethod = Image.FillMethod.Horizontal;
+			this.m_LoadingImage.fillOrigin = 0;
+			this.m_LoadingImage.fillAmount = 0;
+			// Version
+			this.m_VersionText.text = value;
 		}
 
 		#endregion
