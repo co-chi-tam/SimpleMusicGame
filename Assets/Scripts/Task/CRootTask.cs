@@ -94,7 +94,7 @@ namespace SimpleMusicGame {
 			if (this.m_CurrentTask != null) {
 				this.m_CurrentTask.Transmission ();
 				if (this.m_CurrentTask.taskName != CSceneManager.Instance.GetActiveSceneName ()) {
-					CHandleEvent.Instance.AddEvent (this.LoadScene (this.m_CurrentTask.taskName), null);	
+					StartCoroutine (this.LoadScene (this.m_CurrentTask.taskName));	
 				}
 			}
 			this.m_CurrentTaskName = this.m_CurrentTask.GetTaskName ();
@@ -113,6 +113,8 @@ namespace SimpleMusicGame {
 
 		private void SaveTask() {
 			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy;
+			playerEnergy.CalculateEnergy ();
+			playerEnergy.CalculateTimer ();
 			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, playerEnergy.currentEnergy);
 			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, playerEnergy.saveTimer.ToString());
 			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME));

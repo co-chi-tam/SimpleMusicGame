@@ -30,7 +30,7 @@ namespace SimpleMusicGame {
 			} else {
 				this.nextTask = "SelectSong";
 			}
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
 			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=standalone");
 #else
 			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=android");
@@ -151,7 +151,7 @@ namespace SimpleMusicGame {
 		private void LoadSetting() {
 			// Language setting
 			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
-			CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING] = laSetting;
+			CTaskUtil.Set (CTaskUtil.LA_SETTING, laSetting);
 			// User energy display
 			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, 10);
 			var saveTimer =  long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
@@ -166,7 +166,7 @@ namespace SimpleMusicGame {
 			playerEnergy.StartCounting ();
 			playerEnergy.CalculateEnergy ();
 			// Song volume
-			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 1f);
+			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 0.5f);
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
 		}
 

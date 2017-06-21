@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace SimpleMusicGame {
@@ -23,6 +26,18 @@ namespace SimpleMusicGame {
 		public static long ToTimer(this long value) {
 			var timer = (value - 621355968000000000) / 10000;
 			return timer;
+		}
+
+		public static byte[] ToByteArray(this object obj)
+		{
+			if(obj == null)
+				return null;
+			BinaryFormatter bf = new BinaryFormatter();
+			using (MemoryStream ms = new MemoryStream())
+			{
+				bf.Serialize(ms, obj);
+				return ms.ToArray();
+			}
 		}
 
 	}

@@ -47,12 +47,6 @@ namespace SimpleMusicGame {
 
 		#region Implementation MonoBehavious
 
-		protected override void Awake ()
-		{
-			base.Awake ();
-			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		}
-
 		protected virtual void Start() {
 			this.root = CRootTask.GetInstance ();
 			this.m_UIManager = CUIManager.GetInstance ();

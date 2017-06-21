@@ -20,12 +20,16 @@ namespace SimpleMusicGame {
 
 		public CAssetBundleManager ()
 		{
-			
+
 		}
 
 		#endregion
 
 		#region Main methods
+
+		public static void SaveInLocal(string path, object value) {
+			File.WriteAllBytes (path, value.ToByteArray());
+		}
 
 		public static AssetBundle LoadBundleFromFile(string path) {
 			if (File.Exists (path)) {

@@ -16,6 +16,16 @@ namespace SimpleMusicGame {
 		}
 
 		#endregion
+
+		#region Implementation Task
+
+		public override void StartTask ()
+		{
+			base.StartTask ();
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		}
+
+		#endregion
 		
 	}
 }
