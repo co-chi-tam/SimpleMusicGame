@@ -16,6 +16,7 @@ namespace SimpleGameMusic {
 
 		[Header ("Control")]
 		[SerializeField]	private CButton m_RetryButton;
+		[SerializeField]	private Text m_VersionText;
 
 		#endregion
 

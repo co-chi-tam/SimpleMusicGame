@@ -83,7 +83,7 @@ namespace SimpleGameMusic {
 				// COMPLETE
 				this.DownloadResource();
 				// UPDATE REFERENCES
-				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = version;
+				CTaskUtil.REFERENCES[CTaskUtil.VERSION] = subVersion;
 				this.m_OnLoadingProcess = false;
 			}, (error) => {
 				CLog.LogError (error);

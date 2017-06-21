@@ -22,7 +22,7 @@ namespace SimpleGameMusic {
 
 		public static Dictionary<string, object> REFERENCES = new Dictionary<string, object> () { 
 			{ HOST, 			"http://tamco-tinygame.rhcloud.com" },
-			{ VERSION, 			1 },
+			{ VERSION, 			"v.1.0.0" },
 			{ SELECTED_SONG, 	new CSongData() },
 			{ LIST_SONG, 		new List<CSongData>() },
 			{ LA, 				new Dictionary<string, Dictionary<string, string>>() }, // [VN][GOOD] = [TOT]
