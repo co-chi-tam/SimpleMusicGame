@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1240043548
+CRC: 1904795450
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: dd6fe1e9cd0a02c92c457e0e6c6bb2c7
+    Hash: bdbaa253a0e9522223346053253aeef0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1c10aaa07b5942638ac8c17b1958edeb
@@ -58,42 +58,46 @@ ClassTypes:
 - Class: 225
   Script: {instanceID: 0}
 Assets:
-- Assets/ImportAssetBundles/v.1/Backgrounds/Ngoc-2.jpg
-- Assets/ImportAssetBundles/v.1/Backgrounds/Yeu-5.prefab
-- Assets/ImportAssetBundles/v.1/Backgrounds/Ngoc-2.prefab
-- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/HoldNodeAnimatorController.controller
-- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Deactive.anim
-- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
-- Assets/ImportAssetBundles/v.1/Sounds/Thats-What-I-Like.mp3
-- Assets/ImportAssetBundles/v.1/Node/SlideNode/SlideNode.prefab
-- Assets/ImportAssetBundles/v.1/Sounds/Ngoc-2.mp3
-- Assets/ImportAssetBundles/v.1/Language/la_Path.csv
-- Assets/ImportAssetBundles/v.1/Sounds/Yeu-5.mp3
-- Assets/ImportAssetBundles/v.1/Data/Thats-What-I-Like.csv
-- Assets/ImportAssetBundles/v.1/Data/List-song.csv
-- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Idle.anim
-- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/SlideNodeAnimatorController.controller
-- Assets/ImportAssetBundles/v.1/Node/SimpleNode/SimpleNode.prefab
-- Assets/ImportAssetBundles/v.1/Data/Co-Em-Cho.csv
-- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Active.anim
-- Assets/ImportAssetBundles/v.1/Images/VN.png
-- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Deactive.anim
-- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Active.anim
-- Assets/ImportAssetBundles/v.1/Backgrounds/Yeu-5.jpg
-- Assets/ImportAssetBundles/v.1/Backgrounds/Thats-What-I-Like.jpg
-- Assets/ImportAssetBundles/v.1/Node/HoldNode/HoldNode.prefab
-- Assets/ImportAssetBundles/v.1/Sounds/Co-Em-Cho.mp3
-- Assets/ImportAssetBundles/v.1/Node/SlideNode/Animation/Idle.anim
-- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Deactive.anim
-- Assets/ImportAssetBundles/v.1/Node/HoldNode/Animation/Active.anim
-- Assets/ImportAssetBundles/v.1/Node/SimpleNode/Animation/Idle.anim
-- Assets/ImportAssetBundles/v.1/Data/Ngoc-2.csv
-- Assets/ImportAssetBundles/v.1/Backgrounds/Co-Em-Cho.jpg
-- Assets/ImportAssetBundles/v.1/Images/EN.png
-- Assets/ImportAssetBundles/v.1/Data/Yeu-5.csv
-- Assets/ImportAssetBundles/v.1/Backgrounds/Co-Em-Cho.prefab
-- Assets/ImportAssetBundles/v.1/Backgrounds/Thats-What-I-Like.prefab
-- Assets/ImportAssetBundles/v.1/Fonts/OldGateLaneNF.ttf
-- Assets/ImportAssetBundles/v.1/Language/la_VN.csv
-- Assets/ImportAssetBundles/v.1/Language/la_EN.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Ngoc-2.jpg
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Yeu-5.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Ngoc-2.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/HoldNode/Animation/HoldNodeAnimatorController.controller
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/Yeu-Mot-Nguoi-Vo-Tam.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Sounds/Giac-Mo-Suong-Mu.mp3
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/HoldNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SimpleNode/Animation/SimpleNodeAnimatorController.controller
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Giac-Mo-Suong-Mu.jpg
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SlideNode/SlideNode.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Sounds/Ngoc-2.mp3
+- Assets/ImportAssetBundles/Beta v.1.0.1/Language/la_Path.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Sounds/Yeu-5.mp3
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Yeu-Mot-Nguoi-Vo-Tam.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Giac-Mo-Suong-Mu.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/Giac-Mo-Suong-Mu.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/List-song.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Sounds/Yeu-Mot-Nguoi-Vo-Tam.mp3
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Yeu-Mot-Nguoi-Vo-Tam.jpg
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/HoldNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SlideNode/Animation/SlideNodeAnimatorController.controller
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SimpleNode/SimpleNode.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/Co-Em-Cho.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SimpleNode/Animation/Active.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Images/VN.png
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SlideNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SlideNode/Animation/Active.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Yeu-5.jpg
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/HoldNode/HoldNode.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Sounds/Co-Em-Cho.mp3
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SlideNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SimpleNode/Animation/Deactive.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/HoldNode/Animation/Active.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Node/SimpleNode/Animation/Idle.anim
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/Ngoc-2.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Co-Em-Cho.jpg
+- Assets/ImportAssetBundles/Beta v.1.0.1/Images/EN.png
+- Assets/ImportAssetBundles/Beta v.1.0.1/Data/Yeu-5.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Backgrounds/Co-Em-Cho.prefab
+- Assets/ImportAssetBundles/Beta v.1.0.1/Fonts/OldGateLaneNF.ttf
+- Assets/ImportAssetBundles/Beta v.1.0.1/Language/la_VN.csv
+- Assets/ImportAssetBundles/Beta v.1.0.1/Language/la_EN.csv
 Dependencies: []

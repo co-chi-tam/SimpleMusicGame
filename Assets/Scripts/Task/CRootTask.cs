@@ -48,10 +48,6 @@ namespace SimpleMusicGame {
 			}
 		}
 
-		protected virtual void OnDestroy() {
-			this.SaveTask ();
-		}
-
 		protected virtual void OnApplicationQuit() {
 			this.SaveTask ();
 		}
