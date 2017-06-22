@@ -33,7 +33,11 @@ namespace SimpleMusicGame {
 		}
 
 		public CPlayerEnergy(int current, int max, int increment, float timePerEnergy, long timer, long save, long first) {
+#if TEST_ENERGY_FULL
+			this.currentEnergy 	= max;
+#else
 			this.currentEnergy 	= current;
+#endif
 			this.maxEnergy 		= max;
 			this.incrementEnergy = increment;
 			this.timePerEnergy 	= timePerEnergy;
@@ -46,7 +50,8 @@ namespace SimpleMusicGame {
 		public void StartCounting() {
 			CHandleEvent.Instance.AddEvent (this.HandleUpdateCounting(Time.fixedDeltaTime), null);
 			this.m_StartCouting = true;
-			this.CalculateTimer();
+			this.CalculateTimer ();
+			this.CalculateEnergy ();
 #if TEST_ONE_HOURS_ENERGY
 			this.saveTimer = DateTime.UtcNow.AddHours (-1).Ticks;
 #elif TEST_ONE_DAY_ENERGY
@@ -66,9 +71,8 @@ namespace SimpleMusicGame {
 				}
 				if (this.m_PerOneUpdate <= 0f) {
 					this.m_PerOneUpdate = this.timePerEnergy;
-					var energy = this.currentEnergy + this.incrementEnergy;
-					this.SetEnergy (energy);
 					this.saveTimer = this.currentTimer;
+					this.AddEnergy ();
 					if (this.OnUpdateEnergy != null) {
 						this.OnUpdateEnergy ();
 					}
@@ -76,10 +80,15 @@ namespace SimpleMusicGame {
 			}
 		}
 
+		public void AddEnergy() {
+			var energy = this.currentEnergy + this.incrementEnergy;
+			this.SetEnergy (energy);
+		}
+
 		public void CalculateEnergy() {
 			var lostTime = this.currentTimer - this.saveTimer;
 			var result = lostTime / (this.timePerEnergy * TimeSpan.TicksPerSecond * 10f);
-			var energy = this.currentEnergy + Mathf.FloorToInt(result);
+			var energy = this.currentEnergy + Mathf.FloorToInt (result);
 			this.SetEnergy (energy);
 		}
 

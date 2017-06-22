@@ -164,7 +164,6 @@ namespace SimpleMusicGame {
 			playerEnergy.saveTimer 		= saveTimer;
 			playerEnergy.firstTimer 	= firstTimer;
 			playerEnergy.StartCounting ();
-			playerEnergy.CalculateEnergy ();
 			// Song volume
 			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 0.5f);
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
