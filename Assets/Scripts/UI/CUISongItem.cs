@@ -10,11 +10,15 @@ namespace SimpleMusicGame.UICustom {
 		public Text songNameText;
 		public Image songBGImage;
 		public Image songHardPoint;
+		public Image playSongImage;
 		public Button songSubmit;
+		public Sprite playSprite;
+		public Sprite adsSprite;
 
-		public void SetUpSongItem(string songName, Sprite songBG, int hard, Action submit) {
+		public void SetUpSongItem(string songName, Sprite songBG, int hard, bool isAds, Action submit) {
 			this.songNameText.text = songName;
 			this.songBGImage.sprite = songBG;
+			this.playSongImage.sprite = isAds ? adsSprite : playSprite;
 			this.songHardPoint.fillAmount = (float)hard / 5f;
 			this.songSubmit.onClick.RemoveAllListeners ();
 			this.songSubmit.onClick.AddListener (() => {

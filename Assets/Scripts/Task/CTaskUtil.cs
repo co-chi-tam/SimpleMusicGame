@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SimpleMusicGame {
 	public class CTaskUtil {
 
-		public static string HOST 						= "https://tamco-tinygame.rhcloud.com";
+		public static string HOST 						= "HOST";
 		public static string VERSION 					= "VERSION";
 		public static string SELECTED_SONG 				= "SELECTED_SONG";
 		public static string LIST_SONG 					= "LIST_SONG";
@@ -18,10 +18,11 @@ namespace SimpleMusicGame {
 		public static string GAME_RESOURCE_COMPLETED	= "GAME_RESOURCE_COMPLETED";
 		public static string GAME_SOUND_VOLUME 			= "GAME_SOUND_VOLUME";
 		public static string PLAYER_ENERGY 				= "PLAYER_ENERGY";
+		public static string PLAYER_MAX_ENERGY			= "PLAYER_MAX_ENERGY";
 		public static string PLAYER_ENEGY_SAVE_TIMER 	= "PLAYER_ENEGY_SAVE_TIMER";
 
 		public static Dictionary<string, object> REFERENCES = new Dictionary<string, object> () { 
-			{ HOST, 			"http://tamco-tinygame.rhcloud.com" },
+			{ HOST, 			"https://tamco-tinygame.rhcloud.com" },
 			{ VERSION, 			"v.1.0.0" },
 			{ SELECTED_SONG, 	new CSongData() },
 			{ LIST_SONG, 		new List<CSongData>() },
@@ -33,6 +34,7 @@ namespace SimpleMusicGame {
 			{ GAME_RESOURCE_COMPLETED, false },
 			{ GAME_SOUND_VOLUME, 1f },
 			{ PLAYER_ENERGY, 	new CPlayerEnergy() },
+			{ PLAYER_MAX_ENERGY, 10 },
 			{ PLAYER_ENEGY_SAVE_TIMER, DateTime.UtcNow.Ticks }
 		};
 
@@ -47,6 +49,12 @@ namespace SimpleMusicGame {
 
 		public static object Get(string name) {
 			return REFERENCES [name];
+		}
+
+		public static T Get<T>(string name) {
+			var value = REFERENCES [name];
+			var convert = Convert.ChangeType (value, typeof(T));
+			return (T)convert;
 		}
 
 		public static void Set(string name, object value) {

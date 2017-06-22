@@ -30,7 +30,7 @@ namespace SimpleMusicGame {
 		public override void EndTask ()
 		{
 			base.EndTask ();
-			var laName = CTaskUtil.REFERENCES [CTaskUtil.LA_SETTING].ToString();
+			var laName = CTaskUtil.Get (CTaskUtil.LA_SETTING).ToString();
 			PlayerPrefs.SetString (CTaskUtil.LA_SETTING, laName);
 			PlayerPrefs.SetInt (CTaskUtil.GAME_FIRST_LAUNCH, 1);
 			PlayerPrefs.SetString (CTaskUtil.GAME_FIRST_TIME, System.DateTime.UtcNow.Ticks.ToString());

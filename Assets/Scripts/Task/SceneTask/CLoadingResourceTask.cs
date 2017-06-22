@@ -25,15 +25,16 @@ namespace SimpleMusicGame {
 		{
 			this.taskName = "LoadingResource";
 			var firstSetting = PlayerPrefs.GetInt (CTaskUtil.GAME_FIRST_LAUNCH, 0) == 1;
+			var host = CTaskUtil.Get (CTaskUtil.HOST);
 			if (firstSetting == false) {
 				this.nextTask = "LocalSetting";
 			} else {
 				this.nextTask = "SelectSong";
 			}
 #if UNITY_EDITOR || UNITY_STANDALONE
-			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=standalone");
+			this.m_Request = new CRequest (host + "/version?plf=standalone");
 #else
-			this.m_Request = new CRequest (CTaskUtil.HOST + "/version?plf=android");
+			this.m_Request = new CRequest (host + "/version?plf=android");
 #endif
 			this.m_CurrentTime = DateTime.Now.Ticks;
 			this.m_OnLoadingProcess = false;
@@ -150,22 +151,23 @@ namespace SimpleMusicGame {
 
 		private void LoadSetting() {
 			// Language setting
-			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, "EN");
+			var laSetting = PlayerPrefs.GetString (CTaskUtil.LA_SETTING, CTaskUtil.Get(CTaskUtil.LA_SETTING).ToString());
 			CTaskUtil.Set (CTaskUtil.LA_SETTING, laSetting);
 			// User energy display
-			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, 10);
+			var maxEnergy = (int) CTaskUtil.Get (CTaskUtil.PLAYER_MAX_ENERGY);
+			var currentEnergy = PlayerPrefs.GetInt (CTaskUtil.PLAYER_ENERGY, maxEnergy);
 			var saveTimer =  long.Parse (PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_CurrentTime.ToString()));
 			var firstTimer = long.Parse (PlayerPrefs.GetString (CTaskUtil.GAME_FIRST_TIME, this.m_CurrentTime.ToString()));
 			var playerEnergy = CTaskUtil.Get (CTaskUtil.PLAYER_ENERGY) as CPlayerEnergy; 
 			playerEnergy.currentEnergy 	= currentEnergy;
-			playerEnergy.maxEnergy 		= 10;
+			playerEnergy.maxEnergy 		= maxEnergy;
 			playerEnergy.incrementEnergy = 1;
 			playerEnergy.currentTimer 	= this.m_CurrentTime;
 			playerEnergy.saveTimer 		= saveTimer;
 			playerEnergy.firstTimer 	= firstTimer;
 			playerEnergy.StartCounting ();
 			// Song volume
-			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, 0.5f);
+			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float) CTaskUtil.Get(CTaskUtil.GAME_SOUND_VOLUME));
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
 		}
 

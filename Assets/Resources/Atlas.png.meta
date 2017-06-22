@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: c0194dbae2c3c434790cb3ea34451909
-timeCreated: 1498009047
+timeCreated: 1498114244
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Atlas_0
-    21300002: Atlas_1
+    21300000: LoadingBar
+    21300002: EnergyBar
     21300004: Atlas_2
-    21300006: Atlas_3
-    21300008: Atlas_4
-    21300010: Atlas_5
+    21300006: GearSetting
+    21300008: PlayIcon
+    21300010: PlayAdsIcon
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Atlas_0
+      name: LoadingBar
       rect:
         serializedVersion: 2
         x: 24
@@ -113,7 +113,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Atlas_1
+      name: EnergyBar
       rect:
         serializedVersion: 2
         x: 533
@@ -139,7 +139,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Atlas_3
+      name: GearSetting
       rect:
         serializedVersion: 2
         x: 22
@@ -147,7 +147,33 @@ TextureImporter:
         width: 120
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlayIcon
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 110
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlayAdsIcon
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 110
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

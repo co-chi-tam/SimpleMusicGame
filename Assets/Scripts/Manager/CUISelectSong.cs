@@ -107,9 +107,10 @@ namespace SimpleMusicGame {
 		}
 
 		private void SetupSongItem(CUISongItem item, GameObject parent, string text, Sprite bg, int hardPoint, Action submit) {
+			var playerEnergy = CTaskUtil.Get (CTaskUtil.PLAYER_ENERGY) as CPlayerEnergy;
 			item.transform.SetParent (parent.transform);
 			item.gameObject.SetActive (true);
-			item.SetUpSongItem (text, bg, hardPoint, submit);
+			item.SetUpSongItem (text, bg, hardPoint, playerEnergy.currentEnergy < hardPoint, submit);
 		}
 
 		private void SetupButton(CButton button, GameObject parent, string text, Action submit) {
