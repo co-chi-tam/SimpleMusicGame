@@ -42,8 +42,6 @@ namespace SimpleMusicGame {
 
 		protected virtual void Start() {
 			this.m_RootTask = CRootTask.GetInstance ();
-			var soundVolume = (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME);
-			this.m_SoundVolumeSlider.value = soundVolume;
 		}
 
 		#endregion
@@ -56,6 +54,10 @@ namespace SimpleMusicGame {
 
 		public void SetEnergyReloadText(string value) {
 			this.m_EnergyReloadTimeText.text = value;
+		}
+
+		public void SetSoundVolume(float value) {
+			this.m_SoundVolumeSlider.value = value;
 		}
 
 		public void LoadListCategories(List<CSongData> songs) {

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CHandleEvent : CBaseBehavious {
+public class CHandleEvent : MonoBehaviour {
 
 	#region Singleton
 
@@ -51,18 +51,16 @@ public class CHandleEvent : CBaseBehavious {
 
 	#region MonoBehaviour
 
-	protected override void Awake ()
+	protected virtual void Awake ()
 	{
-		base.Awake ();
 		DontDestroyOnLoad (this.gameObject);
 		m_Instance = this;
 		m_HandleList = new LinkedList<EventEntry> ();
 	}
 
-	protected override void UpdateBaseTime (float dt)
+	protected virtual void Update ()
 	{
-		base.UpdateBaseTime (dt);
-		UpdateEvent ();
+		this.UpdateEvent ();
 	}
 
 	protected virtual void OnDestroy() {
@@ -88,7 +86,7 @@ public class CHandleEvent : CBaseBehavious {
 			}
 			if (eventEntry.timeUpdate - eventEntry.timeCreated >= eventEntry.delayTime) {
 				if (eventEntry.eventMethod != null) {
-					StartCoroutine (HandleEvent (eventEntry.eventMethod, eventEntry.eventCallBack));
+					StartCoroutine (this.HandleEvent (eventEntry.eventMethod, eventEntry.eventCallBack));
 				} else {
 					if (eventEntry.eventCallBack != null) {
 						eventEntry.eventCallBack ();
@@ -96,13 +94,6 @@ public class CHandleEvent : CBaseBehavious {
 				}
 				m_HandleList.RemoveLast ();
 				count--;
-//				if (eventEntry.eventMethod.MoveNext () == false) {
-//					if (eventEntry.eventCallBack != null) {
-//						eventEntry.eventCallBack ();
-//					}
-//					m_HandleList.RemoveLast ();
-//					count--;
-//				}
 			} else {
 				if (eventEntry.eventProcessing != null) {
 					eventEntry.eventProcessing ((eventEntry.timeUpdate - eventEntry.timeCreated) / eventEntry.delayTime);

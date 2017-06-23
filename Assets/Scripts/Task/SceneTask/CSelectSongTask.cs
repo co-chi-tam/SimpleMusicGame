@@ -38,19 +38,24 @@ namespace SimpleMusicGame {
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}
+
 			var energyText = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);
 			this.m_UISelectGame.SetEnergyDisplayText (energyText);
-			this.m_PlayerEnergy.OnUpdateEnergy = null;
-			this.m_PlayerEnergy.OnUpdateEnergy += () => {
+			this.m_PlayerEnergy.OnUpdatePoint = null;
+			this.m_PlayerEnergy.OnUpdatePoint += () => {
 				var energyText2 = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);
 				this.m_UISelectGame.SetEnergyDisplayText (energyText2);
 			};
-			this.m_PlayerEnergy.OnUpdate = null;
-			this.m_PlayerEnergy.OnUpdate += (timeUpdate) => {
+
+			this.m_PlayerEnergy.OnUpdateTimer = null;
+			this.m_PlayerEnergy.OnUpdateTimer += (timeUpdate) => {
 				float minute = (int)(timeUpdate / 60f);
 				float second = (int)(timeUpdate % 60f);
 				this.m_UISelectGame.SetEnergyReloadText (string.Format ("{0}:{1}", minute.ToString("00"), second.ToString("00")));
 			};
+
+			var soundVolume = (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME);
+			this.m_UISelectGame.SetSoundVolume (soundVolume);
 		}
 
 		public override void OnTaskCompleted ()
@@ -76,13 +81,12 @@ namespace SimpleMusicGame {
 				var currentEnergy = this.m_PlayerEnergy.currentEnergy - selectedSong.hardPoint;
 				this.m_PlayerEnergy.SetEnergy (currentEnergy);
 				PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, this.m_PlayerEnergy.currentEnergy);
-				PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, this.m_PlayerEnergy.saveTimer.ToString());
 				PlayerPrefs.Save ();
 			} else {
 				CLog.LogError ("Error: Can not load song data.");
 			}
-			this.m_PlayerEnergy.OnUpdateEnergy = null;
-			this.m_PlayerEnergy.OnUpdate = null;
+			this.m_PlayerEnergy.OnUpdatePoint = null;
+			this.m_PlayerEnergy.OnUpdateTimer = null;
 		}
 
 		#endregion

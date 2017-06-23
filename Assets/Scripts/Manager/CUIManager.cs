@@ -35,13 +35,15 @@ namespace SimpleMusicGame {
 		{
 			base.Start ();
 			this.m_Root = CRootTask.GetInstance ();
-			var soundVolume = (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME);
-			this.m_SoundVolumeSlider.value = soundVolume;
 		}
 
 		#endregion
 
 		#region Main methods
+
+		public void SetSoundVolume(float value) {
+			this.m_SoundVolumeSlider.value = value;
+		}
 
 		public void ChangeVolume(float value) {
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, value);

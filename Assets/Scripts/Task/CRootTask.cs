@@ -109,7 +109,7 @@ namespace SimpleMusicGame {
 
 		private void SaveTask() {
 			var playerEnergy = CTaskUtil.REFERENCES [CTaskUtil.PLAYER_ENERGY] as CPlayerEnergy;
-			playerEnergy.CalculateTimer ();
+			playerEnergy.CalculateSaveTimer ();
 			PlayerPrefs.SetInt (CTaskUtil.PLAYER_ENERGY, playerEnergy.currentEnergy);
 			PlayerPrefs.SetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, playerEnergy.saveTimer.ToString());
 			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float)CTaskUtil.Get (CTaskUtil.GAME_SOUND_VOLUME));

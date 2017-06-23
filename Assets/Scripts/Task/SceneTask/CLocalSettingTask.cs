@@ -31,11 +31,13 @@ namespace SimpleMusicGame {
 		{
 			base.EndTask ();
 			var laName = CTaskUtil.Get (CTaskUtil.LA_SETTING).ToString();
+			var currentTimer = System.DateTime.UtcNow.Ticks;
 			PlayerPrefs.SetString (CTaskUtil.LA_SETTING, laName);
 			PlayerPrefs.SetInt (CTaskUtil.GAME_FIRST_LAUNCH, 1);
-			PlayerPrefs.SetString (CTaskUtil.GAME_FIRST_TIME, System.DateTime.UtcNow.Ticks.ToString());
 			PlayerPrefs.SetInt (CTaskUtil.GAME_RESOURCE_COMPLETED, 1);
 			PlayerPrefs.SetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float) CTaskUtil.Get(CTaskUtil.GAME_SOUND_VOLUME));
+			PlayerPrefs.GetString (CTaskUtil.PLAYER_ENEGY_SAVE_TIMER, currentTimer.ToString());
+			PlayerPrefs.GetString (CTaskUtil.GAME_FIRST_TIME, currentTimer.ToString());
 			PlayerPrefs.Save ();
 		}
 

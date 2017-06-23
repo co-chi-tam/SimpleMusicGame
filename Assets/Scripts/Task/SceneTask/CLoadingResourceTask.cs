@@ -162,10 +162,14 @@ namespace SimpleMusicGame {
 			playerEnergy.currentEnergy 	= currentEnergy;
 			playerEnergy.maxEnergy 		= maxEnergy;
 			playerEnergy.incrementEnergy = 1;
+			playerEnergy.timePerPoint 	= 60 * 15f; // 15 Minute
 			playerEnergy.currentTimer 	= this.m_CurrentTime;
 			playerEnergy.saveTimer 		= saveTimer;
 			playerEnergy.firstTimer 	= firstTimer;
+			playerEnergy.repeatCounting = true;
 			playerEnergy.StartCounting ();
+			playerEnergy.CalculateEnergy ();
+			playerEnergy.CalculateTimer ();
 			// Song volume
 			var soundVolume = PlayerPrefs.GetFloat (CTaskUtil.GAME_SOUND_VOLUME, (float) CTaskUtil.Get(CTaskUtil.GAME_SOUND_VOLUME));
 			CTaskUtil.Set (CTaskUtil.GAME_SOUND_VOLUME, soundVolume);
