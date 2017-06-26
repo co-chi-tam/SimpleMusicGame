@@ -29,6 +29,7 @@ public class CUIScrollRectSnapPage : CUIScrollRectCustom {
 	private float m_fStep;
 	private bool m_bHaveMove;
 	private float m_fTargetScroll;
+	private int m_PreviousPage;
 
 	public Action<int> OnSnapPage;
 
@@ -62,7 +63,6 @@ public class CUIScrollRectSnapPage : CUIScrollRectCustom {
 		m_fTargetScroll				= 0f;
 		CalculateScrollRect();
 		SnapRectScroll (m_CurrentPage);
-		//		MoveToPage (m_CurrentPage); 		
 	}
 
 	protected override void LateUpdate() {
@@ -128,7 +128,6 @@ public class CUIScrollRectSnapPage : CUIScrollRectCustom {
 					m_fTargetScroll = m_PageActive[tempPage].StepScroll;
 				}
 			}
-
 			m_TimeDrag = Time.time;
 		} else {
 			var scrollValue = ScrollCurrentValue();
@@ -141,18 +140,22 @@ public class CUIScrollRectSnapPage : CUIScrollRectCustom {
 			}
 		}
 
-		if (OnSnapPage != null) {
+		if (OnSnapPage != null && m_PreviousPage != m_CurrentPage) {
 			if (m_PageActive.Count != 0) { 
 				if (this.horizontal) {
 					if (m_PageActive[m_CurrentPage].Active) {
 						OnSnapPage (m_CurrentPage);
 					}
 				} else if (this.vertical) { 
-					if (m_PageActive[m_CurrentPage].Active) {
+					if (m_PreviousPage != m_CurrentPage) {
 						OnSnapPage (Pages - m_CurrentPage);
 					}
 				}
 			}
+		}
+
+		if (m_PreviousPage != m_CurrentPage) {
+			m_PreviousPage = m_CurrentPage;
 		}
 	}
 	#endregion

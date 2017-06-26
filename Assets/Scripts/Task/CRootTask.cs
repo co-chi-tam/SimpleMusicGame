@@ -54,13 +54,17 @@ namespace SimpleMusicGame {
 
 		protected virtual void OnApplicationPause(bool value) {
 #if !UNITY_EDITOR
-			this.SaveTask ();
+			if (value) {
+				this.SaveTask ();
+			}
 #endif
 		}
 
 		protected virtual void OnApplicationFocus(bool value) {
 #if !UNITY_EDITOR
-			this.SaveTask ();
+			if (value == false) {
+				this.SaveTask ();
+			}
 #endif
 		}
 
