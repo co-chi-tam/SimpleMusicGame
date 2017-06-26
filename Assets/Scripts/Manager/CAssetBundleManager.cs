@@ -27,10 +27,19 @@ namespace SimpleMusicGame {
 
 		#region Main methods
 
+		/// <summary>
+		/// Save file the in local.
+		/// </summary>
 		public static void SaveInLocal(string path, object value) {
+			if (File.Exists (path) == false) {
+				File.Create (path);
+			}
 			File.WriteAllBytes (path, value.ToByteArray());
 		}
 
+		/// <summary>
+		/// Loads the bundle from file.
+		/// </summary>
 		public static AssetBundle LoadBundleFromFile(string path) {
 			if (File.Exists (path)) {
 				return AssetBundle.LoadFromFile (path);
@@ -38,6 +47,9 @@ namespace SimpleMusicGame {
 			return null;
 		}
 
+		/// <summary>
+		/// Loads the bundle from generic.
+		/// </summary>
 		public static T LoadBundle<T>(string name) where T : UnityEngine.Object {
 			T resource = default(T);
 			if (currentAssetBundle == null)
@@ -46,6 +58,9 @@ namespace SimpleMusicGame {
 			return resource;
 		}
 
+		/// <summary>
+		/// Loads the resource or bundle from generic.
+		/// </summary>
 		public static T LoadResourceOrBundle<T>(string name, bool cached = false) where T : UnityEngine.Object {
 			T resource = default(T);
 			if (assetCached.ContainsKey (name) && cached == true) {
@@ -66,12 +81,18 @@ namespace SimpleMusicGame {
 			return resource;
 		}
 
+		/// <summary>
+		/// Unload assetbundle.
+		/// </summary>
 		public static void Unload(bool value) {
 			if (currentAssetBundle != null) {
 				currentAssetBundle.Unload (value);
 			}
 		}
 
+		/// <summary>
+		/// Combines the byte array.
+		/// </summary>
 		private byte[] CombineByteArray(params byte[][] arrays)
 		{
 			byte[] rv = new byte[arrays.Sum(a => a.Length)];

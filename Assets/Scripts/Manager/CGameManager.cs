@@ -102,7 +102,7 @@ namespace SimpleMusicGame {
 			while (step > 0 && m_NodeIndex < m_ListNodeData.Count) {
 				var currentNodeData = m_ListNodeData [m_NodeIndex];
 				if (audioTime == currentNodeData.audioTime && audioTime != m_PreviousTime) {
-					var nodeType = (ENodeType)currentNodeData.nodeType;
+					var nodeType = (ENodeType) currentNodeData.nodeType;
 					var node = SpawnNode (nodeType.ToString());
 					this.SetUpNode (node);
 					node.SetPosition2D (currentNodeData.nodePosition.ToVector2 ());
@@ -136,8 +136,10 @@ namespace SimpleMusicGame {
 				simpleNode.OnDeactive.AddListener (() => {
 					var score = this.m_SongData.nodeScore;
 					var totalScore = (int) (score * simpleNode.GetValue());
-					this.m_PlayerScore += totalScore;
-					this.m_UIManager.SetPlayerScore (this.m_PlayerScore.ToString());
+					if (totalScore != 0) {
+						this.m_PlayerScore += totalScore;
+						this.m_UIManager.SetPlayerScore (this.m_PlayerScore.ToString());
+					}
 					Destroy (simpleNode.gameObject);
 				});
 			}
@@ -158,7 +160,7 @@ namespace SimpleMusicGame {
 			var already = this.m_AudioClip != null 
 							&& this.m_AudioTextAsset != null 
 							&& background != null;
-			yield return new WaitForSeconds (1f);
+			yield return WaitHelper.WaitForShortSeconds;
 			if (already) {
 				this.m_AudioBackground = Instantiate <GameObject> (background); 
 				if (complete != null) {

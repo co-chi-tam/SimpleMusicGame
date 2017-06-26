@@ -61,6 +61,9 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 
 	#region Main methods
 
+	/// <summary>
+	/// Repairs the texture.
+	/// </summary>
 	private void RepairTexture(float alpha) {
 		m_LoadingScreenTexture = new Texture2D (1, 1);
 		m_ScreenLoadingColor.a = alpha;
@@ -68,6 +71,9 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 		m_LoadingScreenTexture.Apply ();
 	}
 
+	/// <summary>
+	/// Paints the alpha texture.
+	/// </summary>
 	private void PaintAlphaTexture(float alpha) {
 		var currentColor = m_LoadingScreenTexture.GetPixels () [0];
 		currentColor.a = alpha;
@@ -75,19 +81,28 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 		m_LoadingScreenTexture.Apply ();
 	}
 
+	/// <summary>
+	/// Fade out screen.
+	/// </summary>
 	private void OnFadeOutScreen() {
 		PaintAlphaTexture (1f);
 		m_IsFadeOut = true;
 		m_NeedDraw = true;
 	}
 
+	/// <summary>
+	/// Fade in screen.
+	/// </summary>
 	private void OnFadeInScreen() {
 		PaintAlphaTexture (0f);
 		m_IsFadeOut = false;
 		m_NeedDraw = true;
 	}
 
-	public IEnumerator LoadSceneAsync(string sceneName) {
+	/// <summary>
+	/// Loads the scene async.
+	/// </summary>
+	public IEnumerator HandleLoadSceneAsync(string sceneName) {
 		this.OnFadeInScreen ();
 		yield return WaitHelper.WaitForShortSeconds;
 		var sceneNameWithoutExtension = Path.GetFileNameWithoutExtension (sceneName);
@@ -99,6 +114,9 @@ public class CSceneManager: CMonoSingleton<CSceneManager> {
 
 	#region Getter && Setter
 
+	/// <summary>
+	/// Gets the name of the active scene.
+	/// </summary>
 	public string GetActiveSceneName () {
 		return SceneManager.GetActiveScene ().name;
 	}

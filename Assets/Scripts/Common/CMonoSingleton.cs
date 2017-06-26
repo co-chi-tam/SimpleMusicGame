@@ -3,7 +3,7 @@ using System.Collections;
 using SimpleMusicGame;
 
 namespace SimpleSingleton {
-	public class CMonoSingleton<T>: CBaseBehavious where T : MonoBehaviour {
+	public class CMonoSingleton<T>: MonoBehaviour where T : MonoBehaviour {
 
 		#region Singleton
 
@@ -38,9 +38,8 @@ namespace SimpleSingleton {
 
 		#region Implementation Monobehaviour
 
-		protected override void Awake ()
+		protected virtual void Awake ()
 		{
-			base.Awake ();
 			m_Instance = this as T;
 		} 
 

@@ -16,6 +16,7 @@ namespace SimpleMusicGame {
 
 		[Header("Player info")]
 		[SerializeField]	private Text m_ScoreText;
+		[SerializeField]	private Animator m_ScoreAnimator;
 
 		[Header ("Game setting")]
 		[SerializeField]	private Slider m_SoundVolumeSlider;
@@ -31,9 +32,8 @@ namespace SimpleMusicGame {
 			base.Awake ();
 		}
 
-		protected override void Start ()
+		protected virtual void Start ()
 		{
-			base.Start ();
 			this.m_Root = CRootTask.GetInstance ();
 		}
 
@@ -57,6 +57,21 @@ namespace SimpleMusicGame {
 
 		public void SetPlayerScore(string value) {
 			this.m_ScoreText.text = "Score: " + value;
+			CHandleEvent.Instance.AddEvent (
+				this.HandleSetPlayerScore(this.m_ScoreText.fontSize, this.m_ScoreText.fontSize + 11), null);
+		}
+
+		private IEnumerator HandleSetPlayerScore(int sizeTo, int sizeFrom) {
+			for (int i = sizeTo; i < sizeFrom; i++) {
+				this.m_ScoreText.fontSize = i;
+				yield return WaitHelper.WaitFixedUpdate;
+			}
+			yield return null;
+			for (int i = sizeFrom; i >= sizeTo; i--) {
+				this.m_ScoreText.fontSize = i;
+				yield return WaitHelper.WaitFixedUpdate;
+			}
+			this.m_ScoreText.fontSize = sizeTo;
 		}
 
 		#endregion

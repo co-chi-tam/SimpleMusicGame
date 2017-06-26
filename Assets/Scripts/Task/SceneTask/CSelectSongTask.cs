@@ -41,6 +41,7 @@ namespace SimpleMusicGame {
 
 			var energyText = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);
 			this.m_UISelectGame.SetEnergyDisplayText (energyText);
+			this.m_UISelectGame.SetEnergyReloadActive (this.m_PlayerEnergy.currentEnergy < this.m_PlayerEnergy.maxEnergy);
 			this.m_PlayerEnergy.OnUpdatePoint = null;
 			this.m_PlayerEnergy.OnUpdatePoint += () => {
 				var energyText2 = string.Format ("{0}/{1}", this.m_PlayerEnergy.currentEnergy, this.m_PlayerEnergy.maxEnergy);

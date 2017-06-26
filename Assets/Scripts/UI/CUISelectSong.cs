@@ -48,6 +48,10 @@ namespace SimpleMusicGame {
 
 		#region Main methods
 
+		public void SetEnergyReloadActive(bool value) {
+			this.m_EnergyReloadTimeText.gameObject.SetActive (value);
+		}
+
 		public void SetEnergyDisplayText(string value) {
 			this.m_EnergyDisplayText.text = value;
 		}

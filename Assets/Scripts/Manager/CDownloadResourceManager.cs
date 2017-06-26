@@ -40,6 +40,9 @@ namespace SimpleMusicGame {
 
 		#region Main methods
 
+		/// <summary>
+		/// Downloads the resource.
+		/// </summary>
 		public void DownloadResource(Action complete, Action<string> error, Action<float> process) {
 #if TEST_ERROR
 			if (error != null) {
@@ -50,6 +53,9 @@ namespace SimpleMusicGame {
 #endif
 		}
 
+		/// <summary>
+		/// Downloads the resource with URL.
+		/// </summary>
 		public void DownloadResource(string url, Action complete, Action<string> error, Action<float> process) {
 #if TEST_ERROR
 			if (error != null) {
@@ -60,6 +66,9 @@ namespace SimpleMusicGame {
 #endif
 		}
 
+		/// <summary>
+		/// Loads the local resource.
+		/// </summary>
 		public void LoadLocalResource(Action complete, Action<string> error, Action<float> process) {
 #if TEST_ERROR
 			if (error != null) {
@@ -71,6 +80,9 @@ namespace SimpleMusicGame {
 #endif
 		}
 
+		/// <summary>
+		/// Handles the load resource Ienumerator.
+		/// </summary>
 		private IEnumerator HandleLoadResource(string url, Action complete, Action<string> error, Action<float> process) {
 			if (Application.internetReachability != NetworkReachability.NotReachable) {
 				var fullPath = Path.Combine (this.m_StorePath, this.m_ResourceName);
@@ -88,6 +100,9 @@ namespace SimpleMusicGame {
 			yield return WaitHelper.WaitFixedUpdate;
 		}
 
+		/// <summary>
+		/// Downloads the content Ienumerator.
+		/// </summary>
 		private IEnumerator DownloadContent(string url, string fullPath, bool cache, Action<string> error, Action<float> process) {
 			if (cache) {
 				while (!Caching.ready)
@@ -112,6 +127,9 @@ namespace SimpleMusicGame {
 
 		}
 
+		/// <summary>
+		/// Saves the content of the download Ienumerator.
+		/// </summary>
 		private IEnumerator SaveDownloadContent(string fullPath, Action complete, Action<string> error) {
 			if (m_WWW.bytes.Length > 0) {
 				File.WriteAllBytes (fullPath, m_WWW.bytes);
@@ -137,6 +155,9 @@ namespace SimpleMusicGame {
 			yield return WaitHelper.WaitFixedUpdate;
 		}
 
+		/// <summary>
+		/// Loads the local asset IEnumerator.
+		/// </summary>
 		private IEnumerator LoadLocalAsset(string fullPath, Action complete, Action<string> error, Action<float> process) {
 			var processFake = 0f;
 			while (processFake < 1f) {
