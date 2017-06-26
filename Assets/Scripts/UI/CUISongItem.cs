@@ -34,6 +34,7 @@ namespace SimpleMusicGame.UICustom {
 
 		public void SetUpSongItem(int index, string songName, Sprite songBG, int hard, bool isAds, Action submit) {
 			this.page = index;
+			this.OnPageActive (index);
 			this.songText.text = CTaskUtil.Translate ("SONG");
 			this.songNameText.text = songName;
 			this.songBGImage.sprite = songBG;
@@ -45,7 +46,6 @@ namespace SimpleMusicGame.UICustom {
 					submit();
 				}
 			});
-			this.OnPageActive (index);
 		}
 		
 	}
